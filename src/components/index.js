@@ -1,0 +1,1 @@
+export { default as ChordsInKey } from './ChordsInKey/ChordsInKey';
