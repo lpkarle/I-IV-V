@@ -37,7 +37,7 @@ const getChordsInKey = (voicing) => {
         case 'major':
             return Chords.chordsInMajorKey;
         case 'minor':
-            return ChordsInKey.chordsInMinorKey;
+            return Chords.chordsInMinorKey;
         default:
             break;
     }

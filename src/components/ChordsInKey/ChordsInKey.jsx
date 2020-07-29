@@ -40,16 +40,12 @@ export default function ChordsInKey() {
 
     function handleDropdown(index) {
         // This is pretty ugly
-        setSelectedVoicing(dropdownItems()[index].label.toLowerCase());
+        setSelectedVoicing(dropdownItems()[index].label.toLocaleLowerCase());
     }
 
     useEffect(() => {
         setScale(getScaleByNote(selectedVoicing, selectedKey));
         setChords(getChordsInKey(selectedVoicing));
-        
-        console.log(selectedKey, selectedVoicing);
-        console.log(scale);
-        console.log(chords);
     }, [selectedKey, selectedVoicing])
 
 
