@@ -1,0 +1,111 @@
+.chordsInKey {
+    text-align: left;
+
+    /*background-color: salmon;
+     display: grid;
+    grid-template-columns: 70% 30%; */
+}
+
+
+/* ---- Select Key ---- */
+.keyPicker {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: 4px 8px 14px 0px rgba(0,0,0,0.3);
+}
+
+.keys {
+    /* border: grey solid 1.5px; */
+    border-radius: 5px;
+    /* padding: .5rem; */
+    margin: 1rem 0;
+
+
+    height: 30vh;
+    overflow: hidden;
+    overflow-y: scroll;
+
+    
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15vh, 1fr));
+    gap: .5rem;
+    
+    /* justify-content: center; */
+}
+
+.key {
+    border: grey solid 1.5px;
+    border-radius: 10px;
+    padding: .5rem;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    height: 15vh;
+    
+    font-size: 60px;
+    font-weight: bolder;
+}
+
+
+/* ---- Select Voicing ---- */
+.voicingPicker {
+    margin-top: 20px;
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: 4px 8px 14px 0px rgba(0,0,0,0.3);
+}
+
+
+/* ---- Resulting Chords ---- */
+.resultingChords {
+    margin-top: 20px;
+
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: 4px 8px 14px 0px rgba(0,0,0,0.3);
+
+    display: flex;
+    justify-content: space-evenly;
+}
+.chordAndVoicing {
+    border: grey solid 1.5px;
+    border-radius: 10px;
+    padding: .5rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.chordNote {
+    border: grey solid 1.5px;
+    border-radius: 10px;
+    padding: .5rem;
+
+    font-weight: bold;
+    font-size: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 60px;
+}
+
+.voicing {
+    border: grey solid 1.5px;
+    border-radius: 10px;
+    padding: .5rem;
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+}

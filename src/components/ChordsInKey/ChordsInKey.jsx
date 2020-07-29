@@ -57,7 +57,7 @@ export default function ChordsInKey() {
     function styleSelectedKey(key) {
         return {
             border: selectedKey === key ?
-                    'red solid 5px' : 'grey solid 1px'
+                    'red solid 5px' : null
         }
     }
 
@@ -75,9 +75,12 @@ export default function ChordsInKey() {
                 ))}
             </KeyPicker>
 
-            <Dropdown data={dropdownItems()}
-                      value={dropdownItem}
-                      onChange={handleDropdown}/>
+            <div className={styles.voicingPicker}>
+                <h2>Select Voicing:</h2>
+                <Dropdown data={dropdownItems()}
+                        value={dropdownItem}
+                        onChange={handleDropdown}/>
+            </div>
 
             <ResultingChords >
                 {scale.map((note, index) => (
@@ -126,6 +129,7 @@ function Key({ style, onClick, keyName }) {
 function ResultingChords({children}) {
     return (
         <div className={styles.resultingChords}>
+            <h2>Related Chords:</h2>
             {children}
         </div>
     );
@@ -134,7 +138,7 @@ function ResultingChords({children}) {
 function ChordAndVoicing({chordNote, voicing}) {
 
     return (
-        <div className={styles.ChordAndVoicing}>
+        <div className={styles.chordAndVoicing}>
             <div className={styles.chordNote}>{chordNote}</div>
             <div className={styles.voicing}>{voicing[0]}</div>
         </div>
