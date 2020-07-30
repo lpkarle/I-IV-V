@@ -37,9 +37,19 @@ const chordsInMinorKey = [
     ['v', 'minor'], ['VI', 'major'], ['VII', 'major']
 ]
 
+/* Common Chord Progressions */
+const commonMajorProg = [
+    'I IV V I', 'I V vi IV'
+];
+const commonMinorProg = [
+    'I IV V I', 'I V vi IV'
+];
 
 
 export {
     chordsInMajorKey,
-    chordsInMinorKey
+    chordsInMinorKey,
+
+    commonMajorProg,
+    commonMinorProg
 }

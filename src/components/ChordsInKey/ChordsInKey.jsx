@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import styles from './ChordsInKey.module.css';
 import Dropdown from '../Multipurpose/Dropdown/Dropdown';
 
-import { getTableNotes, availableVoicings, getScaleByNote, getChordsInKey } from '../../logic/';
+import { getTableNotes, availableVoicings, getScaleByNote, getChordsInKey, getCommonProgressions } from '../../logic/';
 
 export default function ChordsInKey() {
     
@@ -24,6 +24,7 @@ export default function ChordsInKey() {
     /* Selectable UI Components */
     const [selectedKey, setSelectedKey] = useState('A');
     const [selectedVoicing, setSelectedVoicing] = useState('major');
+    const [progressions, setProgressions] = useState(getCommonProgressions(selectedVoicing));
 
     /* Variable for Dropdown */
     const [dropdownItem, setDropdownItem] = useState(undefined);
@@ -46,6 +47,7 @@ export default function ChordsInKey() {
     useEffect(() => {
         setScale(getScaleByNote(selectedVoicing, selectedKey));
         setChords(getChordsInKey(selectedVoicing));
+        setProgressions(getCommonProgressions(selectedVoicing));
     }, [selectedKey, selectedVoicing])
 
 
@@ -107,7 +109,10 @@ export default function ChordsInKey() {
 
                 <div className={styles.right}>
                     <CommonProgressions>
-
+                        {progressions.map((chordNumber, index) => (
+                            <Progression chordNumber={chordNumber}
+                            key={index}/>
+                        ))}
                     </CommonProgressions>
                 </div>
             </div>
@@ -177,5 +182,17 @@ function CommonProgressions({children}) {
                 {children}
             </div>
         </>
+    );
+}
+function Progression({ chordNumber, chordNote }) {
+    return (
+        <div className={styles.progression}>
+            <div className={styles.chordNumber}>
+                {chordNumber}
+            </div>
+            <div className={styles.chordNote}>
+                {chordNote}
+            </div>
+        </div>
     );
 }

@@ -43,10 +43,21 @@ const getChordsInKey = (voicing) => {
     }
 }
 
+const getCommonProgressions = (voicing) => {       // ! Repeats !
+    switch (voicing) {
+        case 'major':
+            return Chords.commonMajorProg;
+        case 'minor':
+            return Chords.commonMinorProg;
+        default:
+            break;
+    }
+}
 
 export {
     getTableNotes,
     availableVoicings,
     getScaleByNote,
     getChordsInKey,
+    getCommonProgressions
 }
