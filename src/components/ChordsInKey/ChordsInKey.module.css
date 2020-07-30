@@ -1,28 +1,37 @@
 .chordsInKey {
     text-align: left;
 
-    /*background-color: salmon;
-     display: grid;
-    grid-template-columns: 70% 30%; */
+    color: var(--text-color-primary);
+    display: grid;
+    grid-template-columns: 70% 30%; 
 }
 
+.left {
+    margin: 20px 10px 20px 20px;
+}
+.right {
+    margin: 20px 20px 20px 10px;
+
+}
+
+.chordsInKey h2 {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
 
 /* ---- Select Key ---- */
-.keyPicker {
+
+.keys {
     background-color: #ffffff;
     padding: 1rem;
     border-radius: 4px;
     box-shadow: 4px 8px 14px 0px rgba(0,0,0,0.3);
-}
 
-.keys {
-    /* border: grey solid 1.5px; */
     border-radius: 5px;
-    /* padding: .5rem; */
-    margin: 1rem 0;
+    padding: 1rem;
 
 
-    height: 30vh;
+    height: 22.5rem;
     overflow: hidden;
     overflow-y: scroll;
 
@@ -52,30 +61,32 @@
 
 /* ---- Select Voicing ---- */
 .voicingPicker {
-    margin-top: 20px;
+    
+}
+
+.ddWrapper {
     background-color: #ffffff;
     padding: 1rem;
     border-radius: 4px;
     box-shadow: 4px 8px 14px 0px rgba(0,0,0,0.3);
 }
-
 
 /* ---- Resulting Chords ---- */
 .resultingChords {
-    margin-top: 20px;
-
     background-color: #ffffff;
     padding: 1rem;
     border-radius: 4px;
     box-shadow: 4px 8px 14px 0px rgba(0,0,0,0.3);
-
+    
     display: flex;
     justify-content: space-evenly;
+
+    
 }
 .chordAndVoicing {
-    border: grey solid 1.5px;
+    /* border: grey solid 1.5px;
     border-radius: 10px;
-    padding: .5rem;
+    padding: .5rem; */
 
     display: flex;
     flex-direction: column;
@@ -83,9 +94,9 @@
     align-items: center;
 }
 .chordNote {
-    border: grey solid 1.5px;
+    /* border: grey solid 1.5px;
     border-radius: 10px;
-    padding: .5rem;
+    padding: .5rem; */
 
     font-weight: bold;
     font-size: 30px;
@@ -108,4 +119,12 @@
     align-items: center;
     height: 50px;
     width: 50px;
+}
+
+/* Resulting Chords */
+.commonProgressions {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: 4px 8px 14px 0px rgba(0,0,0,0.3);
 }

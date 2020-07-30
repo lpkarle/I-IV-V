@@ -40,7 +40,7 @@ export default function ChordsInKey() {
 
     function handleDropdown(index) {
         // This is pretty ugly
-        setSelectedVoicing(dropdownItems()[index].label.toLocaleLowerCase());
+        setSelectedVoicing(dropdownItems()[index].label.toString().toLowerCase());
     }
 
     useEffect(() => {
@@ -53,41 +53,65 @@ export default function ChordsInKey() {
     function styleSelectedKey(key) {
         return {
             border: selectedKey === key ?
-                    'red solid 5px' : null
+                    'black solid 8px' : null
+        }
+    }
+    function styleChordVoicing(chordVoicing) {
+        if (chordVoicing.includes('°')) {
+            return { border: 'green solid 3px' };
+        }
+        if (chordVoicing === chordVoicing.toString().toUpperCase()) {
+            return { border: 'red solid 3px' };
+        }
+        if (chordVoicing === chordVoicing.toString().toLowerCase()) {
+            return { border: 'royalblue solid 3px' };
         }
     }
 
 
     return (
-        <div className={styles.chordsInKey}>
-            
-            <KeyPicker>
-                {allKeys.map((keyName, index) => (        
-                    <Key keyName={keyName}
-                         key={index}
-                         style={styleSelectedKey(keyName)}
-                         onClick={changeSelectedKey} 
-                    />
-                ))}
-            </KeyPicker>
+        <>
+            <h1>Chords in a Key</h1>
+            <div className={styles.chordsInKey}>
+                <div className={styles.left}>
+                    <KeyPicker>
+                        {allKeys.map((keyName, index) => (        
+                            <Key keyName={keyName}
+                                key={index}
+                                style={styleSelectedKey(keyName)}
+                                onClick={changeSelectedKey} 
+                            />
+                        ))}
+                    </KeyPicker>
 
-            <div className={styles.voicingPicker}>
-                <h2>Select Voicing:</h2>
-                <Dropdown data={dropdownItems()}
-                        value={dropdownItem}
-                        onChange={handleDropdown}/>
+                    <div className={styles.voicingPicker}>
+                        <h2>Select Voicing:</h2>
+                        <div className={styles.ddWrapper}>
+                            <Dropdown data={dropdownItems()}
+                                    value={dropdownItem}
+                                    onChange={handleDropdown}/>
+                        </div>
+                    </div>
+
+                    <ResultingChords >
+                        {scale.map((note, index) => (
+                            <ChordAndVoicing 
+                                chordNote={note}
+                                voicing={chords[index]}
+                                key={index}
+                                style={styleChordVoicing(chords[index][0])}
+                            />
+                        ))}
+                    </ResultingChords>
+                </div>
+
+                <div className={styles.right}>
+                    <CommonProgressions>
+
+                    </CommonProgressions>
+                </div>
             </div>
-
-            <ResultingChords >
-                {scale.map((note, index) => (
-                    <ChordAndVoicing 
-                        chordNote={note}
-                        voicing={chords[index]}
-                        key={index}
-                    />
-                ))}
-            </ResultingChords>
-        </div>
+        </>
     )
 }
 
@@ -95,13 +119,12 @@ export default function ChordsInKey() {
 /* -------- Select the Key -------- */
 function KeyPicker({ children }) {
     return (
-        <div className={styles.keyPicker}>
+        <>
             <h2>Pick a Key:</h2>
-
             <div className={styles.keys}>
                 {children}
             </div>           
-        </div>
+        </>
     );
 }
 
@@ -124,19 +147,35 @@ function Key({ style, onClick, keyName }) {
 /* -------- Chords in the Key -------- */
 function ResultingChords({children}) {
     return (
-        <div className={styles.resultingChords}>
-            <h2>Related Chords:</h2>
-            {children}
-        </div>
+        <>
+            <h2>Resulting Chords:</h2>
+            <div className={styles.resultingChords}>
+                {children}
+            </div>
+        </>
     );
 }
 
-function ChordAndVoicing({chordNote, voicing}) {
+function ChordAndVoicing({chordNote, voicing, style}) {
 
     return (
         <div className={styles.chordAndVoicing}>
             <div className={styles.chordNote}>{chordNote}</div>
-            <div className={styles.voicing}>{voicing[0]}</div>
+            <div className={styles.voicing}
+                 style={style}>{voicing[0]}</div>
         </div>
+    );
+}
+
+
+/* ---- Common Progessions ---- */
+function CommonProgressions({children}) {
+    return (
+        <>
+            <h2>Common Progressions:</h2>
+            <div className={styles.commonProgressions}>
+                {children}
+            </div>
+        </>
     );
 }
