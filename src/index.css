@@ -4,7 +4,9 @@
 *::after {
     margin: 0;
     padding: 0;
+    text-decoration: none;
     box-sizing: border-box;
+    list-style: none;
 }
 
 :root {
@@ -15,12 +17,30 @@
     --text-color-primary: rgb(31, 31, 31);
 
 
-    background:rgb(241, 241, 241);
+    background: rgb(241, 241, 241);
+
+    /* Navigation */
+    --left-nav-distance: 6rem;
+
+    --text-primary: red;
+    --text-secondary: green;
+    --bg-primary: rgb(65, 116, 255);
+    --bg-secondary: rgb(122, 157, 255);
+
+    /* Animation */
+    --transition-speed: 600ms;
 
 
+    /* Navigation */
+    --bg-top-nav: rgb(128, 128, 128);
+    --bg-side-nav: royalblue;
 
-    /* Card */
-    --card-radius: 5px;
+    --height-top-nav: 7vh;
+    --width-top-nav: calc(100%);
+
+    --height-side-nav: 100%;
+    --width-side-nav: 70px;
+
 }
 
 
@@ -28,17 +48,21 @@
 ::-webkit-scrollbar {
     width: 0.2em;
 }
+
 ::-webkit-scrollbar-track {
     background-color: rgba(172, 172, 172, 0);
     border-radius: 5px;
 }
+
 ::-webkit-scrollbar-thumb {
     background: cornflowerblue;
 }
+
 ::-webkit-scrollbar-thumb {
     background-color: rgb(58, 104, 255);
     border-radius: 10px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
     background: blue;
 }

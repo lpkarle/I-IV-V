@@ -1,0 +1,155 @@
+/* ------------ Navigation ------------ */
+
+ .navbar {
+    /* position: fixed;
+    background-color: var(--bg-primary);
+    transition: width 200ms ease; */
+}
+
+/* ---- Button ---- */
+.navbar .openNav {
+    z-index: 1;
+    height: 2rem;
+    width: 2rem;
+    border: royalblue solid 2px;
+    color: royalblue;
+    border-radius: 50%;
+    position: absolute;
+    
+    top: 5vh;
+    left: 6.5vw;
+}
+
+
+
+.navbar .topNavbar {
+    position: fixed;
+    display: flex;
+
+    /* background-color: var(--bg-top-nav); */
+    height: var(--height-top-nav);
+    width: var(--width-top-nav);
+} 
+
+.navbar .topNavbar .logo {
+    width: 8vw;
+    height:100%;
+    background: var(--bg-primary);
+    padding: 7px;
+    cursor: pointer;
+}
+
+.navbar .topNavbar .topMenu {
+    width: calc(100% - 70px);
+    height: 100%;
+    background: #fff;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .topNavbar .topMenu ul {
+    display: flex;
+}
+
+.navbar .topNavbar .topMenu ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+
+    margin-left: 20px;
+    width: 35px;
+    height: 35px;
+    
+
+    border: 1px solid royalblue;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.navbar .topNavbar .topMenu ul li svg {
+    fill: royalblue;
+}
+
+
+/* ---- Side Navbar ---- */
+
+.navbar .sideNavbar {
+    top: 7vh;
+    position: fixed;
+    height: var(--height-side-nav);
+    width: 8vw;/* var(--width-side-nav); */
+    background-color: var(--bg-primary);
+
+    transition: all .3s ease;
+}
+
+.sideNavbar .sideNavbar ul {
+    background-color: tomato;
+    padding-left: 50px;
+}
+
+.navbar .sideNavbar ul li {
+    display: block;
+    padding: 20px;
+    color: rgb(226, 226, 226);
+    position: relative;
+    margin-bottom: 1px;
+
+    white-space: nowrap;
+
+}
+
+.navbar .sideNavbar ul li:before {
+    content: ""; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%; 
+    background: white;
+    display: none;
+}
+
+.navbar .sideNavbar ul li span.icon {
+    margin-right: 10px;
+    display: inline-block;
+}
+.navbar .sideNavbar ul li span.title {
+   /* display: inline-block; */
+   display: none;
+
+}
+.navbar .sideNavbar ul li:hover svg,
+.navbar .sideNavbar ul li.active {
+   /* background: rgb(131, 147, 196); */
+    fill: white;
+}
+.navbar .sideNavbar ul li:hover:before,
+.navbar .sideNavbar ul li.active:before {
+   display: block;
+}
+
+
+.navbar .sideNavbar ul li svg {
+    fill: rgb(226, 226, 226);
+}
+
+svg {
+    display: block;
+    margin:auto;
+}
+
+
+@media only screen and (max-width: 600px) {      
+    
+}
+
+@media only screen and (min-width: 600px) {
+
+} 
+
