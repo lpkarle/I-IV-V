@@ -1,0 +1,29 @@
+.fretboard {
+    padding-right: 20px;
+}
+
+.board {
+    padding: 10px;
+    margin: 10px;
+    background: burlywood;
+    height:200px;
+    width: 100%;
+
+    display: flex;
+    gap: 5px;
+
+    overflow: hidden;
+    overflow-x: scroll;
+    
+}
+
+.fret {
+    display: flex;
+    text-align: center;
+    justify-content: center;    
+
+    
+
+    border: grey solid 1px;
+    padding: 50px;
+}
