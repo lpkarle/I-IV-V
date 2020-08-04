@@ -38,14 +38,23 @@ export default function Fretboard() {
 
     const sliderOne = {
         range: { min: 0, max: 24 },
-        handles: [0, 24],
+        minDistance: 0,
+        handles: [0, 20],
         width: 300,
         displayVal: false
     }
     const sliderTwo = {
         range: { min: 0, max: 240 },
-        handles: [0],
+        minDistance: 1,
+        handles: [240],
         width: 200,
+        displayVal: true
+    }
+
+    const sliderThree = {
+        range: { min: 0, max: 240 },
+        handles: [0, 200, 400],
+        width: 400,
         displayVal: true
     }
 
@@ -78,7 +87,7 @@ export default function Fretboard() {
 
             <MultiSlider sliderVal={sliderTwo} />
 
-            
+            {/* <MultiSlider sliderVal={sliderThree} /> Doesn't work, sets the handle outside the slider */}
         </div>
     )
 }
