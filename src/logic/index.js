@@ -54,10 +54,15 @@ const getCommonProgressions = (voicing) => {       // ! Repeats !
     }
 }
 
+const getCircleOfFifths = () => {
+    return Scale.getCircleOfFifths();
+}
+
 export {
     getTableNotes,
     availableVoicings,
     getScaleByNote,
     getChordsInKey,
-    getCommonProgressions
+    getCommonProgressions, 
+    getCircleOfFifths
 }

@@ -239,6 +239,24 @@ const getHeptatonicScale = (type, note) => {
 }
 
 
+const getCircleOfFifths = () => {
+    let circle = [];
+    let cCromatic = getChromaticScale(0, 'C');
+
+    let i = 0;
+
+    while (circle.length < cCromatic.length) {
+        circle.push(cCromatic[i]);
+
+        i += 7;
+
+        if (i > cCromatic.length - 1) {
+            i = i - cCromatic.length; 
+        }
+    }
+
+    return circle;
+}
 
 
 
@@ -249,5 +267,7 @@ export {
     getAllNotesForTable,    // ! Name
     getChromaticScale,
     getHeptatonicScale,
+
+    getCircleOfFifths,
 
 }
