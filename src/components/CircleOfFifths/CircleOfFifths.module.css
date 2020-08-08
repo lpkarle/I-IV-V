@@ -26,10 +26,20 @@
     position: relative;
 
     position: relative;
-    border: whitesmoke solid 3px;
+    border: white solid 3px;
     border-radius: 50%;
     position: absolute;
 }
+
+.backgroundWrapper {
+    background-color: white;
+    width: 50rem;
+    height: 50rem;
+    border: white solid 3px !important;
+    border-radius: 50% !important;
+}
+
+
 .wrapperCircle {
     background-color: rgba(255, 99, 71, 0.4);
     height: 45.1rem;
@@ -46,7 +56,7 @@
     width: 25.2rem;
 }
 .innerInnerCircle {
-    background-color: whitesmoke;
+    background-color: white;
     height: 15rem;
     width: 15rem;
     z-index: 1;
@@ -54,13 +64,21 @@
 
 .circleNote {
     position: absolute;
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 5rem;
     width: 5rem;
     border: turquoise solid 3px;
-    border-radius: 50%;
+    border-radius: 50%; */
+
+    -webkit-transition: all 2s linear;
+    -moz-transition: all 2s linear;
+    transition: all 2s linear;
 } 
 
+
+.circle {
+    height: 80vh;
+}

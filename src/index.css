@@ -66,3 +66,30 @@
 ::-webkit-scrollbar-thumb:hover {
     background: blue;
 }
+
+/* Circle of fifths - should not be here */
+#cirlce text {
+    cursor: pointer;
+}
+#fields path {
+    stroke: whitesmoke;
+    fill-opacity: .6;
+    cursor: pointer;
+}
+#circleDim path {
+    fill: seagreen;
+}
+#circleMinor path {
+    fill: royalblue;
+}
+#circleMajor path {
+    fill: tomato;
+}
+
+#circleTexts text {
+    cursor: pointer;
+}
+
+#fields path:hover {
+    fill-opacity: 1;
+}

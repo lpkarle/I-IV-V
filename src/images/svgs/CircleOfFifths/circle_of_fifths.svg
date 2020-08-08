@@ -1,0 +1,172 @@
+<svg id="circle" width="100%" height="100%" viewBox="0 0 4198 4198" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g id="fields">
+        <g id="circleDim">
+            <path d="M1829.36,1092.79c-176.62,47.325 -337.671,140.308 -466.966,269.603l368.285,368.285c64.647,-64.648 145.173,-111.139 233.483,-134.802l-134.802,-503.086Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M1362.39,1362.39c-129.295,129.295 -222.278,290.346 -269.603,466.966l503.086,134.802c23.663,-88.31 70.154,-168.836 134.802,-233.483l-368.285,-368.285Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M1092.79,1829.36c-47.326,176.62 -47.326,362.586 0,539.207l503.086,-134.802c-23.663,-88.31 -23.663,-181.293 0,-269.603l-503.086,-134.802Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M1092.79,2368.56c47.325,176.62 140.308,337.671 269.603,466.966l368.285,-368.285c-64.648,-64.647 -111.139,-145.173 -134.802,-233.483l-503.086,134.802Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M1362.39,2835.53c129.295,129.295 290.346,222.278 466.966,269.603l134.802,-503.086c-88.31,-23.663 -168.836,-70.154 -233.483,-134.802l-368.285,368.285Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M1829.36,3105.13c176.62,47.325 362.586,47.325 539.207,0l-134.802,-503.086c-88.31,23.662 -181.293,23.662 -269.603,0l-134.802,503.086Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M2368.56,3105.13c176.62,-47.325 337.671,-140.308 466.966,-269.603l-368.285,-368.285c-64.647,64.648 -145.173,111.139 -233.483,134.802l134.802,503.086Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M2835.53,2835.53c129.295,-129.295 222.278,-290.346 269.603,-466.967l-503.086,-134.801c-23.663,88.31 -70.154,168.836 -134.802,233.483l368.285,368.285Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M3105.13,2368.56c47.325,-176.621 47.325,-362.587 0,-539.207l-503.086,134.802c23.662,88.31 23.662,181.293 0,269.603l503.086,134.802Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M3105.13,1829.36c-47.325,-176.62 -140.308,-337.671 -269.603,-466.966l-368.285,368.285c64.648,64.647 111.139,145.173 134.802,233.483l503.086,-134.802Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M2835.53,1362.39c-129.295,-129.295 -290.346,-222.278 -466.967,-269.603l-134.801,503.086c88.31,23.663 168.836,70.154 233.483,134.802l368.285,-368.285Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M2368.56,1092.79c-176.621,-47.326 -362.587,-47.326 -539.207,0l134.802,503.086c88.31,-23.663 181.293,-23.663 269.603,0l134.802,-503.086Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+        </g>
+        <g id="circleMinor">
+            <path d="M1694.55,589.699c-264.931,70.988 -506.508,210.463 -700.45,404.405l367.929,367.93c129.358,-129.358 290.487,-222.386 467.192,-269.734l-134.671,-502.601Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M994.104,994.104c-193.942,193.942 -333.417,435.519 -404.405,700.45l502.601,134.671c47.348,-176.705 140.376,-337.834 269.733,-467.192l-367.929,-367.929Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M589.699,1694.55c-70.988,264.93 -70.988,543.879 0,808.809l502.601,-134.671c-47.348,-176.706 -47.348,-362.761 0,-539.467l-502.601,-134.671Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M589.699,2503.36c70.988,264.93 210.463,506.507 404.405,700.45l367.93,-367.93c-129.358,-129.357 -222.386,-290.486 -269.734,-467.191l-502.601,134.671Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M994.104,3203.81c193.942,193.942 435.519,333.417 700.45,404.404l134.671,-502.601c-176.705,-47.348 -337.834,-140.375 -467.192,-269.733l-367.929,367.93Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M1694.55,3608.22c264.93,70.988 543.879,70.988 808.809,0l-134.671,-502.601c-176.706,47.348 -362.761,47.349 -539.467,0l-134.671,502.601Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M2503.36,3608.22c264.93,-70.987 506.507,-210.462 700.45,-404.404l-367.93,-367.93c-129.357,129.358 -290.486,222.385 -467.191,269.733l134.671,502.601Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M3203.81,3203.81c193.942,-193.943 333.417,-435.52 404.404,-700.45l-502.601,-134.672c-47.348,176.706 -140.375,337.835 -269.733,467.192l367.93,367.93Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M3608.22,2503.36c70.988,-264.93 70.988,-543.879 0,-808.81l-502.601,134.672c47.348,176.705 47.349,362.761 0,539.467l502.601,134.671Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M3608.22,1694.55c-70.987,-264.931 -210.462,-506.508 -404.404,-700.45l-367.93,367.929c129.358,129.358 222.385,290.487 269.733,467.192l502.601,-134.671Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M3203.81,994.104c-193.943,-193.942 -435.52,-333.417 -700.45,-404.405l-134.672,502.601c176.706,47.348 337.835,140.376 467.192,269.733l367.93,-367.929Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M2503.36,589.699c-264.93,-70.988 -543.879,-70.988 -808.81,0l134.672,502.601c176.705,-47.348 362.761,-47.348 539.467,0l134.671,-502.601Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+        </g>
+        <g id="circleMajor">
+            <path d="M1559.75,86.613c-353.24,94.65 -675.343,280.616 -933.933,539.206l368.285,368.285c193.942,-193.942 435.519,-333.417 700.45,-404.405l-134.802,-503.086Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M625.819,625.819c-258.59,258.59 -444.556,580.693 -539.206,933.933l503.086,134.802c70.988,-264.931 210.463,-506.508 404.405,-700.45l-368.285,-368.285Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M86.613,1559.75c-94.651,353.24 -94.651,725.172 0,1078.41l503.086,-134.802c-70.988,-264.93 -70.988,-543.879 0,-808.809l-503.086,-134.802Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M86.613,2638.16c94.65,353.24 280.616,675.343 539.206,933.933l368.285,-368.285c-193.942,-193.943 -333.417,-435.52 -404.405,-700.45l-503.086,134.802Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M625.819,3572.1c258.59,258.59 580.693,444.556 933.933,539.207l134.802,-503.087c-264.931,-70.987 -506.508,-210.462 -700.45,-404.404l-368.285,368.284Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M1559.75,4111.3c353.24,94.65 725.172,94.65 1078.41,0l-134.802,-503.087c-264.93,70.988 -543.879,70.988 -808.809,0l-134.802,503.087Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M2638.16,4111.3c353.24,-94.651 675.343,-280.617 933.933,-539.207l-368.285,-368.284c-193.943,193.942 -435.52,333.417 -700.45,404.404l134.802,503.087Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M3572.1,3572.1c258.59,-258.589 444.556,-580.692 539.207,-933.932l-503.087,-134.802c-70.987,264.93 -210.462,506.507 -404.404,700.45l368.284,368.284Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M4111.3,2638.16c94.65,-353.241 94.65,-725.173 0,-1078.41l-503.087,134.801c70.988,264.931 70.988,543.88 0,808.81l503.087,134.802Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M4111.3,1559.75c-94.651,-353.24 -280.617,-675.343 -539.207,-933.933l-368.284,368.285c193.942,193.942 333.417,435.519 404.404,700.45l503.087,-134.802Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M3572.1,625.819c-258.589,-258.59 -580.692,-444.556 -933.932,-539.206l-134.802,503.086c264.93,70.988 506.507,210.463 700.45,404.405l368.284,-368.285Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+            <path d="M2638.16,86.613c-353.241,-94.651 -725.173,-94.651 -1078.41,0l134.801,503.086c264.931,-70.988 543.88,-70.988 808.81,0l134.802,-503.086Z" fill="#7d7d7d" stroke="#c8c8c8" strokeWidth="31.25px" />
+        </g>
+    </g>
+
+    <g id="circleTexts">
+        <g id="minor">
+            <text x="1367.35px" y="1070.69px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="291.667px">D</text>
+            <text x="875.302px" y="1565.67px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="291.667px">G</text>
+            <text x="717.466px" y="2202.64px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="291.667px">C</text>
+            <text x="911.997px" y="2864.91px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="291.667px">F</text>
+            <g transform="matrix(9.71746,-9.02359e-16,9.02359e-16,9.71746,-8095.84,2145.7)">
+                <text x="957.236px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="25.727px">B</text>
+                <text x="973.654px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="25.727px">♭</text>
+            </g>
+            <g transform="matrix(9.71746,-2.05964e-15,2.05964e-15,9.71746,-7829.63,2301.6)">
+                <text x="955.421px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="25.727px">A</text>
+                <text x="972.731px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="25.727px">♯</text>
+            </g>
+            <g transform="matrix(9.71746,-9.02359e-16,9.02359e-16,9.71746,-7482.14,2425.19)">
+                <text x="958.209px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="25.727px">E</text>
+                <text x="972.681px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="25.727px">♭</text>
+            </g>
+            <g transform="matrix(9.71746,-2.05964e-15,2.05964e-15,9.71746,-7166.84,2420.92)">
+                <text x="955.716px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="25.727px">D</text>
+                <text x="972.436px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="25.727px">♯</text>
+            </g>
+            <g transform="matrix(9.71746,-9.02359e-16,9.02359e-16,9.71746,-6785.7,2324.86)">
+                <text x="956.79px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="25.727px">A</text>
+                <text x="974.1px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="25.727px">♭</text>
+            </g>
+            <g transform="matrix(9.71746,-2.05964e-15,2.05964e-15,9.71746,-6525.07,2186.76)">
+                <text x="955.314px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="25.727px">G</text>
+                <text x="972.838px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="25.727px">♯</text>
+            </g>
+            <g transform="matrix(9.71746,-2.05964e-15,2.05964e-15,9.71746,-6215.59,1780.66)">
+                <text x="953.233px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="30.015px">C</text>
+                <text x="972.871px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="30.015px">♯</text>
+            </g>
+            <g transform="matrix(9.71746,-2.05964e-15,2.05964e-15,9.71746,-6040.25,1166.71)">
+                <text x="954.83px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="30.015px">F</text>
+                <text x="971.274px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="30.015px">♯</text>
+            </g>
+            <text x="3131.98px" y="1564px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="291.667px">B</text>
+            <text x="2662.57px" y="1074px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="291.667px">E</text>
+            <text x="2000.33px" y="905.558px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="291.667px">A</text>
+        </g>
+        <g id="dim">
+            <text x="1637.42px" y="1518.88px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="250px">E</text>
+            <text x="1325.04px" y="1780.47px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="250px">A</text>
+            <text x="1242.78px" y="2187.83px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="250px">D</text>
+            <text x="1341.79px" y="2571.86px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="250px">G</text>
+            <text x="1558.83px" y="2770.96px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="166.667px">C</text>
+            <g transform="matrix(9.71746,-2.05964e-15,2.05964e-15,9.71746,-7643.48,1798.12)">
+                <text x="960.651px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="17.151px">B</text>
+                <text x="971.596px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="17.151px">♯</text>
+            </g>
+            <text x="1949.36px" y="2948.2px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="166.667px">F</text>
+            <g transform="matrix(9.71746,-2.05964e-15,2.05964e-15,9.71746,-7242.56,1889.32)">
+                <text x="961.3px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="17.151px">E</text>
+                <text x="970.947px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="17.151px">♯</text>
+            </g>
+            <g transform="matrix(9.71746,-9.02359e-16,9.02359e-16,9.71746,-7015.91,1831.38)">
+                <text x="961.563px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="17.151px">B</text>
+                <text x="972.509px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="17.151px">♭</text>
+            </g>
+            <g transform="matrix(9.71746,-2.05964e-15,2.05964e-15,9.71746,-6853.89,1727.78)">
+                <text x="960.353px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="17.151px">A</text>
+                <text x="971.893px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="17.151px">♯</text>
+            </g>
+            <g transform="matrix(9.71746,-2.05964e-15,2.05964e-15,9.71746,-6648.95,1514.37)">
+                <text x="955.716px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="25.727px">D</text>
+                <text x="972.436px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="25.727px">♯</text>
+            </g>
+            <g transform="matrix(9.71746,-2.05964e-15,2.05964e-15,9.71746,-6550.86,1117.96)">
+                <text x="955.314px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="25.727px">G</text>
+                <text x="972.838px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="25.727px">♯</text>
+            </g>
+            <g transform="matrix(9.71746,-2.05964e-15,2.05964e-15,9.71746,-6659.33,736.018)">
+                <text x="955.659px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="25.727px">C</text>
+                <text x="972.492px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="25.727px">♯</text>
+            </g>
+            <g transform="matrix(9.71746,-2.05964e-15,2.05964e-15,9.71746,-6913.99,451.728)">
+                <text x="955.659px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="25.727px">F</text>
+                <text x="969.754px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="25.727px">♯</text>
+            </g>
+            <text x="2017.05px" y="1415.45px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="250px">B</text>
+        </g>
+        <g id="major">
+            <text x="1103.45px" y="663.458px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="333.333px">F</text>
+            <g transform="matrix(9.71746,-9.02359e-16,9.02359e-16,9.71746,-8904.56,260.104)">
+                <text x="952.908px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="34.303px">B</text>
+                <text x="974.799px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="34.303px">♭</text>
+            </g>
+            <g transform="matrix(9.71746,-9.02359e-16,9.02359e-16,9.71746,-9124.66,1147.99)">
+                <text x="954.206px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="34.303px">E</text>
+                <text x="973.501px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="34.303px">♭</text>
+            </g>
+            <g transform="matrix(9.71746,-9.02359e-16,9.02359e-16,9.71746,-8890.77,2052.11)">
+                <text x="952.314px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="34.303px">A</text>
+                <text x="975.394px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="34.303px">♭</text>
+            </g>
+            <g transform="matrix(9.71746,-9.02359e-16,9.02359e-16,9.71746,-8409.34,2597.37)">
+                <text x="952.707px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="34.303px">D</text>
+                <text x="975px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="34.303px">♭</text>
+            </g>
+            <g transform="matrix(9.71746,-2.05964e-15,2.05964e-15,9.71746,-8029.35,2821.63)">
+                <text x="950.806px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="34.303px">C</text>
+                <text x="973.25px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="34.303px">♯</text>
+            </g>
+            <g transform="matrix(9.71746,-9.02359e-16,9.02359e-16,9.71746,-7549.57,2969.07)">
+                <text x="952.171px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="34.303px">G</text>
+                <text x="975.536px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="34.303px">♭</text>
+            </g>
+            <g transform="matrix(9.71746,-2.05964e-15,2.05964e-15,9.71746,-7095.26,2969.07)">
+                <text x="952.632px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="34.303px">F</text>
+                <text x="971.425px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="34.303px">♯</text>
+            </g>
+            <g transform="matrix(9.71746,-9.02359e-16,9.02359e-16,9.71746,-6564.31,2816.53)">
+                <text x="952.632px" y="108.967px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="34.303px">C</text>
+                <text x="975.076px" y="108.967px" fontFamily='AppleSymbols, Apple Symbols' fontSize="34.303px">♭</text>
+            </g>
+            <text x="3090.82px" y="3670.73px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="333.333px">B</text>
+            <text x="3577.13px" y="3128.85px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="333.333px">E</text>
+            <text x="3809.65px" y="2217.45px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="333.333px">A</text>
+            <text x="3592.41px" y="1312.84px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="333.333px">D</text>
+            <text x="2888.36px" y="636.174px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="333.333px">G</text>
+            <text x="1988.2px" y="394.531px" fontFamily='Roboto-Bold, Roboto' fontWeight="700" fontSize="333.333px">C</text>
+        </g>
+    </g>
+</svg>

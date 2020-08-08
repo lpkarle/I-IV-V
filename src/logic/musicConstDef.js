@@ -1,7 +1,7 @@
 const notes = ['A', 'A♯ / B♭', 'B', 'C', 'C♯ / D♭', 'D', 
                'D♯ / E♭', 'E', 'F', 'F♯ / G♭', 'G', 'G♯ / A♭'];
 
-const notesAll = ['A', 'A♯', 'B♭', 'B', 'C', 'C♯', 'D♭', 'D', 
+const notesAll = ['A', 'A♯', 'B♭', 'B', 'C♭', 'C', 'C♯', 'D♭', 'D', 
                'D♯', 'E♭', 'E', 'F', 'F♯', 'G♭', 'G', 'G♯', 'A♭'];
 
 const enharmonicNotes = {
