@@ -87,10 +87,11 @@ function NavElement({ icon, label, address, onClick, index, selectedItem }) {
         ? cx(styles.navItem, styles.active) 
         : styles.navItem;
 
+    // Position last element at the botton (Search maby a floating butten with info from current page)
     const styleLastEl = () => {
         return {
-            position:  index===3 ? "absolute": null,
-            bottom: index===3 ? "0" : null, 
+            /* position:  index===3 ? "absolute": null,
+            bottom: index===3 ? "0" : null,  */
         }
     }
 
