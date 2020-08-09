@@ -1,44 +1,34 @@
 /* ------------ Navigation ------------ */
 
-
-
-/* ---- Button ---- */
-.navbar .openNav {
-    z-index: 1;
-    height: 2rem;
-    width: 2rem;
-    border: royalblue solid 2px;
-    color: royalblue;
-    border-radius: 50%;
-    position: absolute;
-    
-    top: 5vh;
-    left: 6.5vw;
-}
-
-
-
 .navbar .topNavbar {
+    /* z-index: 1; */
     position: fixed;
     display: flex;
-
     /* background-color: var(--bg-top-nav); */
     height: var(--height-top-nav);
     width: var(--width-top-nav);
 } 
 
+.navbar .topNavbar .logoWrapper {
+    display: flex;
+}
+
 .navbar .topNavbar .logo {
-    width: 8vw;
-    height:100%;
+    display: flex;
+    z-index: 3;
+    
+    width: 4rem;
+    height:4rem;
     background: var(--bg-primary);
     padding: 7px;
+    /* margin-left: .5rem; */
     cursor: pointer;
 }
 
 .navbar .topNavbar .topMenu {
-    width: calc(100% - 70px);
-    height: 100%;
-    background: #fff;
+    width: calc(100% - 4rem);
+    height: 4rem;
+    background: rgba(255, 255, 255);
 
     display: flex;
     justify-content: flex-end;
@@ -75,29 +65,33 @@
 /* ---- Side Navbar ---- */
 
 .navbar .sideNavbar {
-    top: 7vh;
+    /* top: 7vh; */
+    /* padding-top: 10px; */
     position: fixed;
     height: var(--height-side-nav);
-    width: 8vw;/* var(--width-side-nav); */
-    background-color: var(--bg-primary);
-
+    width: 5rem;/* var(--width-side-nav); */
+    background-color: rgba(65, 105, 225, .4);/* var(--bg-primary); */
     transition: all .3s ease;
 }
 
-.sideNavbar .sideNavbar ul {
-    background-color: tomato;
-    padding-left: 50px;
+.navbar .sideNavbar ul {
+    margin-top: 7vh;
 }
 
 .navbar .sideNavbar ul li {
-    display: block;
+
+    display: flex;
+    align-items: center;
+    justify-self: center;
     padding: 20px;
+    padding-left: 27px;
     color: rgb(226, 226, 226);
     position: relative;
     margin-bottom: 1px;
+    
+    align-self: center;
 
     white-space: nowrap;
-
 }
 
 .navbar .sideNavbar ul li:before {
@@ -112,24 +106,28 @@
 }
 
 .navbar .sideNavbar ul li span.icon {
-    margin-right: 10px;
+    margin-right: 2rem;
     display: inline-block;
 }
 .navbar .sideNavbar ul li span.title {
-   /* display: inline-block; */
    display: none;
-
 }
 .navbar .sideNavbar ul li:hover svg,
+.navbar .sideNavbar ul li:hover,
 .navbar .sideNavbar ul li.active {
-   /* background: rgb(131, 147, 196); */
-    fill: white;
+   color: white; 
+   fill: white;
+}
+.navbar .sideNavbar:hover {
+    width: 15rem;
+}
+.navbar .sideNavbar:hover ul li span.title {
+    display: inline-block;
 }
 .navbar .sideNavbar ul li:hover:before,
 .navbar .sideNavbar ul li.active:before {
    display: block;
 }
-
 
 .navbar .sideNavbar ul li svg {
     fill: rgb(226, 226, 226);

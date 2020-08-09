@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
 
 import styles from './Navigation.module.css';
+import cx from 'classnames';
 
-import { ReactComponent as LogoSVG } from '../../images/svgs/logo_v0_small.svg'; 
+import { ReactComponent as LogoSVG } from '../../images/svgs/Navigation/logo_v0_small.svg'; 
 
 /**
  * Reusable Navigation
@@ -11,74 +13,48 @@ import { ReactComponent as LogoSVG } from '../../images/svgs/logo_v0_small.svg';
  *   
  * @param {*} param0 
  */
-export default function Navigation({ logo, topNavItems, sideNavItems, onClick }) {
+export default function Navigation({ logo, topNavElements, sideNavElements }) {
 
-    const [open, setOpen] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(0);
 
-    /* const handleClick = (label) => {
-        onClick(label);
-    } */
-
-    function toggle() {
-        setOpen(!open);
-    }
-
-    function styleOpen() {
-
-        if (open) {
-            return {
-                width: '500px',
-            }
-        } 
-        return {
-            width: open ? '500px' : null
-        }
-    }
-
-    function styleButton() {
-        if (open) {
-            return {
-                content: '<',
-                color: 'red',
-            }
-        }
-    }
-
-    function styleSelected() {
-
+    const handleSelection = (i) => {
+        console.log(i);
+        setSelectedItem(i);
     }
 
     return (
         <div className={styles.navbar}>
 
-            <button className={styles.openNav}
-                    onClick={toggle}
-                    style={styleButton()}>
-                X
-            </button>
-
             <div className={styles.topNavbar}>
-                <div className={styles.logo}>
-                    <LogoSVG />
+                <div className={styles.logoWrapper}>
+                    <div className={styles.logo}>
+                        <LogoSVG />
+                    </div>
+                    <div className={styles.logoText}>IV V</div>
                 </div>
                 <TopNavElements>
-                    {topNavItems.map((item, index) => (
+                    
+                    {topNavElements.map((item, index) => (
                         <NavElement key={index} 
                                     icon={item.icon}
-                                    onClick={onClick} />
+                                    address={item.address}/>
                     ))}
                 </TopNavElements>
             </div>
 
 
-            <div className={styles.sideNavbar} style={styleOpen()}>
+            <div className={styles.sideNavbar} >
                 <SideNavElements>
-                    {sideNavItems.map((item, index) => (
+                    {sideNavElements.map((item, index) => (
+                        
                         <NavElement key={index} 
-                                    icon={item.icon} 
+                            index={index}
+                            icon={item.icon} 
+                            selectedItem={selectedItem}
                                     label={item.label}
-                                    onClick={onClick} 
-                                    style={open ? {display: `inline-block`} : null }/>
+                                    address={item.address}
+                                    onClick={handleSelection}
+                        />
                     ))}
                 </SideNavElements>
             </div>
@@ -86,12 +62,7 @@ export default function Navigation({ logo, topNavItems, sideNavItems, onClick })
     );
 }
 
-function TopNavElements({ children, onClick }) {
-    
-    /* const handleClick = (event) => {
-        onClick(event.target.innerHTML);
-    } */
-
+function TopNavElements({ children }) {
     return (
         <div className={styles.topMenu}>
             <ul>
@@ -102,7 +73,6 @@ function TopNavElements({ children, onClick }) {
 }
 
 function SideNavElements({ children }) {
-
     return (
         <ul>
             {children}
@@ -110,19 +80,31 @@ function SideNavElements({ children }) {
     );
 }
 
-function NavElement({ icon, label, style, onClick }) {
+function NavElement({ icon, label, style, address, onClick, index, selectedItem }) {
 
     const handleClick = () => {
-        onClick(label);
+        onClick(index);
+    }
+    
+    let classItem = null;
+
+    if (selectedItem === index) {
+        console.log(selectedItem, index);
+       
+        classItem = cx(styles.navItem, styles.active);
+    } else  {
+        classItem = styles.navItem;
     }
 
     return (
-        <li className={styles.navItem} onClick={handleClick}>
-            <span className={styles.icon}>{icon}</span>
-            {label 
-                ? <span className={styles.title} style={style}>{label}</span>
-                : null
-            }
-        </li>
+        <Link to={address}>
+            <li className={classItem} onClick={handleClick}>
+                <span className={styles.icon}>{icon}</span>
+                {label 
+                    ? <span className={styles.title}>{label}</span>
+                    : null
+                }
+            </li>
+        </Link>
     );
 }
