@@ -16,55 +16,109 @@
 
     --text-color-primary: rgb(31, 31, 31);
 
+    /* Theme light */
+    --bg-primary-color: white;
+    --bg-secondary-color: rgb(240, 240, 240);
+    --text-primary: rgb(53, 53, 53);
+    --text-unselected: rgb(117, 117, 117);
+    
 
-    background: rgb(241, 241, 241);
+    /* Accent Color */
+    --accent-color: rgb(0, 160, 235);
+    --accent-color-light: rgb(33, 171, 235);
 
-    /* Navigation */
-    --left-nav-distance: 6rem;
 
-    --text-primary: red;
-    --text-secondary: green;
-    --bg-primary: rgb(65, 116, 255);
-    --bg-secondary: rgb(122, 157, 255);
 
     /* Animation */
     --transition-speed: 600ms;
 
 
     /* Navigation */
-    --bg-top-nav: rgb(128, 128, 128);
+    --bg-top-nav: white;
     --bg-side-nav: royalblue;
+    --selected-nav-item: white;
 
-    --height-top-nav: 7vh;
-    --width-top-nav: calc(100%);
+    --width-top-nav: 100vw;
+    --height-top-nav: 4rem;
 
+    --width-side-nav: 5rem;
     --height-side-nav: 100%;
-    --width-side-nav: 70px;
+    --width-side-nav-open: 13rem; /* lose anim */
 
+
+    /* Major / Minor ... Colors */
+    --major-color: rgb(250, 91, 93);
+    --minor-color: rgb(0, 147, 251);
+    --dim-color: rgb(70, 252, 133);	
+}
+
+/* Theme dark */
+body[data-theme="dark"] {
+    --bg-primary-color: rgb(53, 53, 53);
+    --bg-secondary-color: rgb(39, 39, 39);
+    --text-primary: white;
+    --text-unselected: rgb(197, 197, 197);
+}
+
+body {
+    background: var(--bg-primary-color);
+    color: var(--text-primary);
+    fill: var(--text-primary);
+}
+
+/* -------- Typography -------- */
+h1 {
+    font-size: 96px;
+    font-weight: lighter;
+    letter-spacing: -1.5px;
+}
+
+/* Container for all Components */
+.content {
+    position: absolute;
+    background: var(--bg-secondary-color);
+    z-index: -1;          /* so the box shadow in top nav is visible */
+    width: calc(100% - var(--width-side-nav));
+    min-height:  calc(100% - var(--height-top-nav)); 
+    margin-left: var(--width-side-nav);
+    margin-top: var(--height-top-nav);
+    padding-left: 1rem;
+    padding-top: 1rem;
+    padding-right: 1rem;
+
+    color: var(--text-primary);
+}
+
+/* Card */
+.card {
+    background: var(--bg-primary-color);
+    -webkit-box-shadow: 5px 5px 11px -4px rgba(0,0,0,0.39);
+    -moz-box-shadow: 5px 5px 11px -4px rgba(0,0,0,0.39);
+    box-shadow: 5px 5px 11px -4px rgba(0,0,0,0.39);
+    border-radius: 5px;
+    padding: 1em;
+    color: var(--text-primary);
 }
 
 
 /* ---- Scrollbar ---- */
 ::-webkit-scrollbar {
-    width: 0.2em;
+    width: 0.3em;
+    
 }
 
 ::-webkit-scrollbar-track {
-    background-color: rgba(172, 172, 172, 0);
+    background-color: rgba(172, 172, 172, .50);
     border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: cornflowerblue;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: rgb(58, 104, 255);
-    border-radius: 10px;
+    background: var(--accent-color);
+    border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: blue;
+    background: var(--accent-color);
 }
 
 /* Circle of fifths - should not be here */
@@ -77,13 +131,13 @@
     cursor: pointer;
 }
 #circleDim path {
-    fill: seagreen;
+    fill: var(--dim-color);
 }
 #circleMinor path {
-    fill: royalblue;
+    fill: var(--minor-color);
 }
 #circleMajor path {
-    fill: tomato;
+    fill: var(--major-color);
 }
 
 #circleTexts text {

@@ -81,11 +81,16 @@ export default function Fretboard() {
     }
 
     return (
-        <div className={styles.fretboard}>
-            
-            <MultiSlider sliderVal={sliderOne} />
+        <div className="content">
 
-            <MultiSlider sliderVal={sliderTwo} />
+            <div className="card">
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi neque aperiam ducimus esse repudiandae eius quisquam consectetur molestiae, corporis modi delectus, nesciunt cumque, aliquid libero odio. Asperiores itaque sit esse!</p>
+            </div>
+
+
+            {/* <MultiSlider sliderVal={sliderOne} />
+
+            <MultiSlider sliderVal={sliderTwo} /> */}
 
             {/* <MultiSlider sliderVal={sliderThree} /> Doesn't work, sets the handle outside the slider */}
         </div>

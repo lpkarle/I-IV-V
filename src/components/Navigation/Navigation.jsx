@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from './Navigation.module.css';
 import cx from 'classnames';
 
-import { ReactComponent as LogoSVG } from '../../images/svgs/Navigation/logo_v0_small.svg'; 
+import { ReactComponent as LogoSVG } from '../../images/svgs/Navigation/logo_v0_small.svg';
 
 /**
  * Reusable Navigation
@@ -13,12 +13,13 @@ import { ReactComponent as LogoSVG } from '../../images/svgs/Navigation/logo_v0_
  *   
  * @param {*} param0 
  */
-export default function Navigation({ logo, topNavElements, sideNavElements }) {
+export default function Navigation({ topNavElements, sideNavElements, currNavEl, onClick, toggleTheme }) {
 
-    const [selectedItem, setSelectedItem] = useState(0);
+    const [selectedSideNavEl, setSelectedSideNavEl] = useState(currNavEl);
 
-    const handleSelection = (i) => {
-        setSelectedItem(i);
+    const handleSideNavEl = (element) => {
+        setSelectedSideNavEl(element);
+        onClick(element);
     }
 
     return (
@@ -26,17 +27,16 @@ export default function Navigation({ logo, topNavElements, sideNavElements }) {
 
             <div className={styles.logoWrapper}>
                 <div className={styles.logo}><LogoSVG /></div>
-                <div className={styles.logoText}>IV V</div>
+                <div className={styles.logoText}>{selectedSideNavEl}</div>
             </div>
 
             <div className={styles.topNavbar}>
                 <TopNavElements>
                     {topNavElements.map((item, index) => (
-                        <NavElement 
-                            key={index} 
+                        <TopNavElement
+                            key={index}
                             icon={item.icon}
-                            address={item.address}
-                            onClick={() => console.log("Top Nav")}
+                            onClick={toggleTheme}
                         />
                     ))}
                 </TopNavElements>
@@ -45,14 +45,14 @@ export default function Navigation({ logo, topNavElements, sideNavElements }) {
             <div className={styles.sideNavbar} >
                 <SideNavElements>
                     {sideNavElements.map((item, index) => (
-                        <NavElement 
-                            key={index} 
+                        <SideNavElement
+                            key={index}
                             index={index}
-                            icon={item.icon} 
-                            selectedItem={selectedItem}
+                            icon={item.icon}
+                            selectedEl={selectedSideNavEl}
                             label={item.label}
                             address={item.address}
-                            onClick={handleSelection}
+                            onClick={handleSideNavEl}
                         />
                     ))}
                 </SideNavElements>
@@ -69,6 +69,14 @@ function TopNavElements({ children }) {
     );
 }
 
+function TopNavElement({ icon, onClick }) {
+    return (
+        <li className={styles.navItem} onClick={onClick}>
+            <span className={styles.icon}>{icon}</span>
+        </li>
+    );
+}
+
 function SideNavElements({ children }) {
     return (
         <ul>
@@ -77,32 +85,21 @@ function SideNavElements({ children }) {
     );
 }
 
-function NavElement({ icon, label, address, onClick, index, selectedItem }) {
+function SideNavElement({ icon, label, address, onClick, selectedEl }) {
 
     const handleClick = () => {
-        onClick(index);
+        onClick(label);
     }
-    
-    let classItem = selectedItem === index 
-        ? cx(styles.navItem, styles.active) 
-        : styles.navItem;
 
-    // Position last element at the botton (Search maby a floating butten with info from current page)
-    const styleLastEl = () => {
-        return {
-            /* position:  index===3 ? "absolute": null,
-            bottom: index===3 ? "0" : null,  */
-        }
-    }
+    let classItem = selectedEl === label
+        ? cx(styles.navItem, styles.active)
+        : styles.navItem;
 
     return (
         <Link to={address}>
-            <li className={classItem} onClick={handleClick} style={styleLastEl()}>
+            <li className={classItem} onClick={handleClick}>
                 <span className={styles.icon}>{icon}</span>
-                {label 
-                    ? <span className={styles.title}>{label}</span>
-                    : null
-                }
+                <span className={styles.title}>{label}</span>
             </li>
         </Link>
     );

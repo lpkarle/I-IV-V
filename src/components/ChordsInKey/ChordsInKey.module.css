@@ -1,9 +1,8 @@
 .chordsInKey {
     text-align: left;
 
-    color: var(--text-color-primary);
     display: grid;
-    grid-template-columns: 70% 30%; 
+    grid-template-columns: 65% 35%; 
 }
 
 .left {
@@ -22,7 +21,7 @@
 /* ---- Select Key ---- */
 
 .keys {
-    background-color: #ffffff;
+    background: var(--bg-primary-color);
     padding: 1rem;
     border-radius: 4px;
     box-shadow: 4px 8px 14px 0px rgba(0,0,0,0.3);
@@ -61,7 +60,7 @@
 
 /* ---- Select Voicing ---- */
 .voicingPicker {
-    
+    background-color: var(--bg-primary-color);
 }
 
 .ddWrapper {
@@ -73,14 +72,9 @@
 
 /* ---- Resulting Chords ---- */
 .resultingChords {
-    background-color: #ffffff;
-    padding: 1rem;
-    border-radius: 4px;
-    box-shadow: 4px 8px 14px 0px rgba(0,0,0,0.3);
     
     display: flex;
     justify-content: space-evenly;
-
     
 }
 .chordAndVoicing {
@@ -123,7 +117,7 @@
 
 /* Resulting Chords */
 .commonProgressions {
-    background-color: #ffffff;
+    background: var(--bg-primary-color);
     padding: 1rem;
     border-radius: 4px;
     box-shadow: 4px 8px 14px 0px rgba(0,0,0,0.3);

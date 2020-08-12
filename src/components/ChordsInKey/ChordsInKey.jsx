@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import cx from 'classnames';
 
 import styles from './ChordsInKey.module.css';
 import Dropdown from '../Multipurpose/Dropdown/Dropdown';
@@ -60,19 +61,19 @@ export default function ChordsInKey() {
     }
     function styleChordVoicing(chordVoicing) {
         if (chordVoicing.includes('°')) {
-            return { border: 'green solid 3px' };
+            return { border: 'var(--dim-color) solid 3px' };
         }
         if (chordVoicing === chordVoicing.toString().toUpperCase()) {
-            return { border: 'red solid 3px' };
+            return { border: 'var(--major-color) solid 3px' };
         }
         if (chordVoicing === chordVoicing.toString().toLowerCase()) {
-            return { border: 'royalblue solid 3px' };
+            return { border: 'var(--minor-color) solid 3px' };
         }
     }
 
 
     return (
-        <>
+        <div className="content">
             <h1>Chords in a Key</h1>
             <div className={styles.chordsInKey}>
                 <div className={styles.left}>
@@ -116,7 +117,7 @@ export default function ChordsInKey() {
                     </CommonProgressions>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
@@ -154,7 +155,7 @@ function ResultingChords({children}) {
     return (
         <>
             <h2>Resulting Chords:</h2>
-            <div className={styles.resultingChords}>
+            <div className={cx(styles.resultingChords, "card")}>
                 {children}
             </div>
         </>
