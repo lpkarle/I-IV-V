@@ -82,9 +82,7 @@ h1 {
     min-height:  calc(100% - var(--height-top-nav)); 
     margin-left: var(--width-side-nav);
     margin-top: var(--height-top-nav);
-    padding-left: 1rem;
-    padding-top: 1rem;
-    padding-right: 1rem;
+    padding: 1rem;
 
     color: var(--text-primary);
 }
@@ -100,6 +98,28 @@ h1 {
     color: var(--text-primary);
 }
 
+/* Button */
+.btn {
+    color: var(--bg-primary-color);
+    background: var(--bg-primary-color);
+    border-radius: 10px;
+    opacity: .6;
+    text-decoration: none;
+    font-size: 1.5rem;
+
+    font-weight: 700;
+    border: none;
+
+    padding: .4em 1.2em;
+
+    font-weight: lighter;
+
+
+}
+.btn:hover {
+    opacity: 1;
+    text-decoration: none;
+}
 
 /* ---- Scrollbar ---- */
 ::-webkit-scrollbar {
@@ -146,4 +166,15 @@ h1 {
 
 #fields path:hover {
     fill-opacity: 1;
+}
+
+
+@media only screen and (max-width: 600px) {     
+    .content {
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 9vh;
+        margin-top: var(--height-top-nav);
+        padding: .5rem;
+    }    
 }

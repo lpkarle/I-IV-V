@@ -25,7 +25,7 @@
 }
 
 .navbar .logoWrapper .logoText {
-    color: var(--accent-color);
+    color: var(--text-primary);/* --accent-color); */
     font-size: 30px;
     white-space: nowrap;
     display: flex;
@@ -96,6 +96,7 @@ svg {
         bottom: 0;
         width: 100vw;/* var(--width-side-nav); */
         height: 9vh;
+        box-shadow: 0 -1px 1px 0 rgba(0, 0, 0, 0.1);
     }
     .navbar .sideNavbar ul {
         height: 100%;

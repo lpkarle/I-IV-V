@@ -1,16 +1,15 @@
 .chordsInKey {
     text-align: left;
-
-    display: grid;
-    grid-template-columns: 65% 35%; 
+    display: flex;
 }
 
 .left {
-    margin: 20px 10px 20px 20px;
+    flex: 2;
+    margin-right: .5rem;
 }
 .right {
-    margin: 20px 20px 20px 10px;
-
+    flex: 1;
+    margin-left: .5rem;
 }
 
 .chordsInKey h2 {
@@ -22,24 +21,20 @@
 
 .keys {
     background: var(--bg-primary-color);
-    padding: 1rem;
-    border-radius: 4px;
-    box-shadow: 4px 8px 14px 0px rgba(0,0,0,0.3);
-
-    border-radius: 5px;
-    padding: 1rem;
-
 
     height: 22.5rem;
     overflow: hidden;
     overflow-y: scroll;
 
-    
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15vh, 1fr));
     gap: .5rem;
     
-    /* justify-content: center; */
+    padding-bottom: 12rem;
+    
+}
+.key:last-child {
+    margin-bottom: 1rem;
 }
 
 .key {
@@ -60,37 +55,27 @@
 
 /* ---- Select Voicing ---- */
 .voicingPicker {
-    background-color: var(--bg-primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
-.ddWrapper {
-    background-color: #ffffff;
-    padding: 1rem;
-    border-radius: 4px;
-    box-shadow: 4px 8px 14px 0px rgba(0,0,0,0.3);
-}
 
 /* ---- Resulting Chords ---- */
 .resultingChords {
     
-    display: flex;
-    justify-content: space-evenly;
-    
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10vh, 1fr));
+    gap: .5rem;
 }
 .chordAndVoicing {
-    /* border: grey solid 1.5px;
-    border-radius: 10px;
-    padding: .5rem; */
-
+    background: transparent;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-items: center;
 }
 .chordNote {
-    /* border: grey solid 1.5px;
-    border-radius: 10px;
-    padding: .5rem; */
 
     font-weight: bold;
     font-size: 30px;
@@ -98,27 +83,85 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60px;
-    width: 60px;
+    height: 4rem;
+    width: 4rem;
+    border: grey solid 1.5px;
+    border-radius: 10px;
 }
 
 .voicing {
-    border: grey solid 1.5px;
-    border-radius: 10px;
-    padding: .5rem;
-
 
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
-    width: 50px;
 }
 
 /* Resulting Chords */
 .commonProgressions {
-    background: var(--bg-primary-color);
-    padding: 1rem;
-    border-radius: 4px;
-    box-shadow: 4px 8px 14px 0px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+}
+.progressionNum {
+    display: flex;
+    text-align: center;
+    gap: .1rem;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.progressionNum .chordNumber {
+    height: 2rem;
+    width: 2rem;
+}
+.progressionChords {
+    display: flex;
+    gap: .4rem;
+    justify-content: space-evenly;
+    margin-bottom: 1rem;
+}
+
+@media only screen and (max-width: 600px) {     
+    .chordsInKey {
+        flex-direction: column;
+    }
+    .keys {    
+        height: 22.5rem;
+        overflow: hidden;
+        overflow-y: scroll;
+    
+        
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(15vh, 1fr));
+        gap: .5rem;
+        
+    }
+    
+    .key {
+        border: grey solid 1.5px;
+        border-radius: 10px;
+        padding: .5rem;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        height: 15vh;
+        
+        font-size: 60px;
+        font-weight: bolder;
+    }
+    .left {
+        margin-right: 0;
+    }
+    .right {
+        margin-left: 0;
+    }
+
+    .voicingPicker {
+        flex-direction: column;
+        gap: .5em;
+    }
+    .voicingBtn {
+        padding: .4em 3.5em;
+    }
 }

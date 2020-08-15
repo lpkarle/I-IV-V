@@ -39,10 +39,10 @@ const chordsInMinorKey = [
 
 /* Common Chord Progressions */
 const commonMajorProg = [
-    'I IV V I', 'I V vi IV'
+    [1, 4, 5, 1], [1, 5, 6, 4], [6, 5, 4, 1]
 ];
 const commonMinorProg = [
-    'I IV V I', 'I V vi IV'
+    [1, 4, 5, 1], [1, 5, 6, 4]
 ];
 
 
