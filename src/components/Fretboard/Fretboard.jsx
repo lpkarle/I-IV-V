@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 /* import MultiSlider from '../Multipurpose/MultiSlider/MultiSlider'; */
 import styles from './Fretboard.module.css';
+import DropdownMenu from '../Multipurpose/DropdownMenu/DropdownMenu';
 
 import cx from 'classnames';
 import { getChromaticScale } from '../../logic/index';
@@ -39,78 +40,16 @@ export default function Fretboard() {
         return t;
     }
 
-    const [shownStrings, setShownStrings] = useState(3);
-
-
-
-
-
-    
-    /* const [fretboardStart, setFretboardStart] = useState(0);
-    const [fretboardEnd, setFretboardEnd] = useState(24);
-    const [displayedFrets, setDisplayedFrets] = useState(24);
-
-    
-    useEffect(() => {
-        setDisplayedFrets(Math.abs(fretboardEnd - fretboardStart));
-    }, [fretboardStart, fretboardEnd])
-
-    const sliderProps = {
-        sliderRange: { min: 0, max: 24 },
-        defaultVal: { 
-            sliderOne: fretboardStart, 
-            sliderTwo: fretboardEnd
-        }
-    }
-
-    const sliderOne = {
-        range: { min: 0, max: 24 },
-        minDistance: 0,
-        handles: [0, 20],
-        width: 300,
-        displayVal: false
-    }
-    const sliderTwo = {
-        range: { min: 0, max: 240 },
-        minDistance: 1,
-        handles: [240],
-        width: 200,
-        displayVal: true
-    }
-
-    const sliderThree = {
-        range: { min: 0, max: 240 },
-        handles: [0, 200, 400],
-        width: 400,
-        displayVal: true
-    }
-
-    function handleFretboard(value) {
-        value.sliderOne ? setFretboardStart(value.sliderOne) : setFretboardEnd(value.sliderTwo);
-    }
-    function handleFretboardStart(value) {
-        setFretboardStart(value);
-    }
-    function handleFretboardEnd(value) {
-        setFretboardEnd(value);
-    } */
-
-    /* function generateFrets() {
-              
-        let placeHolder = [];
-        
-        for (let i = fretboardStart; i < fretboardEnd; i++) {
-            placeHolder.unshift(displayedFrets - i);
-        } 
-        return placeHolder;
-    } */
-
     const handleOnChange = (e, from) => {
         if (from) {
             setFretFromTo({from: e.target.value, to: fretFromTo.to});
         } else {
             setFretFromTo({from: fretFromTo.from, to: e.target.value});
         }
+    }
+
+    const handleSelectedNote = (e) => {
+        console.log(e);
     }
 
     const generateFrets = () => {
@@ -125,11 +64,6 @@ export default function Fretboard() {
         }
         return frets;
     }
-
-    /* const stringArr = [];
-    for (let i = 0; i < strings; i++) {
-        stringArr.push(<Strings />);
-    } */
 
     /* Show and hide instead of generate */
     const styleFrets = (num) => {
@@ -167,28 +101,12 @@ export default function Fretboard() {
             
             <div>From: {fretFromTo.from}</div><div>To: {fretFromTo.to}</div>
 
-            {/* <Board>
-               
-                {generateFrets()}
-
-                {tunings[3].bassStandart.map((note, index) => (
-                    <Strings key={index} style={styleStrings(index)} />
-                ))}
-            </Board>
+           
 
             <br/>
+            
+            <DropdownMenu list={['E', 'A', 'D', 'G']} onChange={handleSelectedNote}/>
 
-            <Board>
-            {fretArray().map((index) => (
-                    <Fret key={index}>
-                        {tunings[0].guitarStandart.map((note, index) => (
-                            <Strings key={index} style={styleStrings(index)} />
-                        ))}
-                    </Fret>
-                ))}
-            </Board> */}
-
-            <br/>
             <br/>
 
             <div>

@@ -1,0 +1,37 @@
+.dropdownMenu {
+    background: var(--bg-primary-color);
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 .5rem;
+    border-radius: 10px;
+
+    position: relative;
+
+    cursor: pointer;
+}
+
+.dropdown {
+    background: transparent;
+    border-radius: 5px;
+    padding: .5rem;
+  
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+}
+.dropdownMenu a {
+    text-decoration: none;
+    color: var(--text-primary);
+    background: transparent;
+
+    margin: .5rem;
+}
+
+.dropdownMenu svg {
+    transform: rotate(0deg);
+    transition: transform var(--transition-speed);
+}
+
