@@ -3,27 +3,73 @@
 }
 
 .board {
+    position: relative;
     padding: 10px;
-    margin: 10px;
     background: burlywood;
-    height:200px;
+    min-height: auto;
     width: 100%;
-
     display: flex;
     gap: 5px;
-
     overflow: hidden;
     overflow-x: scroll;
-    
+}
+
+.boardWrapper {
+    background: rgb(56, 56, 56);
+    padding: .5rem;
+}
+
+.board2 {
+    display: flex;
+    /* gap: .2rem; */
+    padding-bottom: 1rem;
+    overflow: hidden;
+    overflow-x: scroll;
+
+}
+
+.openStrings {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .fret {
     display: flex;
-    text-align: center;
-    justify-content: center;    
-
+    flex-direction: column;
+    /* text-align: center;
+    justify-content: center;   */
+    background: rgb(170, 96, 0);
+    /* height: auto;
+    width: 20px; */
     
+    padding: .5rem 0;
 
-    border: grey solid 1px;
-    padding: 50px;
+    position: relative;
 }
+
+.fret::before {
+    content: "";
+    background: rgb(22, 22, 22);
+    position: absolute;
+    /* display: none; */
+    top: 0;
+    left: 0;
+    width: .5rem;
+    height: 100%;
+}
+
+.strings {
+    z-index: 1;
+    background: rgb(0, 0, 255);
+    margin: .5rem 0;
+    width: 7rem;
+    height: 2rem;
+    /* position: absolute;
+    transform: translateY(-30px);
+    height: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+    margin-top: 50px; */
+}
+
