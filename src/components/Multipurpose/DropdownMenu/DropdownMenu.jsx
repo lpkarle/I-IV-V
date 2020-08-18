@@ -8,14 +8,15 @@ export default function DropdownMenu({ list, onChange }) {
     const [open, setOpen] = useState(false);
 
     const handleOnItemSelect = (element) => {
+        onChange(selectedElement, element);
         setSelectedElement(element);
         setOpen(!open);
-        onChange(element);
     }
 
     const styleIcon = () => {
         return {
-            transform: open ? 'rotate(180deg)' : 'rotate(0deg)'
+            transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
+            zIndex: open ? '1' : '0',
         }
     }
 
@@ -24,13 +25,11 @@ export default function DropdownMenu({ list, onChange }) {
 
             <Dropdown label={selectedElement} open={open}>
                 {list.map((element, index) => (
-                    element !== selectedElement ?
-                        <a className={styles.ddItem}
-                            key={index} 
-                            onClick={() => handleOnItemSelect(element)}>
-                            {element}
-                        </a>
-                    : null
+                    <a className={styles.ddItem}
+                        key={index} 
+                        onClick={() => handleOnItemSelect(element)}>
+                        {element}
+                    </a>
                 ))}
             </Dropdown>
                 
@@ -41,12 +40,20 @@ export default function DropdownMenu({ list, onChange }) {
 
 function Dropdown({ children, label , onClick, open}) {
 
+    const styleDd = () => {
+        return {
+            display: open ? 'flex' : 'none'
+        }
+    }
+
     return(
         <div className={styles.dropdown}>
-            <a href="#" onClick={onClick}>
+            <a href="#" >
                 { label }
             </a>
-            {open && children}
+            <div className={styles.elementWrapper} onClick={onClick} style={styleDd()}>
+                {open && children}
+            </div>
         </div>
     );
 }

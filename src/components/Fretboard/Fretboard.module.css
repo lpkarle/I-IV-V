@@ -37,11 +37,9 @@
 .fret {
     display: flex;
     flex-direction: column;
-    /* text-align: center;
-    justify-content: center;   */
+
+
     background: rgb(170, 96, 0);
-    /* height: auto;
-    width: 20px; */
     
     padding: .5rem 0;
 
@@ -61,15 +59,47 @@
 
 .strings {
     z-index: 1;
-    background: rgb(0, 0, 255);
+    background: rgba(26, 11, 11, 0.418);
     margin: .5rem 0;
     width: 7rem;
     height: 2rem;
-    /* position: absolute;
-    transform: translateY(-30px);
-    height: 10px;
-    width: 100%;
-    margin-bottom: 15px;
-    margin-top: 50px; */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+
+
+.test {
+    display: flex;
+    align-items: center;
+}
+
+.note {
+    border: white solid 1px;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    background: rgba(0, 255, 255, 0.514);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+}
+
+.rootNote {
+    border: white solid 1px;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: .5rem;
+
+    cursor: pointer;
+}

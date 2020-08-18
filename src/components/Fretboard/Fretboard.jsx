@@ -11,8 +11,14 @@ export default function Fretboard() {
 
     // Elements for instrument toggle
     const tunings = {
-        guitarStandart: [{root: 'E', chromatic: getChromaticScale('E')}, 
-        'A', 'D', 'G', 'B', 'E'],
+        guitarStandart: [
+            getChromaticScale('E'),
+            getChromaticScale('B'),
+            getChromaticScale('G'),
+            getChromaticScale('D'), 
+            getChromaticScale('A'), 
+            getChromaticScale('E')
+        ],
         guitarDropD: ['D', 'A', 'D', 'G', 'B', 'E'],
         guitarOpenD: ['D', 'F#', 'D', 'G', 'B', 'D'] ,
 
@@ -22,14 +28,35 @@ export default function Fretboard() {
             {root: 'A', chromatic: getChromaticScale('A')}, 
             {root: 'E', chromatic: getChromaticScale('E')} 
         ],
+        guitar1Standart: [  
+            {root: 'E', chromatic: getChromaticScale('E')},
+            {root: 'B', chromatic: getChromaticScale('B')},  
+            {root: 'G', chromatic: getChromaticScale('G')},
+            {root: 'D', chromatic: getChromaticScale('D')}, 
+            {root: 'A', chromatic: getChromaticScale('A')}, 
+            {root: 'E', chromatic: getChromaticScale('E')} 
+        ],
 
         custom: [] 
     }   
 
+    const tuningGuitar = [
+        {name: 'Standart', strings: ['E', 'A', 'D', 'G', 'B', 'E']},
+        {name: 'Drop-D',   strings: ['D', 'A', 'D', 'G', 'B', 'E']},
+        {name: 'Open-D',   strings: ['D', 'F#', 'D', 'G', 'B', 'D']},
+    ];
+
+    const guitarTuningArr = ['Standart', 'Drop-D', 'Open-D'];
+    const instrumentArr = ['Bass', 'Guitar'];
+    const scales = ['Major', 'Minor', 'Pentatonic' , 'Blues'];
+
+
     const dotedFrets = [3, 5, 7, 9, 12, 15, 17, 19, 21, 24];
     const [fretFromTo, setFretFromTo] = useState({from: 1, to: 24});
 
-    const [selectedTuning, setSelectedTuning] = useState(tunings.bassStandart)
+    const [selectedTuning, setSelectedTuning] = useState(tunings.bassStandart);
+    const [tuning, setTuning] = useState();
+    const [selectedScale, setSelectedScale] = useState();
     
     //! Change!!!
     const fretArray = () => {
@@ -48,22 +75,21 @@ export default function Fretboard() {
         }
     }
 
-    const handleSelectedNote = (e) => {
-        console.log(e);
+    const handleSelectedNote = (prevNote, note) => {
+        console.log(prevNote, note);
+/*         setSelectedTuning(prevTuning => prevTuning.keys.root)*/
     }
 
-    const generateFrets = () => {
-        const frets = [];
-        for (let i = 0; i < 24; i++) {
-            frets.push(
-                <Fret 
-                    key={i} 
-                    number={(i+1)}
-                    style={styleFrets(i+1)} 
-                />);
-        }
-        return frets;
+
+    const addString = () => {
+        setSelectedTuning(tuningList => 
+            [...tuningList, {root: 'E', chromatic: getChromaticScale('E')}]
+        );
     }
+    const removeString = (index) => { 
+        setSelectedTuning(selectedTuning.filter((e)=>(e.root !== 'E')));
+    }
+
 
     /* Show and hide instead of generate */
     const styleFrets = (num) => {
@@ -73,12 +99,6 @@ export default function Fretboard() {
         }
     }
 
-    const styleStrings = (num) => {
-        console.log(num);
-        return {
-            top: `calc(45px * ${num})`,
-        }
-    }
 
     return (
         <div className="content">
@@ -103,20 +123,31 @@ export default function Fretboard() {
 
            
 
-            <br/>
-            
-            <DropdownMenu list={['E', 'A', 'D', 'G']} onChange={handleSelectedNote}/>
+            <div className={cx(styles.test)}>
+                <h3>Show: </h3>
+                <DropdownMenu list={scales} onChange={handleSelectedNote}/>
 
+            </div>
+            
+            <br/>
+
+            <div className={cx(styles.test)}>
+                <h3>Fret: </h3>
+                <DropdownMenu list={instrumentArr} onChange={() => console.log("Hallo")} />
+                <DropdownMenu list={guitarTuningArr} onChange={() => console.log("Hallo")} />
+
+            </div>
+            
             <br/>
 
             <div>
                 <button 
                     style={{padding: 5 + "px", margin: 5 + "px"}}
-                    onClick={() => console.log("add")}
+                    onClick={addString}
                 >Add String</button>
                 <button 
                     style={{padding: 5 + "px", margin: 5 + "px"}}
-                    onClick={() => console.log("remove")}
+                    onClick={() => removeString(0)}
                 >Remove String</button>
             </div>
 
@@ -128,10 +159,10 @@ export default function Fretboard() {
 
                     <div className={styles.openStrings}>
                         {selectedTuning.map((element, index) => (
-                            <RootNote key={index} note={element.root}/>
+                            <div className={styles.rootNote} key={index}>{element.root}</div>
                         ))}
-                      
                     </div>
+
                     {fretArray().map((indexFret) => (
                         <Fret key={indexFret} style={styleFrets(indexFret)}>
 
@@ -169,20 +200,7 @@ function Fret({children, number, notes, style}) {
 function Strings({ size, num, note, style}) {
     return (
         <div className={styles.strings} style={style}>
-            {note}
+            <div className={styles.note} onClick={() => console.log(note)}>{note}</div>
         </div>
-    );
-}
-
-function RootNote({ note, onChange }) {
-    return (
-        <input 
-            className={styles.rootNote} 
-            type="text" 
-            defaultValue={note} 
-            maxLength="2"
-            pattern="[A-G]"
-            onChange={onChange} 
-        />
     );
 }

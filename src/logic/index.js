@@ -6,7 +6,7 @@ const getTableNotes = () => {
 } 
 
 const getChromaticScale = (note) => {
-    let chromScale = Scale.getChromaticScale(0, note);
+    let chromScale = Scale.getChromaticScale(1, note);
     let result = [];
     for (let i = 0; i < 2; i++) {
         chromScale.forEach(element => {
