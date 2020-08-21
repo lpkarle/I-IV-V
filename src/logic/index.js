@@ -1,5 +1,6 @@
 import * as Scale from './scales';
 import * as Chords from './chords';
+import { instruments, tunings } from './tuning';
 
 const getTableNotes = () => {
     return Scale.getAllNotesForTable()
@@ -68,11 +69,50 @@ const getCircleOfFifths = () => {
     return Scale.getCircleOfFifths();
 }
 
+
+const getInstruments = () => {
+    return instruments;
+}
+
+const getTuningNames = (instrument) => {
+    const tuningNames = [];
+    const tuningByInst = tunings[instrument.toLowerCase()];
+
+    tuningByInst.forEach(element => {
+        tuningNames.push(element.name);
+    });
+    
+    return tuningNames;
+}
+
+const getTuningByName = (instrument, name) => {
+
+
+
+    const t = tunings[instrument.toLowerCase()];
+    let a = {name: '', notes: []};
+
+    t.forEach(tuning => {
+        if (tuning.name === name) {
+            a.name = name;
+            
+            tuning.notes.forEach(note => {
+                a.notes.push(getChromaticScale(note));
+            });            
+        }
+    });
+    return a;
+}
+
+
 export {
     getTableNotes,
     getChromaticScale,
     availableVoicings,
     getScaleByNote,
     getChordsInKey,
-    getCircleOfFifths
+    getCircleOfFifths,
+    getInstruments,
+    getTuningNames,
+    getTuningByName,
 }

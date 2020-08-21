@@ -1,0 +1,16 @@
+.pickNote {
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+.selectedNote {
+    border: var(--text-primary) solid 1px;
+    border-radius: 5px;
+    height: 3rem;
+    width: 3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
