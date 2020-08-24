@@ -121,6 +121,13 @@ h1 {
     text-decoration: none;
 }
 
+.svg-btn {
+    border: var(--text-primary) solid 1px;
+    border-radius: 5px;
+    width: 2rem;
+    height: 2rem;
+}
+
 /* ---- Scrollbar ---- */
 ::-webkit-scrollbar {
     width: 0.3em;

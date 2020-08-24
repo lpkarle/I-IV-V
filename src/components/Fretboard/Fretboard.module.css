@@ -9,7 +9,9 @@ h3 {
     display: flex;
     align-items: center;
 }
-
+.fretboardConfig svg {
+    padding: 5px;
+}
 
 .fretboard {
     padding-right: 20px;
@@ -30,6 +32,7 @@ h3 {
 
 
 .boardWrapper {
+    margin-top: 1rem;
     background: var(--bg-secondary-color);
     padding: .5rem;
 }
@@ -40,12 +43,13 @@ h3 {
     /* overflow-x: scroll; */
 }
 
-.board2:hover {
+/* .board2:hover {
     
-    /* overflow-x: scroll; */
-}
+    overflow-x: scroll;
+} */
 
 .openStrings {
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -61,12 +65,16 @@ h3 {
 
     position: relative;
 }
+.fret p {
+    height: 2rem;
+    font-weight: lighter;
+}
 
 .fret::before {
     content: "";
-    background: rgb(22, 22, 22);
+    background: rgb(70, 70, 70);
     position: absolute;
-    top: 0;
+    top: 2rem;
     left: 0;
     width: .3rem;
     height: 100%;
@@ -75,7 +83,7 @@ h3 {
 
 .strings {
     z-index: 1;
-    background: rgba(26, 11, 11, 0.418);
+    background: rgb(87, 87, 87);
     margin: .5rem 0;
     width: 100%;
     height: .3rem;
@@ -94,6 +102,8 @@ h3 {
     width: 2.2rem;
     height: 2.2rem;
     background: var(--bg-secondary-color);
+    
+    transform: translateX(1px);
 
     display: flex;
     align-items: center;
@@ -103,7 +113,7 @@ h3 {
 }
 
 .stringNote {
-    border: white solid 1px;
+    border: var(--text-primary) solid 1px;
     border-radius: 50%;
     width: 2rem;
     height: 2rem;

@@ -1,9 +1,15 @@
 import * as Scale from './scales';
 import * as Chords from './chords';
 import { instruments, tunings } from './tuning';
+import * as MusicConst from './musicConst'
 
+
+/* ------------ Scales ------------ */
+const getScales = () => {
+    return MusicConst.scales;
+}
 const getTableNotes = () => {
-    return Scale.getAllNotesForTable()
+    return MusicConst.notesAll;
 } 
 
 const getChromaticScale = (note) => {
@@ -70,6 +76,7 @@ const getCircleOfFifths = () => {
 }
 
 
+/* ------------ Tunings ------------ */
 const getInstruments = () => {
     return instruments;
 }
@@ -85,9 +92,13 @@ const getTuningNames = (instrument) => {
     return tuningNames;
 }
 
-const getTuningByName = (instrument, name) => {
-
-
+/**
+ * 
+ * @param {String} instrument 
+ * @param {String} name 
+ * @param {Boolean} stringOrder 
+ */
+const getTuningByName = (instrument, name, stringOrder) => {
 
     const t = tunings[instrument.toLowerCase()];
     let a = {name: '', notes: []};
@@ -97,7 +108,11 @@ const getTuningByName = (instrument, name) => {
             a.name = name;
             
             tuning.notes.forEach(note => {
-                a.notes.push(getChromaticScale(note));
+                if (stringOrder) {
+                    a.notes.push(getChromaticScale(note));
+                } else {
+                    a.notes.unshift(getChromaticScale(note));
+                }
             });            
         }
     });
@@ -106,6 +121,7 @@ const getTuningByName = (instrument, name) => {
 
 
 export {
+    getScales,
     getTableNotes,
     getChromaticScale,
     availableVoicings,

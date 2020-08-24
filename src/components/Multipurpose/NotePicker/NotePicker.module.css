@@ -1,10 +1,10 @@
-.pickNote {
+.notePicker {
     display: flex;
     justify-content: space-evenly;
     
 }
-.selectedNote {
-    border: var(--text-primary) solid 1px;
+.notePickerElement {
+    border: var(--accent-color) solid 2px;
     border-radius: 5px;
     height: 3rem;
     width: 3rem;
@@ -13,4 +13,12 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+}
+
+.accidentals {
+    display: flex;
+
+}
+.accidentals .notePickerElement {
+    margin: 0 .5rem;
 }

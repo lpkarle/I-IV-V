@@ -1,23 +1,12 @@
-import {notes, notesAll, enharmonicNotes, theoreticalScales} from './musicConstDef';
+import {notes, notesAll, enharmonicNotes, theoreticalScales} from './musicConst.js';
+import * as MusicConst from './musicConst.js';
 
+const scales = ['Major', 'Minor'];
+const THEORETICAL_PLACEHOLDER = ['-', '-', '-', '-', '-', '-', '-'];
 
 // 2 whole step, 1 half
 const stepsMajor = [2, 2, 1, 2, 2, 2, 1];
 const stepsMinor = [2, 1, 2, 2, 1, 2, 2];
-
-
-
-// without flats or sharps
-const musicalAlphabet = 'ABCDEFG'.split('');
-
-const SHARPSYM = '♯';
-const FLATSYM = '♭';
-// const DOUBLESHARP = '𝄪';
-// const DOUBLEFLAT = '𝄫';
-
-// ! placeholder for theoratical scales 
-const THEORETICAL_PLACEHOLDER = ['𝄪', '𝄪', '𝄪', '𝄪', '𝄪', '𝄪', '𝄪'];
-
 
 /* ------------ Helper Functions ------------ */
 
@@ -33,8 +22,7 @@ const getCurrentNoteIndex = (note) => {
         
         let indexNatural = notes.indexOf(note.substring(0, 1));
 
-        // A is a problem area because it is at the beginning and the flat at the end
-        if (note.includes(FLATSYM)) {
+        if (note.includes(MusicConst.FLATSYM)) {
             if (indexNatural === 0) {
                 return notes.indexOf(notes.length-1);
             } else {
@@ -54,10 +42,15 @@ const getCurrentNoteIndex = (note) => {
  * @param {String} note2 
  */
 const getNoteDistance = (note1, note2) => {
-    return Math.abs(musicalAlphabet.indexOf(note1) - musicalAlphabet.indexOf(note2));
+    return Math.abs(MusicConst.naturalNotes.indexOf(note1) - 
+                    MusicConst.naturalNotes.indexOf(note2));
 }
 
 
+/**
+ * 
+ * @param {String} scale 
+ */
 const clearScaleFromAccidents = (scale) => {
     
     let tmpScale = [];      // ! evtl noch ändern
@@ -93,10 +86,10 @@ const clearScaleFromAccidents = (scale) => {
             noteDistance2 = getNoteDistance(natPredecessor, successor[5]);
            
             if (noteDistance1 === 1 || noteDistance1 === 6) {
-                tmpScale.push(successor[0] + SHARPSYM); 
+                tmpScale.push(successor[0] + MusicConst.SHARPSYM); 
             }
             if (noteDistance2 === 1 || noteDistance2 === 6) {
-                tmpScale.push(successor[5] + FLATSYM);
+                tmpScale.push(successor[5] + MusicConst.FLATSYM);
             } 
         } else {    //! Fall 2: Einzelne Note C, D....
             
@@ -127,20 +120,6 @@ const scaleIsTheoratical = (type, note) => {
 
 
 /* ------------ Export Functions ------------ */
-
-/**
- * Returns just the unformatted Notes from notes.js
- */
-const getAllNotes = () => {
-    return notes;
-}
-
-/**
- * Returns every possible note/key from notes.js
- */
-const getAllNotesForTable = () => {
-    return notesAll;
-}
 
 /**
  * Returns the chromatic scale with the obtions: 
@@ -188,6 +167,12 @@ const getChromaticScale = (accidental, note) => {
 }
 
 
+/**
+ * Returns a 7 note scale by note and voicing
+ * 
+ * @param {String} type 
+ * @param {String} note 
+ */
 const getHeptatonicScale = (type, note) => {
 
     if (scaleIsTheoratical(type, note))
@@ -261,10 +246,6 @@ const getCircleOfFifths = () => {
 
 
 export {
-
-
-    getAllNotes, 
-    getAllNotesForTable,    // ! Name
     getChromaticScale,
     getHeptatonicScale,
 

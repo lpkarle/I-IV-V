@@ -8,7 +8,7 @@ export default function DropdownMenu({ list, onChange }) {
     const [open, setOpen] = useState(false);
 
     const handleOnItemSelect = (element) => {
-        onChange(selectedElement, element);
+        onChange(element);
         setSelectedElement(element);
         setOpen(!open);
     }

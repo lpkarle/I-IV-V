@@ -36,7 +36,6 @@ export default function ChordsInKey() {
 
     const [chords, setChords] = useState(getChordsInKey(selectedKey, selectedVoicing).chords);
     const [progressions, setProgressions] = useState(getChordsInKey(selectedKey, selectedVoicing).res);
-    console.log(progressions);
     const [dropdownItem, setDropdownItem] = useState(undefined);
 
     function handleDropdown(index) {
@@ -214,7 +213,6 @@ function CommonProgressions({ children }) {
 }
 
 function Progression({ progression, style }) {
-    console.log(progression);
     return (
         <div className={styles.commonProgressions}>
             <div className={styles.progression}>
