@@ -12,8 +12,8 @@ const getTableNotes = () => {
     return MusicConst.notesAll;
 } 
 
-const getChromaticScale = (note) => {
-    let chromScale = Scale.getChromaticScale(1, note);
+const getChromaticScale = (type, note) => {
+    let chromScale = Scale.getChromaticScale(type, note);
     let result = [];
     for (let i = 0; i < 2; i++) {
         chromScale.forEach(element => {
@@ -43,8 +43,6 @@ const getChordsInKey = (note, voicing) => {
         default:
             break;
     }
-
-    /* console.log(progression, chords); */
     
     progression.forEach(prog => {
         let tmp = [];
@@ -53,10 +51,6 @@ const getChordsInKey = (note, voicing) => {
         });
         res.push(tmp);
     });
-    
-    
-    
-    /* console.log(res); */
 
     return {
         scale,
@@ -68,6 +62,21 @@ const getChordsInKey = (note, voicing) => {
 const availableVoicings = ['Major', 'Minor'] //! not the right place
 const getScaleByNote = (voicing, note) => {
     return Scale.getHeptatonicScale(voicing, note);
+}
+
+export const getScale = (voicing, note) => {
+
+    let scale = {intervals: [], notes: []};
+    const scales = Scale.scales;
+
+    scales.forEach(element => {
+        if (element.name === voicing) {
+            scale.intervals = element.intervals;
+            scale.notes = Scale.getHeptatonicScale(voicing.toLowerCase(), note);
+            return;
+        } 
+    });
+    return scale;
 }
 
 
@@ -97,8 +106,18 @@ const getTuningNames = (instrument) => {
  * @param {String} instrument 
  * @param {String} name 
  * @param {Boolean} stringOrder 
+ * @param {String} type
  */
-const getTuningByName = (instrument, name, stringOrder) => {
+const getTuningByName = (instrument, name, stringOrder, type) => {
+
+    let i = 0;
+    if (type.length > 1) { 
+        if (type[1] === '♯') {
+            i = 1;
+        } else {
+            i = 2;
+        }
+    }
 
     const t = tunings[instrument.toLowerCase()];
     let a = {name: '', notes: []};
@@ -109,14 +128,38 @@ const getTuningByName = (instrument, name, stringOrder) => {
             
             tuning.notes.forEach(note => {
                 if (stringOrder) {
-                    a.notes.push(getChromaticScale(note));
+                    a.notes.push(getChromaticScale(i, note));
                 } else {
-                    a.notes.unshift(getChromaticScale(note));
+                    a.notes.unshift(getChromaticScale(i, note));
                 }
             });            
         }
     });
     return a;
+}
+
+/* ------------ Chords ------------ */
+const getChords = () => {
+    return Chords.availableChords;
+}
+export const getChord = (voicing, note) => {
+
+    let chord = {intervals: [], notes: []};
+    const chords = Chords.chords;
+
+    chords.forEach(element => {
+        if (element.name === voicing) {
+            chord.intervals = element.intervals;
+            chord.notes = Chords.getChordNotes(voicing, note);
+            return;
+        } 
+    });
+
+    return chord;
+}
+
+const getTriad = (voicing, note) => {
+    return Chords.getTriad(voicing, note);
 }
 
 
@@ -131,4 +174,7 @@ export {
     getInstruments,
     getTuningNames,
     getTuningByName,
+
+    getChords,
+    getTriad,
 }

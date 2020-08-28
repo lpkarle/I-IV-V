@@ -4,7 +4,8 @@ import cx from 'classnames';
 import styles from './ChordsInKey.module.css';
 import Dropdown from '../Multipurpose/Dropdown/Dropdown';
 
-import { getTableNotes, availableVoicings, getScaleByNote, getChordsInKey, getCommonProgressions } from '../../logic/';
+import { getTableNotes, availableVoicings, getChordsInKey } from '../../logic/';
+import NotePicker from '../Multipurpose/NotePicker/NotePicker';
 
 export default function ChordsInKey() {
 
@@ -21,14 +22,6 @@ export default function ChordsInKey() {
     }
 
 
-
-    /*
-    const [selectedKey, setSelectedKey] = useState('A');
-    const [selectedVoicing, setSelectedVoicing] = useState('major');
-    const [scale, setScale] = useState(getScaleByNote(selectedVoicing, selectedKey));
-    const [chords, setChords] = useState(getChordsInKey(selectedVoicing));
-    const [progressions, setProgressions] = useState(getCommonProgressions(selectedVoicing, chords));
- */
     /* Selectable UI Components */
     const [selectedKey, setSelectedKey] = useState('A');
     const [selectedVoicing, setSelectedVoicing] = useState('major');
@@ -97,6 +90,11 @@ export default function ChordsInKey() {
             <h1>Chords in a Key</h1>
             <div className={styles.chordsInKey}>
                 <div className={styles.left}>
+
+                    <NotePicker 
+                        selectedNote={selectedKey} 
+                        onClick={(note) => setSelectedKey(note)}/>
+
                     <KeyPicker>
                         {allKeys.map((keyName, index) => (
                             <Key keyName={keyName}

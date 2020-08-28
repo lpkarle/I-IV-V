@@ -2,49 +2,90 @@ import React, { useState, useEffect } from 'react';
 import styles from './Fretboard.module.css';
 import cx from 'classnames';
 
-/* import MultiSlider from '../Multipurpose/MultiSlider/MultiSlider'; */
-import DropdownMenu from '../Multipurpose/DropdownMenu/DropdownMenu';
-import NotePicker from '../Multipurpose/NotePicker/NotePicker';
+import { DropdownMenu, NotePicker, NumberPicker, Checkbox, RadioButtonGroup } from '../Multipurpose/';
 
-import { getScales, getChromaticScale, getScaleByNote } from '../../logic/index';
-import { getTuningNames, getInstruments, getTuningByName } from '../../logic/index';
-import { ReactComponent as AddIcon } from '../../images/svgs/add-24px.svg';
-import { ReactComponent as RemoveIcon } from '../../images/svgs/remove-24px.svg';
-import { ReactComponent as MirrorVIcon } from '../../images/svgs/mirror-vertical.svg';
-import { ReactComponent as MirrorHIcon } from '../../images/svgs/mirror-horizontal.svg';
+import { getScales,getChord, getChords, getScale,getChromaticScale, getScaleByNote } from '../../logic/index';
+import { getTuningNames, getInstruments, getTuningByName, getTriad } from '../../logic/index';
 
+import { AddIcon, RemoveIcon, MirrorVIcon, MirrorHIcon } from '../../images/svgs';
 
 export default function Fretboard() {
   
+    /* ---- Fretboard ---- */
+    const FRETBOARDMIN = 1,
+          FRETBOARDMAX = 24;
+
     const [fretFromTo, setFretFromTo] = useState({from: 1, to: 12});
     
     const [fretboardOrientation, setFretboardOrientation] = useState({horizontal: false, vertical: true});
-
+    
     const instruments = getInstruments();   // List for Dropdown
     const [instrument, setInstrument] = useState(instruments[0]);
     const [defaultTunings, setDefaultTunings] = useState(getTuningNames(instrument));
-    const [tuning, setTuning] = useState(getTuningByName(
-        instrument, getTuningNames(instrument)[0], fretboardOrientation.horizontal));
     
-    /* Selected Note and Scale/Chord/... */
+    
+    /* ---- Note Selction ---- */
     const [selectedNote, setSelectedNote] = useState('C');
-    const [selectedVoicing, setSelectedVoicing] = useState('major');
-    const [selectedScale, setSelectedScale] = useState(getScaleByNote(selectedVoicing, selectedNote));
+    const [selectedVoicing, setSelectedVoicing] = useState('Major');
+
+    /* ---- Fretboard-Config ---- */
+    const [tuning, setTuning] = useState(getTuningByName(
+        instrument, getTuningNames(instrument)[0], fretboardOrientation.horizontal, selectedNote));
+    const [showIntervals, setShowIntervals] = useState(true);
+    const [showRoot, setShowRoot] = useState(true);
+    const [showNone, setShowNone] = useState(false);
+
+
+    const [scale, setScale] = useState({
+        ddElements: getScales(),
+        scale: getScale(selectedVoicing, selectedNote)
+    });
+    const [chord, setChord] = useState({
+        ddElements: getChords(),
+        chord: getChord(selectedVoicing, selectedNote)
+    });
+    
+    const [ddElements, setDdElements] = useState(scale.ddElements);
+    const [highlightedNotes, setHighlightedNotes] = useState(scale.scale);
+
+
+    const [selectedScale, setSelectedScale] = useState(getScale(selectedVoicing, selectedNote)); 
+    
+
+
+    /* ---- Defines Style/Highlited Notes */
+    const buttonGroupRename = ['Scale', 'Chord']; 
+    // bei Sclae -> alle möglichen Scales bzw chords
+    const [selectedChordOrScaleEl, setSelectedChordOrScaleEl] = useState(buttonGroupRename[0]);
+    
+ 
+    
+    useEffect(() => {
+        console.log("Oben");
+        setTuning(
+            getTuningByName(instrument, tuning.name, fretboardOrientation.horizontal, selectedNote)
+        );
+    }, [instrument, defaultTunings, fretboardOrientation, selectedNote])
 
     useEffect(() => {
-        setTuning(getTuningByName(instrument, tuning.name, fretboardOrientation.horizontal));
-    }, [instrument, defaultTunings, fretboardOrientation])
+       
+        setScale(prevScale => {
+            return {...prevScale, scale: getScale(selectedVoicing, selectedNote)}
+        });
+        setChord(prevChord => {
+            return {...prevChord, chord: getChord(selectedVoicing, selectedNote)}
+        });
+    }, [selectedNote, selectedVoicing, selectedChordOrScaleEl]);
 
     useEffect(() => {
-        setSelectedScale(getScaleByNote(selectedVoicing, selectedNote));
-    }, [selectedNote, selectedVoicing]);
-
-
+        setDdElements(selectedChordOrScaleEl === 'Scale' ? scale.ddElements : chord.ddElements);
+        setHighlightedNotes(selectedChordOrScaleEl === 'Scale' ? scale.scale : chord.chord );
+    }, [selectedChordOrScaleEl,scale,chord]);
     
     //! Change!!!
     const fretArray = () => {
         let t = [];
-        for (let i = 0; i<=24; i++) {
+        for (let i = 0; i <= FRETBOARDMAX; i++) {
             if (fretboardOrientation.vertical) {
                 t.push(i);
             } else {
@@ -52,14 +93,6 @@ export default function Fretboard() {
             }
         }
         return t;
-    }
-
-    const handleOnChange = (e, from) => {
-        if (from) {
-            setFretFromTo({from: e.target.value, to: fretFromTo.to});
-        } else {
-            setFretFromTo({from: fretFromTo.from, to: e.target.value});
-        }
     }
 
     const addString = () => {
@@ -85,21 +118,35 @@ export default function Fretboard() {
     const changeHorizontalOrientation = () => {
         setFretboardOrientation(prevOrien => {
             return {...prevOrien, horizontal: !prevOrien.horizontal}
-        })
+        });
     }
 
     const changeVerticalOrientation = () => {
         setFretboardOrientation(prevOrien => {
             return {...prevOrien, vertical: !prevOrien.vertical}
-        })
+        });
     }
 
     const changeTuning = (tun) => {
-        setTuning(getTuningByName(instrument, tun, fretboardOrientation.horizontal));
+        setTuning(getTuningByName(instrument, tun, fretboardOrientation.horizontal, selectedNote));
     }
 
-    const changeStringNote = () => {
-        console.log("Change String Note");
+    const changeStringNote = (index, newNote) => {
+        const changed = tuning.notes;
+        changed[index] = getChromaticScale(newNote);
+        setTuning(prevTuning => {
+            return {...prevTuning, notes: changed}
+        });
+    }
+
+    const handlePrint = () => {
+        /* Open a new Tab for that */
+        const printContent = document.querySelector(`.${styles.boardWrapper}`).innerHTML;
+        const originalContent = document.body.innerHTML;
+
+        document.body.innerHTML = printContent;
+        window.print();
+        document.body.innerHTML = originalContent;
     }
 
     /* Show and hide instead of generate */
@@ -111,7 +158,8 @@ export default function Fretboard() {
     }
 
     const styleNotes = (note) => {
-        if (selectedScale[0] === note) {
+        //console.log("style", note, selectedScale.notes[0]);
+        if (highlightedNotes.notes[0] === note) {
             return { 
                 background: 'royalblue',
                 color: "var(--bg-primary-color)",
@@ -119,9 +167,9 @@ export default function Fretboard() {
                 border: "none"
             }
         }
-        if (selectedScale.includes(note)) {
+        if (highlightedNotes.notes.includes(note)) {
             return { 
-                background: 'tomato',
+                background: 'rgba(238, 238, 238)',
                 color: "var(--bg-primary-color)",
                 fontWeight: "bold",
                 border: "none"
@@ -133,56 +181,83 @@ export default function Fretboard() {
     return (
         <div className="content">
 
-            <div>
-                <h3>How many frets?</h3>
-                <input 
-                    type="number" 
-                    defaultValue="1" 
-                    min="1" 
-                    max={(fretFromTo.to - 1)}
-                    onChange={(e) => handleOnChange(e, true)}/>
-                <input 
-                    type="number" 
-                    defaultValue="24" 
-                    min={(fretFromTo.from + 1)} 
-                    max="24"
-                    onChange={(e) => handleOnChange(e, false)}/>
-            </div>
-            
-            <div>From: {fretFromTo.from}</div><div>To: {fretFromTo.to}</div>
-
             <h3>Note Config:</h3>
             <NotePicker 
                 selectedNote={selectedNote} 
                 onClick={(note) => {setSelectedNote(note)}}
-            />
+            />          
+
+            <h3>Result</h3>
+
+            <div className={cx("card", styles.resultScale)}>
+                <h3>{selectedNote}</h3>
+                <h3>{highlightedNotes.notes}</h3>
+                <h3>{highlightedNotes.intervals}</h3>
+            </div>
+
 
             <h3>Select Sth:</h3>
             <div className={cx("card", styles.sth)}>
                 <DropdownMenu 
-                    list={getScales()} 
-                    onChange={(voicing) => setSelectedVoicing(voicing.toLowerCase())} />
+                    list={ddElements} 
+                    onChange={(voicing) => setSelectedVoicing(voicing)} />
             
-            
+    
+
+                <RadioButtonGroup 
+                    buttonList={{groupName: 'scaleChord', btns: buttonGroupRename}} 
+                    onChange={(el)=> setSelectedChordOrScaleEl(el)} />
+
+                <div className={styles.cb}>
+                    <Checkbox 
+                        label={'Intervals'} 
+                        checked={showIntervals} 
+                        onChange={()=> {setShowIntervals(!showIntervals); setShowNone(false)}}/>
+                    <Checkbox 
+                        label={'None'} 
+                        checked={showNone} 
+                        onChange={()=> {setShowNone(!showNone); setShowRoot(false); setShowIntervals(false)}}/>
+                    <Checkbox 
+                        label={'Root'} 
+                        checked={showRoot} 
+                        onChange={()=> {setShowRoot(!showRoot); setShowNone(false)}}/>
+                </div>
+
             </div>
 
             <h3>Fretboard Config:</h3>
             <div className={cx("card", styles.fretboardConfig)}>
                 <DropdownMenu list={instruments} onChange={changeInstrument} />
                 <DropdownMenu list={defaultTunings} onChange={changeTuning} />
+
+                <NumberPicker 
+                    defaultNum={fretFromTo.from} 
+                    range={{min: FRETBOARDMIN, max: fretFromTo.to}}
+                    onClick={(num) => setFretFromTo(prev => { return {...prev, from: num} })}
+                    from={true}
+                />
+                <NumberPicker 
+                    defaultNum={fretFromTo.to} 
+                    range={{min: fretFromTo.from, max: FRETBOARDMAX}}
+                    onClick={(num) => setFretFromTo(prev => { return {...prev, to: num} })}
+                    from={false}
+                />
             
                 <AddIcon className="svg-btn" onClick={addString} />
                 <RemoveIcon className="svg-btn" onClick={() => removeString(0)} />
                 
                 <MirrorHIcon className="svg-btn" onClick={changeHorizontalOrientation} />
                 <MirrorVIcon className="svg-btn" onClick={changeVerticalOrientation} />
+            
+                
             </div>
+
         
 
             <div className={cx("card", styles.boardWrapper)}>
                 <div className={styles.board2}>
 
-                    <StringNotes 
+                    <OpenStrings 
                         orientation={fretboardOrientation.vertical}
                         tuning={tuning.notes}
                         onClick={changeStringNote}
@@ -204,19 +279,21 @@ export default function Fretboard() {
                         </Fret>
                     ))}
 
-                    <StringNotes 
+                    <OpenStrings 
                         orientation={!fretboardOrientation.vertical}
                         tuning={tuning.notes}
                         onClick={changeStringNote} 
                         style={styleNotes} />
                 </div>
             </div>
+            <br/>
+            <button onClick={handlePrint}>Print</button>
         </div>
     )
 }
 
 
-function StringNotes({orientation, style, tuning, onClick}) {
+function OpenStrings({orientation, style, tuning, onClick}) {
     return (
         <>
             {orientation ? 
@@ -225,7 +302,7 @@ function StringNotes({orientation, style, tuning, onClick}) {
                         <div 
                             style={style(element[0])}
                             className={styles.stringNote} 
-                            onClick={onClick} 
+                            onClick={() => onClick(index, 'C')} 
                             key={index}
                         >
                             {element[0]}
@@ -260,3 +337,27 @@ function Strings({ note, style}) {
         </div>
     );
 }
+
+/* function NoteAndInterval({ obj }) {
+
+    const t = () => {
+        let t = {};
+
+        for (let i = 0; i < obj.intervals.lenght; i++) {
+
+        }
+
+        return t;
+    }
+
+    return (
+        <div className={cx("card", styles.noteAndInterval)}>
+            {obj.map((element, index) => (
+                <>
+                    <div>{elemt.notes[index]}</div>
+                    <div>{elemt.notes[index]}</div>
+                </>
+            ))}
+        </div>
+    );
+} */

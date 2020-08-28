@@ -1,7 +1,14 @@
 import {notes, notesAll, enharmonicNotes, theoreticalScales} from './musicConst.js';
 import * as MusicConst from './musicConst.js';
 
-const scales = ['Major', 'Minor'];
+export const availableScales = ['Major', 'Minor'];
+export const scales = [
+    {name: 'Major', intervals: ['P1', 'M2', 'M3', 'P4', 'P5', 'M6', 'M7', 'P8'], steps: [0, 2, 2, 1, 2, 2, 2, 1]},
+    {name: 'Minor', intervals: ['P1', 'M2', 'm3', 'P4', 'P5', 'm6', 'm7', 'P8'], steps: [0, 2, 1, 2, 2, 1, 2, 2]},
+
+];
+
+const minorScale = ['P1', 'M2', 'm3', 'P4', 'P5', 'm6', 'm7', 'P8'];
 const THEORETICAL_PLACEHOLDER = ['-', '-', '-', '-', '-', '-', '-'];
 
 // 2 whole step, 1 half
@@ -83,13 +90,13 @@ const clearScaleFromAccidents = (scale) => {
         // initialisiere Distance2 wenn die länge von successor > 1     //! Fall 1: Nachvolger > 1
         if (successor.length > 1) {
            
-            noteDistance2 = getNoteDistance(natPredecessor, successor[5]);
+            noteDistance2 = getNoteDistance(natPredecessor, successor[3]);
            
             if (noteDistance1 === 1 || noteDistance1 === 6) {
                 tmpScale.push(successor[0] + MusicConst.SHARPSYM); 
             }
             if (noteDistance2 === 1 || noteDistance2 === 6) {
-                tmpScale.push(successor[5] + MusicConst.FLATSYM);
+                tmpScale.push(successor[3] + MusicConst.FLATSYM);
             } 
         } else {    //! Fall 2: Einzelne Note C, D....
             
@@ -158,7 +165,7 @@ const getChromaticScale = (accidental, note) => {
             if (accidental === 1) {
                 chromScale[i] = noteToCut.substr(0, 2);
             } else {
-                chromScale[i] = noteToCut.substr(5, 7);
+                chromScale[i] = noteToCut.substr(3, 5);
             }
         }
     }
@@ -248,7 +255,6 @@ const getCircleOfFifths = () => {
 export {
     getChromaticScale,
     getHeptatonicScale,
-
     getCircleOfFifths,
 
 }

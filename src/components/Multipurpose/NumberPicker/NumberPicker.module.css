@@ -1,0 +1,19 @@
+.numberPicker {
+    background: rgba(238, 238, 238, 0.527);
+    border-radius: 20px;
+    margin: 0 5px;
+}
+.numberPicker svg {
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    fill: var(--text-primary);
+}
+.numberPicker svg:first-child {
+    transform: rotate(180deg);
+}
+.numberPicker div {
+    padding: 10px 0;
+    background-color: rgb(70, 70, 70);
+    user-select: none;
+}

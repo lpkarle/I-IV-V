@@ -18,7 +18,7 @@ export default function NotePicker({selectedNote, onClick}) {
         if (item === selectedNote[0] || item === selAccidental) {
             return { 
                 background: "var(--accent-color)",
-                color: "var(--bg-primary-color)",
+                fontSize: "25px",
                 fontWeight: "bold" 
             }
         }

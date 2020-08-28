@@ -1,32 +1,55 @@
+import { getHeptatonicScale } from './scales';
 
+const availableChords = ['Major', 'Minor', '7th'];
 
-/* const chordsInMajorKey = {
-    firChord: ['I', 'major'],
-    secChord: ['ii', 'minor'],
-    thiChord: ['iii', 'minor'],
-    fouChord: ['IV', 'major'],
-    fifChord: ['V', 'major'],
-    sixChord: ['vi', 'minor'],
-    sevChord: ['vii°', 'dim']
+const chords = [
+    {name: 'Major', intervals: ['P1', 'M3', 'P5'], steps: [1, 3, 5]},
+    {name: 'Minor', intervals: ['P1', 'm3', 'P5'], steps: [1, 3, 5]},
+    {name: '7th', intervals: ['P1', 'm3', 'P5'], steps: [1, 3, 5]},
+];
+
+const triads = [
+    {name: 'Major', intervals: ['P1', 'M3', 'P5'], steps: [1, 3, 5]},
+    {name: 'Minor', intervals: ['P1', 'm3', 'P5'], steps: [1, 3, 5]},
+    {name: '7th', intervals: ['P1', 'm3', 'P5'], steps: [1, 3, 5]},
+];
+
+const getTriad = (voicing, note) => {
+    const triad = {intervals: [], notes: []};
+
+    switch (voicing) {
+        case 'Major': 
+
+    }
+    triads.forEach(element => {
+        if (voicing === element.name) {
+            triad.intervals = element.intervals;
+
+            const scale = getHeptatonicScale(voicing.toLowerCase(), note);
+            element.steps.forEach(index => {
+                triad.notes.push(scale[index-1]);    
+            });
+        }
+    });
+    return triad;
 }
-const chordsInMinorKey = {
-    firChord: ['i', 'minor'],
-    secChord: ['ii°', 'dim'],
-    thiChord: ['III', 'major'],
-    fouChord: ['iv', 'minor'],
-    fifChord: ['v', 'minor'],
-    sixChord: ['VI', 'major'],
-    sevChord: ['VII', 'major']
-} */
-/* const chordsInSeventhKey = { // ['I7', 'ii7', 'iii7', 'IV7', 'Vdom7', 'vi7', 'vii7b5'];
-    firChord: ['i', 'minor'],
-    secChord: ['ii°', 'dim'],
-    thiChord: ['III', 'major'],
-    fouChord: ['iv', 'minor'],
-    fifChord: ['v', 'minor'],
-    sixChord: ['VI', 'major'],
-    sevChord: ['VII', 'major']
-} */
+
+export const getChordNotes = (voicing, note) => {
+    let chordNotes = [];
+    const parentScale = getHeptatonicScale(voicing.toLowerCase(), note);
+    
+    chords.forEach(element => {
+
+        if (voicing === element.name) {
+            
+            element.steps.forEach(index => {
+                chordNotes.push(parentScale[index-1]);    
+            });
+            return;
+        }
+    });
+    return chordNotes;
+}
 
 const chordsInMajorKey = [
     ['I', 'major'], ['ii', 'minor'], ['iii', 'minor'], ['IV', 'major'], 
@@ -47,9 +70,13 @@ const commonMinorProg = [
 
 
 export {
+    chords,
+    availableChords,
     chordsInMajorKey,
     chordsInMinorKey,
 
     commonMajorProg,
-    commonMinorProg
+    commonMinorProg,
+
+    getTriad,
 }

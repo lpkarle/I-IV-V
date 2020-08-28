@@ -1,0 +1,49 @@
+.rbGroup {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.rb {
+    display: inline-block;
+    vertical-align: middle;
+    display: flex;
+    position: relative;
+    cursor: pointer;
+}
+
+.rb p {
+    padding-left: 25px;
+}
+
+.rb input[type="radio"] {
+    display: none;
+}
+
+.rb span {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    border: 3px solid var(--accent-color);
+    display: block;
+    position: absolute;
+
+}
+
+.rb span::after {
+    content: "";
+    height: 8px;
+    width: 8px;
+    background: var(--accent-color);
+    display: block;
+    position: absolute;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 300ms ease-in-out;
+}
+.rb input[type="radio"]:checked ~ span::after {
+    transform: translate(-50%, -50%) scale(1);
+}

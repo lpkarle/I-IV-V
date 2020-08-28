@@ -1,14 +1,9 @@
 import * as Scale from '../scales';
 
-test('should get all notes as array from notes.js', () => {
-    expect(Scale.getAllNotes()).toStrictEqual(['A', 'A♯ / B♭', 'B', 'C', 'C♯ / D♭', 'D', 
-                                               'D♯ / E♭', 'E', 'F', 'F♯ / G♭', 'G', 'G♯ / A♭']);
-});
-
 // A-Chomatic
 test('should get the A-Chromatic-Scale without cutted accidentals', () => {
-    expect(Scale.getChromaticScale(0, 'A')).toStrictEqual(['A', 'A♯ / B♭', 'B', 'C', 'C♯ / D♭', 'D', 
-                                                           'D♯ / E♭', 'E', 'F', 'F♯ / G♭', 'G', 'G♯ / A♭']);
+    expect(Scale.getChromaticScale(0, 'A')).toStrictEqual(['A', 'A♯/B♭', 'B', 'C', 'C♯/D♭', 'D', 
+                                                           'D♯/E♭', 'E', 'F', 'F♯/G♭', 'G', 'G♯/A♭']);
 });
 test('should get the A-Chromatic-Scale with cutted bs', () => {
     expect(Scale.getChromaticScale(1, 'A')).toStrictEqual(['A', 'A♯', 'B', 'C', 'C♯', 'D', 
