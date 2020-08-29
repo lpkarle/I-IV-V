@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from './NotePicker.module.css';
 import cx from 'classnames';
 import { naturalNotes, accidentals } from '../../../logic/musicConst.js';
 
 
-export default function NotePicker({selectedNote, onClick}) {
+export default function NotePicker({ onClick }) {
 
-    const [selNote, setSelNote] = useState(selectedNote);
+    const [selNote, setSelNote] = useState(naturalNotes[0]);
     const [selAccidental, setSelAccidental] = useState(accidentals[0]);
 
-    useEffect(() => {
-        const n = selAccidental === '♮' ? selNote : (selNote + selAccidental);
-        onClick(n);
-    }, [selNote, selAccidental])
-
     const styleSelectedItem = (item) => {
-        if (item === selectedNote[0] || item === selAccidental) {
+        if (item === selNote[0] || item === selAccidental) {
             return { 
                 background: "var(--accent-color)",
                 fontSize: "25px",
@@ -23,7 +18,7 @@ export default function NotePicker({selectedNote, onClick}) {
             }
         }
     }
-
+    
     return (
         <div className={cx("card", styles.notePicker)}>
             {naturalNotes.map((note, index) => (
@@ -31,7 +26,9 @@ export default function NotePicker({selectedNote, onClick}) {
                         key={index} 
                         className={styles.notePickerElement}
                         style={styleSelectedItem(note)}
-                        onClick={() => setSelNote(note)} >
+                        onClick={() => {
+                            onClick((note + (selAccidental === accidentals[0] ? '' : selAccidental))); 
+                            setSelNote(note)}}>
                         {note}
                     </div>
             ))}
@@ -41,7 +38,9 @@ export default function NotePicker({selectedNote, onClick}) {
                         key={index}
                         className={styles.notePickerElement} 
                         style={styleSelectedItem(accidental)} 
-                        onClick={() => setSelAccidental(accidental)} >
+                        onClick={() => {
+                            onClick((selNote + (accidental === accidentals[0] ? '' : accidental))); 
+                            setSelAccidental(accidental)}}>
                         {accidental}
                     </div>
                 ))}

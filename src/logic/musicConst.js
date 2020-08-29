@@ -9,9 +9,6 @@ const naturalNotes = 'CDEFGAB'.split('');
 
 const notes = ['C', 'C♯/D♭', 'D', 'D♯/E♭', 'E', 'F', 'F♯/G♭', 
                'G', 'G♯/A♭', 'A', 'A♯/B♭', 'B'];
-               
-const noteskopie = ['C', 'C♯ / D♭', 'D', 'D♯ / E♭', 'E', 'F', 'F♯ / G♭', 
-               'G', 'G♯ / A♭', 'A', 'A♯ / B♭', 'B'];
 
 const notesAll = ['C', 'C♯', 'D♭', 'D', 'D♯', 'E♭', 'E', 'F', 'F♯', 
                   'G♭', 'G', 'G♯', 'A♭', 'A', 'A♯', 'B♭', 'B', 'C♭'];
@@ -64,20 +61,6 @@ const intervals = [
     {name: 'Perfect Octave', interval: 'P8', },
 ];
 
-const scales = ['Major', 'Minor'];
-
-const majorScale = {intervals: ['P1', 'M2', 'M3', 'P4', 'P5', 'M6', 'M7', 'M8'],
-                    steps: [0, 2, 2, 1, 2, 2, 2, 1]};
-const minorScale = ['P1', 'M2', 'm3', 'P4', 'P5', 'm6', 'm7', 'M8'];
-const majorPentaScale = [];
-const minorPentatonicScale = [];
-const bluesScale = ['P1', 'm3', 'P4', 'a4', 'P5', 'm7', 'M9', 'M13'];
-
-const triads = [
-    {name: 'Major', intervals: ['P1', 'M3', 'P5'], steps: [1, 3, 5]},
-    {name: 'Minor', intervals: ['P1', 'm3', 'P5'], steps: [1, 3, 5]},
-];
-
 export { 
     NATURALSYM,
     SHARPSYM, 
@@ -92,9 +75,4 @@ export {
     theoreticalScales,
     intervals,
 
-    scales, 
-    majorScale,
-    minorScale,
-
-    triads
 };

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './DropdownMenu.module.css';
 import { ReactComponent as ArrowIcon } from '../../../images/svgs/Navigation/keyboard_arrow_down-24px.svg';
 
+
 export default function DropdownMenu({ list, onChange }) {
 
     const [selectedElement, setSelectedElement] = useState(list[0]);
@@ -25,11 +26,11 @@ export default function DropdownMenu({ list, onChange }) {
 
             <Dropdown label={selectedElement} open={open}>
                 {list.map((element, index) => (
-                    <a className={styles.ddItem}
+                    <p className={styles.ddItem}
                         key={index} 
                         onClick={() => handleOnItemSelect(element)}>
                         {element}
-                    </a>
+                    </p>
                 ))}
             </Dropdown>
                 
@@ -48,9 +49,9 @@ function Dropdown({ children, label , onClick, open}) {
 
     return(
         <div className={styles.dropdown}>
-            <a href="#" >
+            <p>
                 { label }
-            </a>
+            </p>
             <div className={styles.elementWrapper} onClick={onClick} style={styleDd()}>
                 {open && children}
             </div>

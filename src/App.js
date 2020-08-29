@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { Navigation, Home, ChordsInKey, Fretboard, CircleOfFifths } from './components/';
 
-import { ReactComponent as HomeIcon } from './images/svgs/Navigation/home-24px.svg';
 
 /* Darkmode and Current NavItem*/
 const useLocalStorage = (key, defaultValue) => {

@@ -1,22 +1,18 @@
-import React, { useState, useEffect, Children } from 'react'
+import React from 'react'
 import styles from './CircleOfFifths.module.css';
 
 import {ReactComponent as Circle} from '../../images/svgs/CircleOfFifths/circle_of_fifths.svg';
 
 export default function CircleOfFifths() {
 
-    const [selectedNote, setSelectedNote] = useState({type: 11});
-    const [selectedKey, setSelectedKey] = useState({
+    /* const [selectedNote, setSelectedNote] = useState({type: 11}); */
+    /* const [selectedKey, setSelectedKey] = useState({
         majorFields: document.getElementById('circleMajor'),
         minorFields: document.getElementById('circleMinor'),
         dimFields: document.getElementById('circleDim')
-    });
+    }); */
 
-    useEffect(() => {
-        /* setNotes(); */
-    }, []);    
-
-    const setNotes = () => {
+    /* const setNotes = () => {
         
         const majorFields = document.getElementById('circleMajor');
         const minorFields = document.getElementById('circleMinor');
@@ -33,13 +29,12 @@ export default function CircleOfFifths() {
             element.style.opacity = ".6";
         });
         dimFields.childNodes.forEach((element, i) => {
-/*             element.addEventListener("click", (e) => handleClick(e, 'dim', i));
- */          element.style.fill = "green";
+            element.style.fill = "green";
             element.style.opacity = ".6";
         });
-    }
+    } */
 
-    const handleClick = (e, voicing, index) => {
+    /* const handleClick = (e, voicing, index) => {
         
         setSelectedNote({
             voicing: index
@@ -49,7 +44,7 @@ export default function CircleOfFifths() {
         
 
         e.target.style.opacity = "1";
-    }
+    } */
 
 
     const fieldsStyle = () => {

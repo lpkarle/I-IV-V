@@ -98,6 +98,10 @@ h1 {
     color: var(--text-primary);
 }
 
+.collapsable {
+    
+}
+
 /* Button */
 .btn {
     color: var(--bg-primary-color);

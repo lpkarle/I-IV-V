@@ -1,77 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
-
 import styles from './ChordsInKey.module.css';
-import Dropdown from '../Multipurpose/Dropdown/Dropdown';
+import { NotePicker, DropdownMenu } from '../Multipurpose/';
+import { getScales, getScaleAndCommonProg } from '../../logic/';
 
-import { getTableNotes, availableVoicings, getChordsInKey } from '../../logic/';
-import NotePicker from '../Multipurpose/NotePicker/NotePicker';
 
 export default function ChordsInKey() {
 
-    const allKeys = getTableNotes();
-    const dropdownItems = () => {
-        let ddItems = [];
-        for (let i = 0; i < availableVoicings.length; i++) {
-            ddItems.push({
-                value: i,
-                label: availableVoicings[i]
-            });
-        };
-        return ddItems;
-    }
+    const ddElements = getScales();
 
+    const [selectedNote, setSelectedNote] = useState('C');
+    const [selectedVoicing, setSelectedVoicing] = useState('Major');
 
-    /* Selectable UI Components */
-    const [selectedKey, setSelectedKey] = useState('A');
-    const [selectedVoicing, setSelectedVoicing] = useState('major');
-    const [scale, setScale] = useState(getChordsInKey(selectedKey, selectedVoicing).scale);
-
-    const [chords, setChords] = useState(getChordsInKey(selectedKey, selectedVoicing).chords);
-    const [progressions, setProgressions] = useState(getChordsInKey(selectedKey, selectedVoicing).res);
-    const [dropdownItem, setDropdownItem] = useState(undefined);
-
-    function handleDropdown(index) {
-        // This is pretty ugly
-        setSelectedVoicing(dropdownItems()[index].label.toString().toLowerCase());
-    }
-
-    const handleChangeVoicing = (voicing) => {
-        setSelectedVoicing(voicing);
-    }
+    const [chordsAndProgressions, setChordsAndProgressions] = useState(
+        getScaleAndCommonProg(selectedVoicing, selectedNote));
 
     useEffect(() => {
-        setScale(getChordsInKey(selectedKey, selectedVoicing).scale);
-        setChords(getChordsInKey(selectedKey, selectedVoicing).chords);
-        setProgressions(getChordsInKey(selectedKey, selectedVoicing).res);
-    }, [selectedKey, selectedVoicing])
-
+        setChordsAndProgressions(getScaleAndCommonProg(selectedVoicing, selectedNote));
+    }, [selectedNote, selectedVoicing]);
 
     /* ---------------- Styles ---------------- */
-    function styleSelectedKey(key) {
-        return {
-            border: selectedKey === key ?
-                'var(--accent-color) solid 8px' : null
-        }
-    }
-
-    const styleVoicingBtn = (voicing) => {
-        switch (voicing) {
-            case 'major':
-                return {
-                    background: 'var(--major-color)',
-                    opacity: selectedVoicing === voicing ? 1 : .6
-                }
-            case 'minor':
-                return {
-                    background: 'var(--minor-color)',
-                    opacity: selectedVoicing === voicing ? 1 : .6
-                }
-            default:
-                return null
-        }
-    }
-
     function styleChordVoicing(chordVoicing) {
         if (chordVoicing.includes('°')) {
             return { border: 'var(--dim-color) solid 3px' };
@@ -84,47 +32,35 @@ export default function ChordsInKey() {
         }
     }
 
-
     return (
         <div className="content">
             <h1>Chords in a Key</h1>
             <div className={styles.chordsInKey}>
                 <div className={styles.left}>
 
+                    <h2>Select Key:</h2>
                     <NotePicker 
-                        selectedNote={selectedKey} 
-                        onClick={(note) => setSelectedKey(note)}/>
+                        onClick={(note) => setSelectedNote(note)}/>
 
-                    <KeyPicker>
-                        {allKeys.map((keyName, index) => (
-                            <Key keyName={keyName}
-                                key={index}
-                                style={styleSelectedKey(keyName)}
-                                onClick={() => setSelectedKey(keyName)}
-                            />
-                        ))}
-                    </KeyPicker>
 
                     <div>
                         <h2>Select Voicing:</h2>
                         <div className={cx("card", styles.voicingPicker)}>
 
-                            <button className={cx(styles.voicingBtn, "btn")} style={styleVoicingBtn('major')} onClick={() => handleChangeVoicing('major')}>Major</button>
-                            <button className={cx(styles.voicingBtn, "btn")} style={styleVoicingBtn('minor')} onClick={() => handleChangeVoicing('minor')}>Minor</button>
-
-                            <Dropdown data={dropdownItems()}
-                                value={dropdownItem}
-                                onChange={handleDropdown} />
+                        <DropdownMenu 
+                            list={ddElements} 
+                            onChange={(voicing) => setSelectedVoicing(voicing)} />
+            
                         </div>
                     </div>
 
                     <ResultingChords >
-                        {scale.map((note, index) => (
+                        {chordsAndProgressions.scale.notes.map((note, index) => (
                             <ChordAndVoicing
                                 chordNote={note}
-                                voicing={chords[index]}
+                                voicing={chordsAndProgressions.chords[index]}
                                 key={index}
-                                style={styleChordVoicing(chords[index][0])}
+                                style={styleChordVoicing(chordsAndProgressions.chords[index]) }
                             />
                         ))}
                     </ResultingChords>
@@ -132,9 +68,11 @@ export default function ChordsInKey() {
 
                 <div className={styles.right}>
                     <CommonProgressions>
-                        {progressions.map((progression, index) => (
+                        {chordsAndProgressions.progressions.map((num, index) => (
                             <Progression
-                                progression={progression}
+                                progression={num}
+                                chords={chordsAndProgressions.chords}
+                                scale={chordsAndProgressions.scale}
                                 key={index}
                                 style={styleChordVoicing} />
                         ))}
@@ -146,35 +84,6 @@ export default function ChordsInKey() {
 }
 
 
-/* -------- Select the Key -------- */
-function KeyPicker({ children }) {
-    return (
-        <>
-            <h2>Pick a Key:</h2>
-            <div className={cx("card", styles.keys)}>
-                {children}
-            </div>
-        </>
-    );
-}
-
-function Key({ style, onClick, keyName }) {
-
-    const handleClick = (event) => {
-        onClick(event.target.innerHTML);
-    }
-
-    return (
-        <div className={styles.key}
-            style={style}
-            onClick={handleClick}>
-            {keyName}
-        </div>
-    );
-}
-
-
-/* -------- Chords in the Key -------- */
 function ResultingChords({ children }) {
     return (
         <>
@@ -187,18 +96,15 @@ function ResultingChords({ children }) {
 }
 
 function ChordAndVoicing({ chordNote, voicing, style }) {
-
     return (
         <div className={styles.chordAndVoicing}>
             <div className={styles.chordNote} style={style}>{chordNote}</div>
-            <div className={styles.voicing}
-            >{voicing[0]}</div>
+            <div className={styles.voicing}>{voicing}</div>
         </div>
     );
 }
 
 
-/* ---- Common Progessions ---- */
 function CommonProgressions({ children }) {
     return (
         <>
@@ -210,7 +116,7 @@ function CommonProgressions({ children }) {
     );
 }
 
-function Progression({ progression, style }) {
+function Progression({ progression, chords, scale, style }) {
     return (
         <div className={styles.commonProgressions}>
             <div className={styles.progression}>
@@ -218,9 +124,8 @@ function Progression({ progression, style }) {
                 <div className={styles.progressionNum}>
                     {progression.map((prog, index) => (
                         <div className={styles.chordNumber}
-                            key={index}
-                            /* style={style(prog.num)} */>
-                            {prog.num}
+                            key={index}>
+                            {chords[prog-1]}
                         </div>
                     ))}:
                 </div>
@@ -229,8 +134,8 @@ function Progression({ progression, style }) {
                     {progression.map((prog, index) => (
                         <div className={styles.chordNote}
                             key={index}
-                            style={style(prog.num)}>
-                            {prog.note}
+                            style={style(chords[prog-1])}>
+                            {scale.notes[prog-1]}
                         </div>
                     ))}
                 </div>

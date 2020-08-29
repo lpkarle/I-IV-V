@@ -1,19 +1,23 @@
 import * as Scale from './scales';
 import * as Chords from './chords';
 import { instruments, tunings } from './tuning';
-import * as MusicConst from './musicConst'
 
 
 /* ------------ Scales ------------ */
+/**
+ * Returns all available scales (for dropdown)
+ */
 const getScales = () => {
-    return MusicConst.scales;
+    return Scale.availableScales;
 }
-const getTableNotes = () => {
-    return MusicConst.notesAll;
-} 
 
-const getChromaticScale = (type, note) => {
-    let chromScale = Scale.getChromaticScale(type, note);
+/**
+ * Returns the Chromatic-Scale of a given note (Fretboard 24 frets)
+ * @param {Char} accidental 
+ * @param {String} note 
+ */
+const getChromaticScale = (accidental, note) => {
+    let chromScale = Scale.getChromaticScale(accidental, note);
     let result = [];
     for (let i = 0; i < 2; i++) {
         chromScale.forEach(element => {
@@ -24,55 +28,37 @@ const getChromaticScale = (type, note) => {
     return result;
 }
 
-const getChordsInKey = (note, voicing) => {
+/**
+ * Returns an object which contains the scale, chords and related progressions
+ * @param {String} voicing 
+ * @param {Voicing} note 
+ */
+const getScaleAndCommonProg = (voicing, note) => {
 
-    const scale = Scale.getHeptatonicScale(voicing, note);
-    let chords = [];
-    let progression = []; 
-    let res = [];
+    const result = {scale: getScale(voicing, note), chords: [], progressions: []};
 
-    switch (voicing) {
-        case 'major':
-            chords = Chords.chordsInMajorKey;
-            progression = Chords.commonMajorProg;
-            break;
-        case 'minor':
-            chords = Chords.chordsInMinorKey;
-            progression = Chords.commonMinorProg;
-            break;
-        default:
-            break;
-    }
-    
-    progression.forEach(prog => {
-        let tmp = [];
-        prog.forEach(num => {
-            tmp.push({num: chords[num - 1][0], note: scale[num - 1]});
-        });
-        res.push(tmp);
+    Chords.chords.forEach(element => {
+        if (element.name === voicing) {
+            result.chords = element.chords;
+            result.progressions = element.progressions;
+            return;
+        }
     });
-
-    return {
-        scale,
-        chords,
-        res
-    }
+    return result;
 }
 
-const availableVoicings = ['Major', 'Minor'] //! not the right place
-const getScaleByNote = (voicing, note) => {
-    return Scale.getHeptatonicScale(voicing, note);
-}
-
+/**
+ * Returns a scale for a given note & voicing
+ * @param {String} voicing 
+ * @param {String} note 
+ */
 export const getScale = (voicing, note) => {
-
     let scale = {intervals: [], notes: []};
-    const scales = Scale.scales;
-
-    scales.forEach(element => {
+    
+    Scale.scales.forEach(element => {
         if (element.name === voicing) {
             scale.intervals = element.intervals;
-            scale.notes = Scale.getHeptatonicScale(voicing.toLowerCase(), note);
+            scale.notes = Scale.getHeptatonicScale(voicing, note);
             return;
         } 
     });
@@ -80,16 +66,18 @@ export const getScale = (voicing, note) => {
 }
 
 
-const getCircleOfFifths = () => {
-    return Scale.getCircleOfFifths();
-}
-
-
 /* ------------ Tunings ------------ */
+/**
+ * Returns all available instruments (for tuning-dropdown)
+ */
 const getInstruments = () => {
     return instruments;
 }
 
+/**
+ * Returns all available tunings by instrument (dropdown)
+ * @param {String} instrument 
+ */
 const getTuningNames = (instrument) => {
     const tuningNames = [];
     const tuningByInst = tunings[instrument.toLowerCase()];
@@ -97,27 +85,33 @@ const getTuningNames = (instrument) => {
     tuningByInst.forEach(element => {
         tuningNames.push(element.name);
     });
-    
     return tuningNames;
 }
 
 /**
- * 
+ * Returns the actual tuning
  * @param {String} instrument 
  * @param {String} name 
  * @param {Boolean} stringOrder 
- * @param {String} type
+ * @param {Array} toShow
  */
-const getTuningByName = (instrument, name, stringOrder, type) => {
+const getTuningByName = (instrument, name, stringOrder, toShow) => {
+    let accidental = 0;
 
-    let i = 0;
-    if (type.length > 1) { 
-        if (type[1] === '♯') {
-            i = 1;
-        } else {
-            i = 2;
+    toShow.forEach(note => {
+        if (note.includes('♯')) { 
+            console.log("Yes" + note);
+            accidental = 1;
+            return;
         }
-    }
+        if (note.includes('♭')) { 
+            console.log("Yes" + note);
+            accidental = 2;
+            return;
+        }
+    });
+    console.log(toShow, accidental);
+
 
     const t = tunings[instrument.toLowerCase()];
     let a = {name: '', notes: []};
@@ -127,10 +121,11 @@ const getTuningByName = (instrument, name, stringOrder, type) => {
             a.name = name;
             
             tuning.notes.forEach(note => {
+                //console.log(getChromaticScale(accidental, note));
                 if (stringOrder) {
-                    a.notes.push(getChromaticScale(i, note));
+                    a.notes.push(getChromaticScale(accidental, note));
                 } else {
-                    a.notes.unshift(getChromaticScale(i, note));
+                    a.notes.unshift(getChromaticScale(accidental, note));
                 }
             });            
         }
@@ -139,11 +134,19 @@ const getTuningByName = (instrument, name, stringOrder, type) => {
 }
 
 /* ------------ Chords ------------ */
+/**
+ * Returns all available chords (for dropdown)
+ */
 const getChords = () => {
     return Chords.availableChords;
 }
-export const getChord = (voicing, note) => {
 
+/**
+ * Returns chord-notes/intervals by a given note & voicing
+ * @param {String} voicing 
+ * @param {Voicing} note 
+ */
+export const getChord = (voicing, note) => {
     let chord = {intervals: [], notes: []};
     const chords = Chords.chords;
 
@@ -154,27 +157,17 @@ export const getChord = (voicing, note) => {
             return;
         } 
     });
-
     return chord;
-}
-
-const getTriad = (voicing, note) => {
-    return Chords.getTriad(voicing, note);
 }
 
 
 export {
     getScales,
-    getTableNotes,
     getChromaticScale,
-    availableVoicings,
-    getScaleByNote,
-    getChordsInKey,
-    getCircleOfFifths,
+    getScaleAndCommonProg,
+
     getInstruments,
     getTuningNames,
     getTuningByName,
-
     getChords,
-    getTriad,
 }
