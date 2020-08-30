@@ -3,7 +3,7 @@ import styles from './Fretboard.module.css';
 import cx from 'classnames';
 import { DropdownMenu, NotePicker, NumberPicker, Checkbox, RadioButtonGroup } from '../Multipurpose/';
 
-import { getScales,getChord, getChords, getScale,getChromaticScale } from '../../logic/index';
+import { getScales,getChord, getChords, getScale, getAccidental, getChromaticScale } from '../../logic/index';
 import { getTuningNames, getInstruments, getTuningByName } from '../../logic/index';
 
 import { AddIcon, RemoveIcon, MirrorVIcon, MirrorHIcon } from '../../images/svgs';
@@ -27,10 +27,6 @@ export default function Fretboard() {
     const [selectedNote, setSelectedNote] = useState('C');
     const [selectedVoicing, setSelectedVoicing] = useState('Major');
 
-    // 0 natural, 1 sharp, 2 flat
-    const [accidentalInScale, setAccidentalInScale] = useState(0);
-
-   
     const [scale, setScale] = useState({
         ddElements: getScales(),
         scale: getScale(selectedVoicing, selectedNote)
@@ -55,19 +51,11 @@ export default function Fretboard() {
     /* ---- Fretboard-Config ---- */
     const [tuning, setTuning] = useState(getTuningByName(
         instrument, getTuningNames(instrument)[0], fretboardOrientation.horizontal, highlightedNotes.notes));
-    const [showIntervals, setShowIntervals] = useState(true);
     const [showRoot, setShowRoot] = useState(true);
-    const [showNone, setShowNone] = useState(false);    
+    const [showAllNotes, setShowNone] = useState(true);    
 
-    
-    useEffect(() => {
-        setTuning(
-            getTuningByName(instrument, tuning.name, fretboardOrientation.horizontal, highlightedNotes.notes)
-        );
-    }, [instrument, defaultTunings, fretboardOrientation, selectedNote])
 
-    useEffect(() => {
-       
+    useEffect(() => {       
         setScale(prevScale => {
             return {...prevScale, scale: getScale(selectedVoicing, selectedNote)}
         });
@@ -80,7 +68,13 @@ export default function Fretboard() {
         setDdElements(selectedChordOrScaleEl === 'Scale' ? scale.ddElements : chord.ddElements);
         setHighlightedNotes(selectedChordOrScaleEl === 'Scale' ? scale.scale : chord.chord );
     }, [selectedChordOrScaleEl, scale, chord]);
-    
+
+    useEffect(() => {
+        setTuning(
+            getTuningByName(instrument, tuning.name, fretboardOrientation.horizontal, highlightedNotes.notes)
+        );
+    }, [instrument, defaultTunings, fretboardOrientation, highlightedNotes]);
+
     
     /* Generate Frets */
     const fretArray = () => {
@@ -96,7 +90,6 @@ export default function Fretboard() {
     }
 
     const addString = () => {
-        console.log(accidentalInScale);
         setTuning(prevTuning => {
             return {...prevTuning, notes: [...prevTuning.notes, getChromaticScale(highlightedNotes.notes, 'E')]}
         });
@@ -134,7 +127,7 @@ export default function Fretboard() {
 
     const changeStringNote = (index, newNote) => {
         const changed = tuning.notes;
-        changed[index] = getChromaticScale(accidentalInScale, newNote);
+        changed[index] = getChromaticScale(getAccidental(highlightedNotes.notes), newNote);
         setTuning(prevTuning => {
             return {...prevTuning, notes: changed}
         });
@@ -163,18 +156,23 @@ export default function Fretboard() {
     const styleNotes = (note) => {
         if (highlightedNotes.notes[0] === note) {
             return { 
-                background: 'royalblue',
+                display: showRoot ? null : "none",
+                background: 'red',
                 color: "var(--bg-primary-color)",
                 fontWeight: "bold",
                 border: "none"
             }
-        }
-        if (highlightedNotes.notes.includes(note)) {
+        } else if (highlightedNotes.notes.includes(note)) {
             return { 
-                background: 'rgba(238, 238, 238)',
+                background: 'black',
                 color: "var(--bg-primary-color)",
                 fontWeight: "bold",
                 border: "none"
+            }
+        } else {
+            return {
+                display: showAllNotes ? null : "none",
+                fontSize: note.length > 2 ? "10px" : "16px"
             }
         }
     }
@@ -185,9 +183,7 @@ export default function Fretboard() {
 
             {/* -------- Configure Note and Chord / Scale -------- */}
             <h3>Note Config:</h3>
-            <NotePicker 
-                onClick={(note) => setSelectedNote(note)}
-            />          
+            <NotePicker onClick={(note) => setSelectedNote(note)} />          
 
             <h3>Result</h3>
 
@@ -241,17 +237,13 @@ export default function Fretboard() {
             
                 <div className={styles.cb}>
                     <Checkbox 
-                        label={'Intervals'} 
-                        checked={showIntervals} 
-                        onChange={()=> {setShowIntervals(!showIntervals); setShowNone(false)}}/>
-                    <Checkbox 
-                        label={'None'} 
-                        checked={showNone} 
-                        onChange={()=> {setShowNone(!showNone); setShowRoot(false); setShowIntervals(false)}}/>
+                        label={'All Notes'} 
+                        checked={showAllNotes} 
+                        onChange={()=> setShowNone(!showAllNotes)}/>
                     <Checkbox 
                         label={'Root'} 
                         checked={showRoot} 
-                        onChange={()=> {setShowRoot(!showRoot); setShowNone(false)}}/>
+                        onChange={()=> setShowRoot(!showRoot)}/>
                 </div>
                 
             </div>

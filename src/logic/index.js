@@ -89,48 +89,54 @@ const getTuningNames = (instrument) => {
 }
 
 /**
+ * Returns 0 -> natural, 1 -> sharp, 2 -> flat
+ * @param {Array} scale 
+ */
+export const getAccidental = (scale) => {
+    let accidental = 0;
+    scale.forEach(note => {        
+        if (note.includes('♯')) { return accidental = 1; }
+        if (note.includes('♭')) { return accidental = 2; }
+    });
+    return accidental;
+}
+
+/**
  * Returns the actual tuning
  * @param {String} instrument 
  * @param {String} name 
  * @param {Boolean} stringOrder 
- * @param {Array} toShow
+ * @param {Array} scale
  */
-const getTuningByName = (instrument, name, stringOrder, toShow) => {
-    let accidental = 0;
+const getTuningByName = (instrument, name, stringOrder, scale) => {
+    const accidental = getAccidental(scale);
+    const tuningByInst = tunings[instrument.toLowerCase()];
+    let result = {name: '', notes: []};
 
-    toShow.forEach(note => {
-        if (note.includes('♯')) { 
-            console.log("Yes" + note);
-            accidental = 1;
-            return;
-        }
-        if (note.includes('♭')) { 
-            console.log("Yes" + note);
-            accidental = 2;
-            return;
-        }
-    });
-    console.log(toShow, accidental);
-
-
-    const t = tunings[instrument.toLowerCase()];
-    let a = {name: '', notes: []};
-
-    t.forEach(tuning => {
+    tuningByInst.forEach(tuning => {
         if (tuning.name === name) {
-            a.name = name;
+            result.name = name;
             
             tuning.notes.forEach(note => {
-                //console.log(getChromaticScale(accidental, note));
                 if (stringOrder) {
-                    a.notes.push(getChromaticScale(accidental, note));
+                    result.notes.push(getChromaticScale(accidental, note));
                 } else {
-                    a.notes.unshift(getChromaticScale(accidental, note));
+                    result.notes.unshift(getChromaticScale(accidental, note));
                 }
             });            
         }
     });
-    return a;
+
+    if (scale[0] === 'B♭') {
+        result.notes.forEach(chromScale => {
+            for (let i = 0; i < chromScale.length; i++) {
+                if (chromScale[i] === 'C') {
+                    chromScale[i] = 'B♭';
+                }
+            }
+        });
+    }
+    return result;
 }
 
 /* ------------ Chords ------------ */

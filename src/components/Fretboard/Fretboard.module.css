@@ -41,6 +41,7 @@ h3 {
 .board2 {
     display: flex;
     overflow: hidden;
+    padding: 10px;
     /* overflow-x: scroll; */
 }
 
@@ -50,7 +51,7 @@ h3 {
 } */
 
 .openStrings {
-    margin: 2rem 1rem 0 1rem;
+    margin: 2rem .7rem 0 .7rem;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -60,12 +61,21 @@ h3 {
     display: flex;
     flex-direction: column;
 
+    /* border: red solid 1px;
+    border-top-color: chartreuse; */
+
     width: 100%;
     
     padding: .5rem 0;
 
     position: relative;
 }
+
+.fret:last-child {
+    color: blue;
+    border-left-color: chartreuse;
+}
+
 .fret p {
     height: 2rem;
     font-weight: lighter;
