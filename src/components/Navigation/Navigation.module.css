@@ -17,11 +17,11 @@
 }
 
 .navbar .logo {
-    background: var(--bg-primary-color);
+    /* background: red; */
     display: flex;
-    width: 5rem;
-    height:4rem;
-    padding: 7px;
+    width: var(--width-side-nav);
+    height: var(--width-side-nav);
+    padding: 1.2rem;
 }
 
 .navbar .logoWrapper .logoText {
@@ -34,8 +34,8 @@
 }
 
 .navbar .topNavbar ul {
-    background: var(--bg-primary-color);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    background: var(--bg-secondary-color);
+    /* box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); */
     width: 100%;
     height: 4rem;
     display: flex;
@@ -79,10 +79,6 @@
    fill: var(--text-primary);
 }
 
-/* .navbar .sideNavbar ul li svg {
-    fill: rgb(226, 226, 226);
-} */
-
 svg {
     display: block;
     margin:auto;
@@ -113,6 +109,19 @@ svg {
 
 /* -------- Big Screen -------- */
 @media only screen and (min-width: 600px) {
+    /* .navbar .logo::after {
+        content: ""; 
+        background: var(--text-primary);
+        opacity: .4;
+        position: absolute;
+       
+        bottom: 0;
+        left: 0;
+        margin-left: 5px;
+        width: calc(var(--width-side-nav) - 10px);
+        height: 1px; 
+    } */
+
     .navbar .sideNavbar {
         top: 0;
         width: var(--width-side-nav); 
@@ -122,7 +131,7 @@ svg {
     .navbar .sideNavbar ul {
         display: flex;
         flex-direction: column;
-        margin-top: 8vh;
+        margin-top: calc(1rem + var(--height-top-nav));
     }
 
     .navbar .sideNavbar ul li {
@@ -164,6 +173,10 @@ svg {
     .navbar .sideNavbar ul li span.icon {
         margin-right: 2rem;
         display: inline-block;
+    }
+
+    .navbar .sideNavbar ul li.active svg{
+        fill: var(--text-primary);
     }
 } 
 

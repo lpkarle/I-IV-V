@@ -1,64 +1,95 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import styles from './CircleOfFifths.module.css';
-
-import {ReactComponent as Circle} from '../../images/svgs/CircleOfFifths/circle_of_fifths.svg';
+import {ReactComponent as Circle} from '../../images/svgs/CircleOfFifths/fifths.svg';
 
 export default function CircleOfFifths() {
 
-    /* const [selectedNote, setSelectedNote] = useState({type: 11}); */
-    /* const [selectedKey, setSelectedKey] = useState({
-        majorFields: document.getElementById('circleMajor'),
-        minorFields: document.getElementById('circleMinor'),
-        dimFields: document.getElementById('circleDim')
-    }); */
+    const [selectedEl, setSelectedEl] = useState(0);
 
-    /* const setNotes = () => {
-        
-        const majorFields = document.getElementById('circleMajor');
-        const minorFields = document.getElementById('circleMinor');
-        const dimFields = document.getElementById('circleDim');
+    useEffect(() => {
+        document.title = "I IV V - Circle of Fifths";
+        initEventListener();
+    }, []);
 
-        majorFields.childNodes.forEach((element, i) => {
-            element.addEventListener("click", (e) => handleClick(e, 'major', i));
-            element.style.fill = "tomato";
-            element.style.opacity = ".6";
-        });
-        minorFields.childNodes.forEach((element, i) => {
-            element.addEventListener("click", (e) => handleClick(e, 'minor', i));
-            element.style.fill = "royalblue";
-            element.style.opacity = ".6";
-        });
-        dimFields.childNodes.forEach((element, i) => {
-            element.style.fill = "green";
-            element.style.opacity = ".6";
-        });
-    } */
+    useEffect(() => {
+        setActive();
+    }, [selectedEl])
 
-    /* const handleClick = (e, voicing, index) => {
-        
-        setSelectedNote({
-            voicing: index
-        });
-        console.log(selectedNote);
-        console.log(e.target, voicing, index);
-        
-
-        e.target.style.opacity = "1";
-    } */
-
-
-    const fieldsStyle = () => {
-        return {
-            
+    const indexRange = (index) => {
+        const res = {left: 0, right: 0};
+        if (index > 0 && index < 11) {
+            res.left = index - 1;
+            res.right = index + 1;
+        } 
+        if (index === 0) {
+            res.left = 11;
+            res.right = index + 1;
         }
+        if (index === 11) {
+            res.left = index - 1;
+            res.right = 0
+        }
+        return res;
     }
-    
+
+    const initEventListener = () => {
+        const notesMajor = document.getElementById("circleMajor").childNodes;
+        const notesMinor = document.getElementById("circleMinor").childNodes;
+        const notesDim = document.getElementById("circleDim").childNodes;
+       
+        notesMajor.forEach((element, index) => {
+            element.addEventListener("click", () => {
+                setSelectedEl(index);
+            });
+        });
+        notesMinor.forEach((element, index) => {
+            element.addEventListener("click", () => {
+                setSelectedEl(index);
+            });
+        });
+        notesDim.forEach((element, index) => {
+            element.addEventListener("click", () => {
+                setSelectedEl(index);
+            });
+        });
+    }
+
+    const setActive = () => {
+        const notesMajor = document.getElementById("circleMajor").childNodes;
+        const notesMinor = document.getElementById("circleMinor").childNodes;
+        const notesDim = document.getElementById("circleDim").childNodes;
+
+        const range = indexRange(selectedEl);
+
+        notesMajor.forEach((element, index) => {
+            if (index === range.left || index === selectedEl || index === range.right) {
+                element.classList.add("active");
+            } else {
+                element.classList.remove("active");
+            }
+        });
+
+        notesMinor.forEach((element, index) => {
+            if (index === range.left || index === selectedEl || index === range.right) {
+                element.classList.add("active");
+            } else {
+                element.classList.remove("active");
+            }
+        });
+
+        notesDim.forEach((element, index) => {
+            if (index === selectedEl) {
+                element.classList.add("active");
+            } else {
+                element.classList.remove("active");
+            }
+        });
+    }
+
     return (
         <div className={styles.circleOfFifths}>
             <h1>CircleOfFifths</h1>
-
-            <Circle className={styles.circle} style={fieldsStyle()}/>
-
+            <Circle className={styles.circle}/>
         </div>
     );
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './RadioButtonGroup.module.css';
 
-export default function RadioButtonGroup({ buttonList, onChange }) {
+export default function RadioButtonGroup({ buttonList, direction, onChange }) {
 
     const [selected, setSelected] = useState(buttonList.btns[0]);
 
@@ -12,7 +12,7 @@ export default function RadioButtonGroup({ buttonList, onChange }) {
     }
     
     return (
-        <div className={styles.rbGroup}>
+        <div className={styles.rbGroup} style={{flexDirection: direction}}>
             {buttonList.btns.map((name, index) => 
                 <RadioButton 
                     key={index} name={name} index={index}
@@ -22,6 +22,12 @@ export default function RadioButtonGroup({ buttonList, onChange }) {
             )}
         </div>
     );
+}
+
+RadioButtonGroup.defaultProps = {
+    buttonList: {groupName: 'group', btns: ['A', 'B']},
+    direction: 'row',
+    onChange: () => console.log("RbGroup")
 }
 
 function RadioButton({ name, checked, onChange, groupName }) {

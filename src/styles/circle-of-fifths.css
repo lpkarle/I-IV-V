@@ -1,0 +1,24 @@
+#circle path {
+    fill-opacity: .5;
+    cursor: pointer;
+}
+#circleDim path {
+    fill: var(--dim-color);
+}
+#circleMinor path {
+    fill: var(--minor-color);
+}
+#circleMajor path {
+    fill: var(--major-color);
+}
+
+#circle .active {  
+    fill-opacity: 1;
+    stroke-width: 10px;
+    stroke-opacity: .5;
+    stroke: var(--text-primary);
+}
+
+#circle path:hover {
+    fill-opacity: 1;
+}

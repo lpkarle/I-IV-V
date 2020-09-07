@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Fretboard.module.css';
 import cx from 'classnames';
-import { DropdownMenu, NotePicker, NumberPicker, Checkbox, RadioButtonGroup } from '../Multipurpose/';
+import { DropdownMenu, NotePicker, NumberPicker, Checkbox, RadioButtonGroup, CollapsableContainer } from '../Multipurpose/';
 
 import { getScales,getChord, getChords, getScale, getAccidental, getChromaticScale } from '../../logic/index';
 import { getTuningNames, getInstruments, getTuningByName } from '../../logic/index';
 
-import { AddIcon, RemoveIcon, MirrorVIcon, MirrorHIcon } from '../../images/svgs';
+import { AddIcon, RemoveIcon, MirrorVIcon, MirrorHIcon } from '../../images';
 
 export default function Fretboard() {
   
@@ -52,8 +52,12 @@ export default function Fretboard() {
     const [tuning, setTuning] = useState(getTuningByName(
         instrument, getTuningNames(instrument)[0], fretboardOrientation.horizontal, highlightedNotes.notes));
     const [showRoot, setShowRoot] = useState(true);
+    const [showScaleNotes, setShowScaleNotes] = useState(true);
     const [showAllNotes, setShowNone] = useState(true);    
 
+    useEffect(() => {
+        document.title = "I IV V - Fretboard"
+    }, [])
 
     useEffect(() => {       
         setScale(prevScale => {
@@ -122,7 +126,7 @@ export default function Fretboard() {
     }
 
     const changeTuning = (tun) => {
-        setTuning(getTuningByName(instrument, tun, fretboardOrientation.horizontal, selectedNote));
+        setTuning(getTuningByName(instrument, tun, fretboardOrientation.horizontal, highlightedNotes.notes));
     }
 
     const changeStringNote = (index, newNote) => {
@@ -164,89 +168,140 @@ export default function Fretboard() {
             }
         } else if (highlightedNotes.notes.includes(note)) {
             return { 
-                background: 'black',
-                color: "var(--bg-primary-color)",
+                background: showScaleNotes ? 'black' : 'transparent',
+                color: showScaleNotes ? "var(--bg-primary-color)" : 'transparent',
                 fontWeight: "bold",
                 border: "none"
             }
         } else {
             return {
-                display: showAllNotes ? null : "none",
+                background: showAllNotes ? 'var(--bg-secondary-color)' : 'transparent',
+                color: showAllNotes ? 'var(--text-primary)' : 'transparent',
+                /* display: showAllNotes ? null : "none",
+                color: showAllNotes ? "var(--text-primary)" : "var(--bg-secondary-color)", */
                 fontSize: note.length > 2 ? "10px" : "16px"
             }
         }
     }
+
+    
 
 
     return (
         <div className="content">
 
             {/* -------- Configure Note and Chord / Scale -------- */}
-            <h3>Note Config:</h3>
-            <NotePicker onClick={(note) => setSelectedNote(note)} />          
+            <CollapsableContainer label={`Selected Note: ${selectedNote}`}>
+                <NotePicker onClick={(note) => setSelectedNote(note)} />          
+            </CollapsableContainer>
 
-            <h3>Result</h3>
+            <CollapsableContainer label={`Show: ${selectedVoicing} ${selectedChordOrScaleEl}`}>
+                <div className={cx(/* "card",  */styles.sth)}>
+                    
 
-            <div className={cx("card", styles.resultScale)}>
-                <h3>Notes and intervals of the {selectedNote} {selectedVoicing} {selectedChordOrScaleEl}</h3>
-                <h3>{highlightedNotes.notes}</h3>
-                <h3>{highlightedNotes.intervals}</h3>
-            </div>
+                    <select     
+                        className={styles.dd}
+                        name="" 
+                        id="" 
+                        onChange={(e) => setSelectedVoicing(e.target.value)}
+                        style={{width: "5rem"}}>
+                        {ddElements.map((element, index) => (
+                            <option value={element} key={index}>{element}</option>
+                        ))}
+                    </select>
+
+                    <RadioButtonGroup 
+                        buttonList={{groupName: 'scaleChord', btns: buttonGroupRename}} 
+                        onChange={(el)=> setSelectedChordOrScaleEl(el)} />
+                </div>
+            </CollapsableContainer>
+
+            <CollapsableContainer label="Notes & Intervals">
+                <div className={cx(styles.resultScale)}>
+                    {highlightedNotes.intervals.map((interval, index) => (
+                        <div key={index} className={styles.noteAndInterval}>
+                            <div className={styles.intervalNote}>{index === (highlightedNotes.intervals.length - 1) 
+                                ? highlightedNotes.notes[0] : highlightedNotes.notes[index]}</div>
+                            <div className={styles.interval}>{interval}</div>
+                        </div>
+                    ))}
+                </div>
+            </CollapsableContainer>
 
 
-            <h3>Select Sth:</h3>
-            <div className={cx("card", styles.sth)}>
-                <DropdownMenu 
-                    list={ddElements} 
-                    onChange={(voicing) => setSelectedVoicing(voicing)} />
             
-    
-
-                <RadioButtonGroup 
-                    buttonList={{groupName: 'scaleChord', btns: buttonGroupRename}} 
-                    onChange={(el)=> setSelectedChordOrScaleEl(el)} />
-
-                
-
-            </div>
+            
 
             {/* -------- Configure Fretboard Appearance -------- */}
-            <h3>Fretboard Config:</h3>
-            <div className={cx("card", styles.fretboardConfig)}>
-                <DropdownMenu list={instruments} onChange={changeInstrument} />
-                <DropdownMenu list={defaultTunings} onChange={changeTuning} />
+            <CollapsableContainer label="Fretboard Config">
 
-                <NumberPicker 
-                    defaultNum={fretFromTo.from} 
-                    range={{min: FRETBOARDMIN, max: fretFromTo.to}}
-                    onClick={(num) => setFretFromTo(prev => { return {...prev, from: num} })}
-                    from={true}
-                />
-                <NumberPicker 
-                    defaultNum={fretFromTo.to} 
-                    range={{min: fretFromTo.from, max: FRETBOARDMAX}}
-                    onClick={(num) => setFretFromTo(prev => { return {...prev, to: num} })}
-                    from={false}
-                />
-            
-                <AddIcon className="svg-btn" onClick={addString} />
-                <RemoveIcon className="svg-btn" onClick={() => removeString(0)} />
+                <div className={cx(styles.fretboardConfig)}>
+
+
+
+                    <select 
+                        className={styles.dd}
+                        name="" 
+                        id="" 
+                        onChange={(e) => changeInstrument(e.target.value)}
+                        style={{width: "5rem"}}>
+                        {instruments.map((element, index) => (
+                            <option value={element} key={index}>{element}</option>
+                        ))}
+                    </select>
+
+                    <select 
+                        className={styles.dd}
+                        name="" 
+                        id="" 
+                        onChange={(e) => changeTuning(e.target.value)}
+                        style={{width: "5rem"}}>
+                        {defaultTunings.map((element, index) => (
+                            <option value={element} key={index}>{element}</option>
+                        ))}
+                    </select>
+
+                    <div className={styles.showFrets}>
+                        <p>Show Fret from</p>
+                        <NumberPicker 
+                            defaultNum={fretFromTo.from} 
+                            range={{min: FRETBOARDMIN, max: fretFromTo.to}}
+                            onClick={(num) => setFretFromTo(prev => { return {...prev, from: num} })}
+                            from={true}
+                        />
+                        <p> to</p>
+                        <NumberPicker 
+                            defaultNum={fretFromTo.to} 
+                            range={{min: fretFromTo.from, max: FRETBOARDMAX}}
+                            onClick={(num) => setFretFromTo(prev => { return {...prev, to: num} })}
+                            from={false}
+                        />
+                    </div>
                 
-                <MirrorHIcon className="svg-btn" onClick={changeHorizontalOrientation} />
-                <MirrorVIcon className="svg-btn" onClick={changeVerticalOrientation} />
-            
-                <div className={styles.cb}>
-                    <Checkbox 
-                        label={'All Notes'} 
-                        checked={showAllNotes} 
-                        onChange={()=> setShowNone(!showAllNotes)}/>
-                    <Checkbox 
-                        label={'Root'} 
-                        checked={showRoot} 
-                        onChange={()=> setShowRoot(!showRoot)}/>
+                    <AddIcon className="svg-btn" onClick={addString} />
+                    <RemoveIcon className="svg-btn" onClick={() => removeString(0)} />
+                    
+                    <MirrorHIcon className="svg-btn" onClick={changeHorizontalOrientation} />
+                    <MirrorVIcon className="svg-btn" onClick={changeVerticalOrientation} />
+                
+                    <div className={styles.cb}>
+                        <Checkbox 
+                            label={'All Notes'} 
+                            checked={showAllNotes} 
+                            onChange={()=> setShowNone(!showAllNotes)}/>
+                        <Checkbox 
+                            label={'Root'} 
+                            checked={showRoot} 
+                            onChange={()=> setShowRoot(!showRoot)}/>
+
+                        <Checkbox 
+                            label={`Notes in ${selectedChordOrScaleEl}`} 
+                            checked={showScaleNotes} 
+                            onChange={()=> setShowScaleNotes(!showScaleNotes)}/>
+                    </div>
+                    
                 </div>
-                
-            </div>
+            </CollapsableContainer>
 
         
 
@@ -257,6 +312,7 @@ export default function Fretboard() {
                         orientation={fretboardOrientation.vertical}
                         tuning={tuning.notes}
                         onClick={changeStringNote}
+                        sideMargin={{marginRight: ".5rem"}}
                         style={styleNotes} />              
 
                     {fretArray().map((indexFret) => (
@@ -279,25 +335,30 @@ export default function Fretboard() {
                         orientation={!fretboardOrientation.vertical}
                         tuning={tuning.notes}
                         onClick={changeStringNote} 
+                        sideMargin={{marginLeft: ".5rem"}}
                         style={styleNotes} />
                 </div>
             </div>
             <br/>
-            <button onClick={handlePrint}>Print</button>
+
+            {/* <button onClick={handlePrint}>Print</button> */}
         </div>
     )
 }
 
 
-function OpenStrings({orientation, style, tuning, onClick}) {
+function OpenStrings({orientation, sideMargin, style, tuning, onClick}) {
     return (
         <>
             {orientation ? 
-                <div className={styles.openStrings}>
+                <div 
+                    className={styles.openStrings} 
+                    style={sideMargin}>
+
                     {tuning.map((element, index) => (
                         <div 
                             style={style(element[0])}
-                            className={styles.stringNote} 
+                            className={styles.note} 
                             onClick={() => onClick(index, 'C')} 
                             key={index}
                         >

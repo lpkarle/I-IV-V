@@ -1,83 +1,11 @@
 .circleOfFifths {
-/*     background-color: rgba(0, 0, 0, 0.116);
- */    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-
-}
-
-
-.circleWrapper {
-    margin-top: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: relative;
+
+
 }
-
-.circleWrapper > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-
-    position: relative;
-    border: white solid 3px;
-    border-radius: 50%;
-    position: absolute;
-}
-
-.backgroundWrapper {
-    background-color: white;
-    width: 50rem;
-    height: 50rem;
-    border: white solid 3px !important;
-    border-radius: 50% !important;
-}
-
-
-.wrapperCircle {
-    background-color: rgba(255, 99, 71, 0.4);
-    height: 45.1rem;
-    width: 45.1rem;
-}
-.outerCircle {
-    background-color: rgba(44, 142, 207, 0.4);
-    height: 35.2rem;
-    width: 35.2rem;
-}
-.innerCircle {
-    background-color: rgba(52, 211, 52, 0.4);
-    height: 25.5rem;
-    width: 25.2rem;
-}
-.innerInnerCircle {
-    background-color: white;
-    height: 15rem;
-    width: 15rem;
-    z-index: 1;
-}
-
-.circleNote {
-    position: absolute;
-    /* display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 5rem;
-    width: 5rem;
-    border: turquoise solid 3px;
-    border-radius: 50%; */
-
-    -webkit-transition: all 2s linear;
-    -moz-transition: all 2s linear;
-    transition: all 2s linear;
-} 
-
 
 .circle {
     height: 80vh;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './NotePicker.module.css';
-import cx from 'classnames';
 import { naturalNotes, accidentals } from '../../../logic/musicConst.js';
+import RadioButtonGroup from '../RadioButtonGroup/RadioButtonGroup';
 
 
 export default function NotePicker({ onClick }) {
@@ -13,16 +13,18 @@ export default function NotePicker({ onClick }) {
         if (item === selNote[0] || item === selAccidental) {
             return { 
                 background: "var(--accent-color)",
-                fontSize: "25px",
-                fontWeight: "bold" 
+                color: "white",
+                fontSize: "50px",
+                fontWeight: "bolder", 
             }
         }
     }
-    
+
     return (
-        <div className={cx("card", styles.notePicker)}>
-            {naturalNotes.map((note, index) => (
-                    <div 
+        <div className={styles.notePicker}>
+            <div className={styles.notes}>
+                {naturalNotes.map((note, index) => (
+                    <h4 
                         key={index} 
                         className={styles.notePickerElement}
                         style={styleSelectedItem(note)}
@@ -30,20 +32,16 @@ export default function NotePicker({ onClick }) {
                             onClick((note + (selAccidental === accidentals[0] ? '' : selAccidental))); 
                             setSelNote(note)}}>
                         {note}
-                    </div>
-            ))}
-            <div className={styles.accidentals}>
-                {accidentals.map((accidental, index) => (
-                    <div 
-                        key={index}
-                        className={styles.notePickerElement} 
-                        style={styleSelectedItem(accidental)} 
-                        onClick={() => {
-                            onClick((selNote + (accidental === accidentals[0] ? '' : accidental))); 
-                            setSelAccidental(accidental)}}>
-                        {accidental}
-                    </div>
+                    </h4>
                 ))}
+            </div>
+            <div className={styles.accidentals}>
+                <RadioButtonGroup 
+                    buttonList={{groupName: 'selectedKey', btns: accidentals}} 
+                    onChange={(accidental)=> {
+                        onClick((selNote + (accidental === accidentals[0] ? '' : accidental)));
+                        setSelAccidental(accidental);
+                    }} />
             </div>
         </div>
     );

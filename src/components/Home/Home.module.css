@@ -1,0 +1,26 @@
+.cardWrapper {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 2rem;
+}
+
+.cardWrapper img {
+    border-radius: 1.5rem;
+    width: 100%;
+}
+
+.cardWrapper .card {
+    border-radius: 2rem;
+    transition: all var(--transition-speed-fast) ease-in;
+}
+
+.cardWrapper .card:hover {
+    transform: scale(1.05);
+}
+
+@media only screen and (max-width: 600px) { 
+    .cardWrapper {
+        gap: 1rem;
+    }
+}

@@ -9,6 +9,9 @@
     list-style: none;
 }
 
+@import url('./styles/typography.css');
+@import url('./styles/circle-of-fifths.css');
+
 :root {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
@@ -31,6 +34,7 @@
 
     /* Animation */
     --transition-speed: 600ms;
+    --transition-speed-fast: 300ms;
 
 
     /* Navigation */
@@ -61,17 +65,12 @@ body[data-theme="dark"] {
 }
 
 body {
-    background: var(--bg-primary-color);
+    background: var(--bg-secondary-color);
     color: var(--text-primary);
     fill: var(--text-primary);
 }
 
-/* -------- Typography -------- */
-h1 {
-    font-size: 96px;
-    font-weight: lighter;
-    letter-spacing: -1.5px;
-}
+
 
 /* Container for all Components */
 .content {
@@ -93,28 +92,44 @@ h1 {
     -webkit-box-shadow: 5px 5px 11px -4px rgba(0,0,0,0.39);
     -moz-box-shadow: 5px 5px 11px -4px rgba(0,0,0,0.39);
     box-shadow: 5px 5px 11px -4px rgba(0,0,0,0.39);
-    border-radius: 5px;
-    padding: 1em;
+    border-radius: 10px;    
     color: var(--text-primary);
 }
+.card-padding {
+    padding: 1rem;
+}
 
-.collapsable {
-    
+.card-wrapper {
+    position: relative;
+    margin-top: 1.5rem;
+}
+
+.section-label {
+    color: red;
+}
+.section-label::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: var(--accent-color);
+    width: 1rem;
+    height: 1rem;
 }
 
 /* Button */
 .btn {
-    color: var(--bg-primary-color);
+    color: var(--text-primary);
     background: var(--bg-primary-color);
+    border: var(--accent-color) solid 3px;
     border-radius: 10px;
     opacity: .6;
     text-decoration: none;
     font-size: 1.5rem;
 
-    font-weight: 700;
-    border: none;
+    width: 100%;
 
-    padding: .4em 1.2em;
+    padding: .4em 2em;
 
     font-weight: lighter;
 
@@ -152,32 +167,6 @@ h1 {
     background: var(--accent-color);
 }
 
-/* Circle of fifths - should not be here */
-#cirlce text {
-    cursor: pointer;
-}
-#fields path {
-    stroke: whitesmoke;
-    fill-opacity: .6;
-    cursor: pointer;
-}
-#circleDim path {
-    fill: var(--dim-color);
-}
-#circleMinor path {
-    fill: var(--minor-color);
-}
-#circleMajor path {
-    fill: var(--major-color);
-}
-
-#circleTexts text {
-    cursor: pointer;
-}
-
-#fields path:hover {
-    fill-opacity: 1;
-}
 
 
 @media only screen and (max-width: 600px) {     

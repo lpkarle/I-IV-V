@@ -1,69 +1,20 @@
 .chordsInKey {
     text-align: left;
     display: flex;
+    flex-direction: column;
 }
-
-.left {
-    flex: 2;
-    margin-right: .5rem;
-}
-.right {
-    flex: 1;
-    margin-left: .5rem;
-}
-
-.chordsInKey h2 {
-    margin-top: 20px;
-    margin-bottom: 5px;
-}
-
-/* ---- Select Key ---- */
-
-.keys {
-    background: var(--bg-primary-color);
-
-    height: 22.5rem;
-    overflow: hidden;
-    overflow-y: scroll;
-
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15vh, 1fr));
-    gap: .5rem;
-    
-    padding-bottom: 12rem;
-    
-}
-.key:last-child {
-    margin-bottom: 1rem;
-}
-
-.key {
-    border: grey solid 1.5px;
-    border-radius: 10px;
-    padding: .5rem;
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    height: 15vh;
-    
-    font-size: 60px;
-    font-weight: bolder;
-}
-
 
 /* ---- Select Voicing ---- */
 .voicingPicker {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-}
 
+    gap: 1rem;
+}
 
 /* ---- Resulting Chords ---- */
 .resultingChords {
-    
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(10vh, 1fr));
     gap: .5rem;
@@ -90,19 +41,40 @@
 }
 
 .voicing {
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-top: .5rem;
 }
 
-/* Resulting Chords */
-.commonProgressions {
+/* ---- Resulting Chords ---- */
+.progression {
     display: flex;
-    flex-direction: column;
+    position: relative;
+    margin-bottom: 1rem;
 }
+
+.progression::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    content: "";
+    width: 100%;
+    height: .1rem;
+    opacity: .1;
+    background: var(--text-primary);
+    transform: translateY(.5rem);
+}
+
+.progression:last-child {
+    margin-bottom: 0;
+}
+
+.progression:last-child::after {
+    display: none;
+}
+
 .progressionNum {
     display: flex;
+    justify-content: center;
+    align-self: center;
     text-align: center;
     gap: .1rem;
     font-weight: bold;
@@ -114,54 +86,27 @@
     width: 2rem;
 }
 .progressionChords {
+    width: 100%;
     display: flex;
     gap: .4rem;
     justify-content: space-evenly;
-    margin-bottom: 1rem;
 }
 
-@media only screen and (max-width: 600px) {     
-    .chordsInKey {
-        flex-direction: column;
-    }
-    .keys {    
-        height: 22.5rem;
-        overflow: hidden;
-        overflow-y: scroll;
-    
-        
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(15vh, 1fr));
-        gap: .5rem;
-        
-    }
-    
-    .key {
-        border: grey solid 1.5px;
-        border-radius: 10px;
-        padding: .5rem;
-        
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        
-        height: 15vh;
-        
-        font-size: 60px;
-        font-weight: bolder;
-    }
-    .left {
-        margin-right: 0;
-    }
-    .right {
-        margin-left: 0;
-    }
 
+@media only screen and (max-width: 600px) {     
     .voicingPicker {
         flex-direction: column;
-        gap: .5em;
     }
     .voicingBtn {
         padding: .4em 3.5em;
     }
+
+    .progression {
+        flex-direction: column;
+        
+    }
+    .progressionNum {
+        align-self: flex-start;
+    }
+
 }

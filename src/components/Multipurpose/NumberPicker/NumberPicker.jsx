@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './NumberPicker.module.css';
-import { ArrowIcon } from '../../../images/svgs/';
+import { ArrowIcon } from '../../../images';
 
 export default function NumberPicker({ defaultNum, range, onClick }) {
 
