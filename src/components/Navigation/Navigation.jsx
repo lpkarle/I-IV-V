@@ -1,21 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
 import styles from './Navigation.module.css';
 import cx from 'classnames';
 
-import { ReactComponent as LogoSVG } from '../../images/svgs/Navigation/logo_v0_small.svg';
 
-/**
- * Reusable Navigation
- * It takes the following parameter:
- * {label: ..., icon: ..., selected: ...} 
- *   
- * @param {*} param0 
- */
-export default function Navigation({ topNavElements, sideNavElements, currNavEl, onClick, toggleTheme }) {
+export default function Navigation({ logo, topNavElements, sideNavElements, currNavEl, onClick }) {
 
     const [selectedSideNavEl, setSelectedSideNavEl] = useState(currNavEl);
+
+    useEffect(() => {
+        setSelectedSideNavEl(currNavEl);
+    }, [currNavEl])
 
     const handleSideNavEl = (element) => {
         setSelectedSideNavEl(element);
@@ -26,7 +21,7 @@ export default function Navigation({ topNavElements, sideNavElements, currNavEl,
         <div className={styles.navbar}>
 
             <div className={styles.logoWrapper}>
-                <div className={styles.logo}><LogoSVG /></div>
+                <div className={styles.logo}>{logo}</div>
                 <div className={styles.logoText}>{selectedSideNavEl}</div>
             </div>
 
@@ -36,7 +31,7 @@ export default function Navigation({ topNavElements, sideNavElements, currNavEl,
                         <TopNavElement
                             key={index}
                             icon={item.icon}
-                            onClick={toggleTheme}
+                            onClick={item.onClick}
                         />
                     ))}
                 </TopNavElements>
@@ -59,6 +54,14 @@ export default function Navigation({ topNavElements, sideNavElements, currNavEl,
             </div>
         </div>
     );
+}
+
+Navigation.defaultProps = {
+    logo: 'svg',
+    topNavElements: [{icon: 'svg', onClick: () => console.log('Top')}],
+    sideNavElements: [{ label: 'Side', icon: 'svg', address: '/' }],
+    currNavEl: 'Side',
+    onClick: () => console.log('Side')
 }
 
 function TopNavElements({ children }) {

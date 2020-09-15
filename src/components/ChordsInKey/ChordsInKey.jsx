@@ -42,61 +42,58 @@ export default function ChordsInKey() {
                 border: "var(--accent-color) solid 6px",
                 opacity: "1"
             }
-        } 
+        }
     }
 
     return (
-        <div className="content">
+        <div className={styles.chordsInKey}>
 
-            <div className={styles.chordsInKey}>
-
-                <div className={"card-wrapper"}>
-                    <h4 style={{marginBottom: ".5rem"}}>Select Key:</h4>
-                    <div className={cx("card", "card-padding")}>
-                        <NotePicker
-                            onClick={(note) => setSelectedNote(note)} />
-                    </div>
+            <div className={"card-wrapper"}>
+                <h4 style={{ marginBottom: ".5rem" }}>Select Key:</h4>
+                <div className={cx("card", "card-padding")}>
+                    <NotePicker
+                        onClick={(note) => setSelectedNote(note)} />
                 </div>
-
-
-                <div className={"card-wrapper"}>
-                    <h4 /*  className="section-label"  */style={{marginBottom: ".5rem"}}>Select Voicing:</h4>
-                    <div className={cx("card", "card-padding", styles.voicingPicker)}>
-
-                        {ddElements.map((name, index) => (
-                            <button 
-                                className="btn"
-                                style={styleSelectedVoicing(name)}
-                                key={index}
-                                onClick={() => setSelectedVoicing(name)}>
-                                {name}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
-                <ResultingChords >
-                    {chordsAndProgressions.scale.notes.map((note, index) => (
-                        <ChordAndVoicing
-                            chordNote={note}
-                            voicing={chordsAndProgressions.chords[index]}
-                            key={index}
-                            style={styleChordVoicing(chordsAndProgressions.chords[index])}
-                        />
-                    ))}
-                </ResultingChords>
-
-                <CommonProgressions>
-                    {chordsAndProgressions.progressions.map((num, index) => (
-                        <Progression
-                            progression={num}
-                            chords={chordsAndProgressions.chords}
-                            scale={chordsAndProgressions.scale}
-                            key={index}
-                            style={styleChordVoicing} />
-                    ))}
-                </CommonProgressions>
             </div>
+
+
+            <div className={"card-wrapper"}>
+                <h4 /*  className="section-label"  */ style={{ marginBottom: ".5rem" }}>Select Voicing:</h4>
+                <div className={cx("card", "card-padding", styles.voicingPicker)}>
+
+                    {ddElements.map((name, index) => (
+                        <button
+                            className="btn"
+                            style={styleSelectedVoicing(name)}
+                            key={index}
+                            onClick={() => setSelectedVoicing(name)}>
+                            {name}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            <ResultingChords >
+                {chordsAndProgressions.scale.notes.map((note, index) => (
+                    <ChordAndVoicing
+                        chordNote={note}
+                        voicing={chordsAndProgressions.chords[index]}
+                        key={index}
+                        style={styleChordVoicing(chordsAndProgressions.chords[index])}
+                    />
+                ))}
+            </ResultingChords>
+
+            <CommonProgressions>
+                {chordsAndProgressions.progressions.map((num, index) => (
+                    <Progression
+                        progression={num}
+                        chords={chordsAndProgressions.chords}
+                        scale={chordsAndProgressions.scale}
+                        key={index}
+                        style={styleChordVoicing} />
+                ))}
+            </CommonProgressions>
         </div>
     )
 }
@@ -104,7 +101,7 @@ export default function ChordsInKey() {
 function ResultingChords({ children }) {
     return (
         <div className={"card-wrapper"}>
-            <h4 style={{marginBottom: ".5rem"}}>Resulting Chords:</h4>
+            <h4 style={{ marginBottom: ".5rem" }}>Resulting Chords:</h4>
             <div className={cx("card", "card-padding", styles.resultingChords)}>
                 {children}
             </div>
@@ -124,7 +121,7 @@ function ChordAndVoicing({ chordNote, voicing, style }) {
 function CommonProgressions({ children }) {
     return (
         <div className={"card-wrapper"}>
-            <h4 style={{marginBottom: ".5rem"}}>Common Progressions:</h4>
+            <h4 style={{ marginBottom: ".5rem" }}>Common Progressions:</h4>
             <div className={cx("card", "card-padding", styles.commonProgressions)}>
                 {children}
             </div>

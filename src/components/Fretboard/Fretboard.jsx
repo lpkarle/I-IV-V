@@ -3,26 +3,26 @@ import styles from './Fretboard.module.css';
 import cx from 'classnames';
 import { DropdownMenu, NotePicker, NumberPicker, Checkbox, RadioButtonGroup, CollapsableContainer } from '../Multipurpose/';
 
-import { getScales,getChord, getChords, getScale, getAccidental, getChromaticScale } from '../../logic/index';
+import { getScales, getChord, getChords, getScale, getAccidental, getChromaticScale } from '../../logic/index';
 import { getTuningNames, getInstruments, getTuningByName } from '../../logic/index';
 
 import { AddIcon, RemoveIcon, MirrorVIcon, MirrorHIcon } from '../../images';
 
 export default function Fretboard() {
-  
+
     /* ---- Fretboard ---- */
     const FRETBOARDMIN = 1,
-          FRETBOARDMAX = 24;
+        FRETBOARDMAX = 24;
 
-    const [fretFromTo, setFretFromTo] = useState({from: 1, to: 12});
-    
-    const [fretboardOrientation, setFretboardOrientation] = useState({horizontal: false, vertical: true});
-    
+    const [fretFromTo, setFretFromTo] = useState({ from: 1, to: 12 });
+
+    const [fretboardOrientation, setFretboardOrientation] = useState({ horizontal: false, vertical: true });
+
     const instruments = getInstruments();   // List for Dropdown
     const [instrument, setInstrument] = useState(instruments[0]);
     const [defaultTunings, setDefaultTunings] = useState(getTuningNames(instrument));
-    
-    
+
+
     /* ---- Note Selction ---- */
     const [selectedNote, setSelectedNote] = useState('C');
     const [selectedVoicing, setSelectedVoicing] = useState('Major');
@@ -36,41 +36,41 @@ export default function Fretboard() {
         chord: getChord(selectedVoicing, selectedNote)
     });
 
-    
-    
+
+
     const [ddElements, setDdElements] = useState(scale.ddElements);
     const [highlightedNotes, setHighlightedNotes] = useState(scale.scale);
 
 
     /* ---- Defines Style/Highlited Notes */
-    const buttonGroupRename = ['Scale', 'Chord']; 
+    const buttonGroupRename = ['Scale', 'Chord'];
     // bei Sclae -> alle möglichen Scales bzw chords
     const [selectedChordOrScaleEl, setSelectedChordOrScaleEl] = useState(buttonGroupRename[0]);
-    
+
 
     /* ---- Fretboard-Config ---- */
     const [tuning, setTuning] = useState(getTuningByName(
         instrument, getTuningNames(instrument)[0], fretboardOrientation.horizontal, highlightedNotes.notes));
     const [showRoot, setShowRoot] = useState(true);
     const [showScaleNotes, setShowScaleNotes] = useState(true);
-    const [showAllNotes, setShowNone] = useState(true);    
+    const [showAllNotes, setShowNone] = useState(true);
 
     useEffect(() => {
         document.title = "I IV V - Fretboard"
     }, [])
 
-    useEffect(() => {       
+    useEffect(() => {
         setScale(prevScale => {
-            return {...prevScale, scale: getScale(selectedVoicing, selectedNote)}
+            return { ...prevScale, scale: getScale(selectedVoicing, selectedNote) }
         });
         setChord(prevChord => {
-            return {...prevChord, chord: getChord(selectedVoicing, selectedNote)}
+            return { ...prevChord, chord: getChord(selectedVoicing, selectedNote) }
         });
     }, [selectedNote, selectedVoicing, selectedChordOrScaleEl]);
 
     useEffect(() => {
         setDdElements(selectedChordOrScaleEl === 'Scale' ? scale.ddElements : chord.ddElements);
-        setHighlightedNotes(selectedChordOrScaleEl === 'Scale' ? scale.scale : chord.chord );
+        setHighlightedNotes(selectedChordOrScaleEl === 'Scale' ? scale.scale : chord.chord);
     }, [selectedChordOrScaleEl, scale, chord]);
 
     useEffect(() => {
@@ -79,7 +79,7 @@ export default function Fretboard() {
         );
     }, [instrument, defaultTunings, fretboardOrientation, highlightedNotes]);
 
-    
+
     /* Generate Frets */
     const fretArray = () => {
         let fretArr = [];
@@ -95,16 +95,16 @@ export default function Fretboard() {
 
     const addString = () => {
         setTuning(prevTuning => {
-            return {...prevTuning, notes: [...prevTuning.notes, getChromaticScale(highlightedNotes.notes, 'E')]}
+            return { ...prevTuning, notes: [...prevTuning.notes, getChromaticScale(highlightedNotes.notes, 'E')] }
         });
     }
 
-    const removeString = (index) => { 
+    const removeString = (index) => {
         const newTuning = tuning.notes;
         newTuning.splice(newTuning.length - 1, 1);
-     
+
         setTuning(prevTuning => {
-            return {...prevTuning, notes: newTuning}
+            return { ...prevTuning, notes: newTuning }
         });
     }
 
@@ -115,13 +115,13 @@ export default function Fretboard() {
 
     const changeHorizontalOrientation = () => {
         setFretboardOrientation(prevOrien => {
-            return {...prevOrien, horizontal: !prevOrien.horizontal}
+            return { ...prevOrien, horizontal: !prevOrien.horizontal }
         });
     }
 
     const changeVerticalOrientation = () => {
         setFretboardOrientation(prevOrien => {
-            return {...prevOrien, vertical: !prevOrien.vertical}
+            return { ...prevOrien, vertical: !prevOrien.vertical }
         });
     }
 
@@ -133,11 +133,11 @@ export default function Fretboard() {
         const changed = tuning.notes;
         changed[index] = getChromaticScale(getAccidental(highlightedNotes.notes), newNote);
         setTuning(prevTuning => {
-            return {...prevTuning, notes: changed}
+            return { ...prevTuning, notes: changed }
         });
     }
 
-    
+
 
     const handlePrint = () => {
         /* Open a new Tab for that */
@@ -152,14 +152,14 @@ export default function Fretboard() {
     /* Show and hide instead of generate */
     const styleFrets = (num) => {
         return {
-            display: (num >= fretFromTo.from && num <= fretFromTo.to) 
+            display: (num >= fretFromTo.from && num <= fretFromTo.to)
                 ? "flex" : "none",
         }
     }
 
     const styleNotes = (note) => {
         if (highlightedNotes.notes[0] === note) {
-            return { 
+            return {
                 display: showRoot ? null : "none",
                 background: 'red',
                 color: "var(--bg-primary-color)",
@@ -167,7 +167,7 @@ export default function Fretboard() {
                 border: "none"
             }
         } else if (highlightedNotes.notes.includes(note)) {
-            return { 
+            return {
                 background: showScaleNotes ? 'black' : 'transparent',
                 color: showScaleNotes ? "var(--bg-primary-color)" : 'transparent',
                 fontWeight: "bold",
@@ -177,14 +177,16 @@ export default function Fretboard() {
             return {
                 background: showAllNotes ? 'var(--bg-secondary-color)' : 'transparent',
                 color: showAllNotes ? 'var(--text-primary)' : 'transparent',
-                /* display: showAllNotes ? null : "none",
-                color: showAllNotes ? "var(--text-primary)" : "var(--bg-secondary-color)", */
                 fontSize: note.length > 2 ? "10px" : "16px"
             }
         }
     }
 
-    
+    const styleString = (index) => {
+        return {
+            height: `${1 + index}px`
+        }
+    }
 
 
     return (
@@ -192,27 +194,27 @@ export default function Fretboard() {
 
             {/* -------- Configure Note and Chord / Scale -------- */}
             <CollapsableContainer label={`Selected Note: ${selectedNote}`}>
-                <NotePicker onClick={(note) => setSelectedNote(note)} />          
+                <NotePicker onClick={(note) => setSelectedNote(note)} />
             </CollapsableContainer>
 
             <CollapsableContainer label={`Show: ${selectedVoicing} ${selectedChordOrScaleEl}`}>
-                <div className={cx(/* "card",  */styles.sth)}>
-                    
+                <div className={styles.sth}>
 
-                    <select     
+
+                    <select
                         className={styles.dd}
-                        name="" 
-                        id="" 
+                        name=""
+                        id=""
                         onChange={(e) => setSelectedVoicing(e.target.value)}
-                        style={{width: "5rem"}}>
+                        style={{ width: "5rem" }}>
                         {ddElements.map((element, index) => (
                             <option value={element} key={index}>{element}</option>
                         ))}
                     </select>
 
-                    <RadioButtonGroup 
-                        buttonList={{groupName: 'scaleChord', btns: buttonGroupRename}} 
-                        onChange={(el)=> setSelectedChordOrScaleEl(el)} />
+                    <RadioButtonGroup
+                        buttonList={{ groupName: 'scaleChord', btns: buttonGroupRename }}
+                        onChange={(el) => setSelectedChordOrScaleEl(el)} />
                 </div>
             </CollapsableContainer>
 
@@ -220,7 +222,7 @@ export default function Fretboard() {
                 <div className={cx(styles.resultScale)}>
                     {highlightedNotes.intervals.map((interval, index) => (
                         <div key={index} className={styles.noteAndInterval}>
-                            <div className={styles.intervalNote}>{index === (highlightedNotes.intervals.length - 1) 
+                            <div className={styles.intervalNote}>{index === (highlightedNotes.intervals.length - 1)
                                 ? highlightedNotes.notes[0] : highlightedNotes.notes[index]}</div>
                             <div className={styles.interval}>{interval}</div>
                         </div>
@@ -229,117 +231,121 @@ export default function Fretboard() {
             </CollapsableContainer>
 
 
-            
-            
+
+
 
             {/* -------- Configure Fretboard Appearance -------- */}
             <CollapsableContainer label="Fretboard Config">
 
                 <div className={cx(styles.fretboardConfig)}>
 
+                    <div className={styles.fretboardConfigA}>
+                        <select
+                            className={styles.dd}
+                            name=""
+                            id=""
+                            onChange={(e) => changeInstrument(e.target.value)}
+                            style={{ width: "5rem" }}>
+                            {instruments.map((element, index) => (
+                                <option value={element} key={index}>{element}</option>
+                            ))}
+                        </select>
+
+                        <select
+                            className={styles.dd}
+                            name=""
+                            id=""
+                            onChange={(e) => changeTuning(e.target.value)}
+                            style={{ width: "5rem" }}>
+                            {defaultTunings.map((element, index) => (
+                                <option value={element} key={index}>{element}</option>
+                            ))}
+                        </select>
+
+                        <AddIcon className="svg-btn" onClick={addString} />
+                        <RemoveIcon className="svg-btn" onClick={() => removeString(0)} />
+
+                        <MirrorHIcon className="svg-btn" onClick={changeHorizontalOrientation} />
+                        <MirrorVIcon className="svg-btn" onClick={changeVerticalOrientation} />
 
 
-                    <select 
-                        className={styles.dd}
-                        name="" 
-                        id="" 
-                        onChange={(e) => changeInstrument(e.target.value)}
-                        style={{width: "5rem"}}>
-                        {instruments.map((element, index) => (
-                            <option value={element} key={index}>{element}</option>
-                        ))}
-                    </select>
-
-                    <select 
-                        className={styles.dd}
-                        name="" 
-                        id="" 
-                        onChange={(e) => changeTuning(e.target.value)}
-                        style={{width: "5rem"}}>
-                        {defaultTunings.map((element, index) => (
-                            <option value={element} key={index}>{element}</option>
-                        ))}
-                    </select>
-
-                    <div className={styles.showFrets}>
-                        <p>Show Fret from</p>
-                        <NumberPicker 
-                            defaultNum={fretFromTo.from} 
-                            range={{min: FRETBOARDMIN, max: fretFromTo.to}}
-                            onClick={(num) => setFretFromTo(prev => { return {...prev, from: num} })}
-                            from={true}
-                        />
-                        <p> to</p>
-                        <NumberPicker 
-                            defaultNum={fretFromTo.to} 
-                            range={{min: fretFromTo.from, max: FRETBOARDMAX}}
-                            onClick={(num) => setFretFromTo(prev => { return {...prev, to: num} })}
-                            from={false}
-                        />
                     </div>
-                
-                    <AddIcon className="svg-btn" onClick={addString} />
-                    <RemoveIcon className="svg-btn" onClick={() => removeString(0)} />
-                    
-                    <MirrorHIcon className="svg-btn" onClick={changeHorizontalOrientation} />
-                    <MirrorVIcon className="svg-btn" onClick={changeVerticalOrientation} />
-                
-                    <div className={styles.cb}>
-                        <Checkbox 
-                            label={'All Notes'} 
-                            checked={showAllNotes} 
-                            onChange={()=> setShowNone(!showAllNotes)}/>
-                        <Checkbox 
-                            label={'Root'} 
-                            checked={showRoot} 
-                            onChange={()=> setShowRoot(!showRoot)}/>
 
-                        <Checkbox 
-                            label={`Notes in ${selectedChordOrScaleEl}`} 
-                            checked={showScaleNotes} 
-                            onChange={()=> setShowScaleNotes(!showScaleNotes)}/>
+                    <div className={styles.fretboardConfigB}>
+                        <div className={styles.showFrets}>
+                            <p>Show Fret from</p>
+                            <NumberPicker
+                                defaultNum={fretFromTo.from}
+                                range={{ min: FRETBOARDMIN, max: fretFromTo.to }}
+                                onClick={(num) => setFretFromTo(prev => { return { ...prev, from: num } })}
+                                from={true}
+                            />
+                            <p> to</p>
+                            <NumberPicker
+                                defaultNum={fretFromTo.to}
+                                range={{ min: fretFromTo.from, max: FRETBOARDMAX }}
+                                onClick={(num) => setFretFromTo(prev => { return { ...prev, to: num } })}
+                                from={false}
+                            />
+                        </div>
+
+                        <div className={styles.cb}>
+                            <Checkbox
+                                label={'All Notes'}
+                                checked={showAllNotes}
+                                onChange={() => setShowNone(!showAllNotes)} />
+                            <Checkbox
+                                label={'Root'}
+                                checked={showRoot}
+                                onChange={() => setShowRoot(!showRoot)} />
+
+                            <Checkbox
+                                label={`Notes in ${selectedChordOrScaleEl}`}
+                                checked={showScaleNotes}
+                                onChange={() => setShowScaleNotes(!showScaleNotes)} />
+                        </div>
+
                     </div>
-                    
                 </div>
             </CollapsableContainer>
 
-        
 
             <div className={cx("card", styles.boardWrapper)}>
                 <div className={styles.board2}>
 
-                    <OpenStrings 
+                    <OpenStrings
                         orientation={fretboardOrientation.vertical}
                         tuning={tuning.notes}
                         onClick={changeStringNote}
-                        sideMargin={{marginRight: ".5rem"}}
-                        style={styleNotes} />              
+                        sideMargin={{ marginRight: ".5rem" }}
+                        style={styleNotes} />
 
                     {fretArray().map((indexFret) => (
-                        <Fret 
-                            key={indexFret} 
-                            number={indexFret} 
+                        <Fret
+                            key={indexFret}
+                            number={indexFret}
                             style={styleFrets(indexFret)}>
 
                             {tuning.notes.map((element, indexTuning) => (
-                                <Strings 
-                                    note={element[indexFret]} 
+                                <Strings
+                                    note={element[indexFret]}
                                     key={indexTuning}
-                                    style={styleNotes} />
+                                    styleNote={styleNotes}
+                                    styleString={styleString(indexTuning)} />
                             ))}
 
                         </Fret>
                     ))}
 
-                    <OpenStrings 
+                    <OpenStrings
                         orientation={!fretboardOrientation.vertical}
                         tuning={tuning.notes}
-                        onClick={changeStringNote} 
-                        sideMargin={{marginLeft: ".5rem"}}
+                        onClick={changeStringNote}
+                        sideMargin={{ marginLeft: ".5rem" }}
                         style={styleNotes} />
                 </div>
             </div>
-            <br/>
+            <br />
 
             {/* <button onClick={handlePrint}>Print</button> */}
         </div>
@@ -347,19 +353,19 @@ export default function Fretboard() {
 }
 
 
-function OpenStrings({orientation, sideMargin, style, tuning, onClick}) {
+function OpenStrings({ orientation, sideMargin, style, tuning, onClick }) {
     return (
         <>
-            {orientation ? 
-                <div 
-                    className={styles.openStrings} 
+            {orientation ?
+                <div
+                    className={styles.openStrings}
                     style={sideMargin}>
 
                     {tuning.map((element, index) => (
-                        <div 
+                        <div
                             style={style(element[0])}
-                            className={styles.note} 
-                            onClick={() => onClick(index, 'C')} 
+                            className={styles.note}
+                            onClick={() => onClick(index, 'C')}
                             key={index}
                         >
                             {element[0]}
@@ -367,12 +373,12 @@ function OpenStrings({orientation, sideMargin, style, tuning, onClick}) {
                     ))}
                 </div>
                 : null
-            }  
+            }
         </>
     );
 }
 
-function Fret({children, style, number}) {    
+function Fret({ children, style, number }) {
     return (
         <div className={styles.fret} style={style}>
             <p>{number}</p>
@@ -381,14 +387,14 @@ function Fret({children, style, number}) {
     );
 }
 
-function Strings({ note, style}) {
+function Strings({ note, styleString, styleNote }) {
 
     return (
-        <div className={styles.strings}>
-            <div 
-                className={styles.note} 
+        <div className={styles.strings} style={styleString}>
+            <div
+                className={styles.note}
                 onClick={() => console.log(note)}
-                style={style(note)}>
+                style={styleNote(note)}>
                 {note}
             </div>
         </div>

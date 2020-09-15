@@ -88,7 +88,6 @@ export default function CircleOfFifths() {
 
     return (
         <div className={styles.circleOfFifths}>
-            <h1>CircleOfFifths</h1>
             <Circle className={styles.circle}/>
         </div>
     );
