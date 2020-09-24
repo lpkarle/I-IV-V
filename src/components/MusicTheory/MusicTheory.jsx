@@ -5,17 +5,30 @@ import styles from './MusicTheory.module.css';
 
 export default function MusicTheory() {
 
-    const [toggleView, setToggleView] = useState(false);
+    const [selectedEl, setSelectedEl] = useState('chordsInKey');
+
+    const styleButton = (sel) => {
+        return {
+            background: sel === selectedEl ? 'var(--accent-color)' : 'transparent',
+            color: sel === selectedEl ? 'var(--bg-primary-color)' : 'var(--text-primary-color)'
+        }
+    }
 
     return (
         <div className="content">
 
-            <label className={styles.switch}>
-                <input type="checkbox" onChange={() => setToggleView(!toggleView)}/>
-                <span className={cx(styles.slider, styles.round)}></span>
-            </label>
-            
-            {toggleView ? <ChordsInKey/> : <CircleOfFifths/> }
+            <div className={cx("card")}>
+                <div className={styles.bla}>
+                    <div onClick={() => setSelectedEl('chordsInKey')} style={styleButton('chordsInKey')}>
+                        Chords in Key
+                    </div>
+                    <div onClick={() => setSelectedEl('circleOfFifths')} style={styleButton('circleOfFifths')}>
+                        Circle of Fifths
+                    </div>
+                </div>
+            </div>
+
+            {selectedEl === 'chordsInKey' ? <ChordsInKey/> : <CircleOfFifths/> }
         </div>
     )
 }

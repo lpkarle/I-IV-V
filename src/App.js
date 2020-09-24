@@ -28,18 +28,18 @@ const useLocalStorage = (key, defaultValue) => {
 export default function App() {
 
   const topNavElements = [
-    { icon: <InvertColorIcon/>, onClick: () => setTheme(cur => cur === "light" ? "dark" : "light") },
-    { icon: <MoreIcon/>, onClick: () => console.log("Hello")},
+    { icon: <InvertColorIcon />, onClick: () => setTheme(cur => cur === "light" ? "dark" : "light") },
+    { icon: <MoreIcon />, onClick: () => console.log("Hello") },
   ];
   const sideNavElements = [
-    { label: 'Home', icon: <HomeIcon/>, address: '/' },
-    { label: 'Music Theory', icon: <MusicNoteIcon/>, address: '/music-theory' },
-    { label: 'Fretboard', icon: <MenuIcon/>, address: '/fretboard' }
+    { label: 'Home', icon: <HomeIcon />, address: '/' },
+    { label: 'Music Theory', icon: <MusicNoteIcon />, address: '/music-theory' },
+    { label: 'Fretboard', icon: <MenuIcon />, address: '/fretboard' }
   ];
 
   const homeElements = [
-    {address: '/music-theory', img: musicTheory, label: 'Music Theory', text: 'Circle of Fifths & Chords in Key', onClick: (el) => {console.log(el); setCurrNavEl(el)}},
-    {address: '/fretboard', img: fretboard, label: 'Fretboard', text: 'show chords and scales on fretboard', onClick: (el) => {console.log(el); setCurrNavEl(el)}},
+    { address: '/music-theory', img: musicTheory, label: 'Music Theory', text: 'Circle of Fifths & Chords in Key', onClick: (el) => { console.log(el); setCurrNavEl(el) } },
+    { address: '/fretboard', img: fretboard, label: 'Fretboard', text: 'show chords and scales on fretboard', onClick: (el) => { console.log(el); setCurrNavEl(el) } },
     // {address: '/metronom', img: time, label: 'Metronom', text: 'Rythm Practise', onClick: (el) => console.log(el)},
   ]
 
@@ -55,7 +55,7 @@ export default function App() {
         </Helmet>
 
         <Navigation
-          logo={<LogoIcon/>}
+          logo={<LogoIcon />}
           topNavElements={topNavElements}
           sideNavElements={sideNavElements}
           currNavEl={currNavEl}
@@ -72,6 +72,8 @@ export default function App() {
           <Route path="/music-theory/circle-of-fifths" component={CircleOfFifths} />
         </Switch>
 
+        {/* <Footer /> */}
+        
       </Router>
     </HelmetProvider>
   );

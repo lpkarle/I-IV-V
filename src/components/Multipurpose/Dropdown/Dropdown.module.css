@@ -1,56 +1,13 @@
-select {
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .1);
-    font-size: 1.5rem;
-    padding: .4em 5em .4em 1.5em;
+.dd select {
+    font-size: 1.1rem;
+    width: 8rem;
+    height: 2rem;
+    border: var(--accent-color) solid 3px;
+    border-radius: 5px;
+    padding: .1rem 1rem;
+    background: transparent;
     color: var(--text-primary);
-    background: var(--bg-secondary-color);
-    border: 0;
-    border-radius: 10px;
-    -webkit-box-shadow: 5px 5px 11px -4px rgba(0,0,0,0.39);
-    -moz-box-shadow: 5px 5px 11px -4px rgba(0,0,0,0.39);
-    box-shadow: 5px 5px 11px -4px rgba(0,0,0,0.39);
-    
+    appearance: none;
 
-    /*appearance: none;    get rid of default style */
-}
-
-.custom-select {
-    position: relative;
-    width: fit-content;
-    background-color: royalblue;
-}
-
-.custom-arrow {
-    position: absolute;
-    background: #3b3c47;
-    top: 0;
-    right: 0;
-    display: block;
-    height: 100%;
-    width: 3rem;
-    pointer-events: none;
-}
-
-.custom-arrow::before,
-.custom-arrow::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.custom-arrow::before {
-    border-left: 1em solid transparent;
-    border-right: 1em solid transparent;
-    border-top:  1em solid red;
-    top: 65%;
-}
-.custom-arrow::after {
-    border-left: 1em solid transparent;
-    border-right: 1em solid transparent;
-    border-bottom:  1em solid red;
-    top: 35%;
+    text-align-last: center;
 }

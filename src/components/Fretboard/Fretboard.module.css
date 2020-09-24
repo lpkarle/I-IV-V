@@ -1,25 +1,12 @@
-
-
-.dd {
-    border: var(--accent-color) solid 3px;
-    border-radius: 5px;
-    padding: .1rem 0;
-    width: 10rem;
-    text-align: center;
-   
-    background: transparent;
-    color: var(--text-primary);
-    appearance: none;
-}
-
-
-.showFrets {
+/* -------- Scale / Chord -------- */
+.configVoicing {
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
 }
 
-
-
+/* -------- Notes & Intervals -------- */
 .resultScale {
     display: flex;
     justify-content: space-evenly;
@@ -27,43 +14,68 @@
 }
 
 .noteAndInterval {
+    position: relative;
     display: flex;
     flex-direction: column;
-    border-radius: .5rem;
+    border-radius: 5px;
+    /* border: var(--text-primary) solid 1px; */
+}
+.noteAndInterval::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: .5px;
+    top: 50%;
+    
+    background: var(--text-primary);
+    opacity: .6;
 }
 
-.noteAndInterval > div {
+.noteAndInterval>div {
     height: 2rem;
-    width: 3rem;
+    width: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: var(--text-primary) solid 1px;
-}
-
-.noteAndInterval .intervalNote {
-    border-top-left-radius: .5rem;
-    border-top-right-radius: .5rem;
-}
-.noteAndInterval .interval {
-    border-bottom-left-radius: .5rem;
-    border-bottom-right-radius: .5rem;
 }
 
 
+
+
+/* -------- Fretboard Config -------- */
 .fretboardConfig {
+    display: flex;
+    position: relative;
+}
+
+.fretboardConfig > div {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.fretboardConfig .configStrings {
     display: flex;
     flex-direction: column;
 }
-.fretboardConfig > div {
+.fretboardConfig .configStrings div {
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
-.fretboardConfig svg {
-    padding: 5px;
+.fretboardConfig .configStrings div:first-child {
+    margin-bottom: .5rem;
+}
+.fretboardConfig .configStrings svg {
+    padding: 5px;   
+    min-width: 2rem; 
 }
 
+.showFrets {
+    display: flex;
+    align-items: center;
+}
 
 
 .boardWrapper {
@@ -73,43 +85,30 @@
     user-select: none;
 }
 
-.board2 {
+.board {
     display: flex;
     overflow: hidden;
-    /* overflow-x: scroll; */
-}
-
-.board2:hover {
-    
+    padding-right: .15rem;
+    padding-bottom: 1rem;
     overflow-x: scroll;
 }
 
 .openStrings {
     min-width: 2.5rem;
     margin-top: 2rem;
-    /* margin: 2rem 1rem 0 1rem; */
     display: flex;
     flex-direction: column;
-    /* justify-content: space-evenly; */
 }
 
 .openStrings .note {
-    margin: 0.3rem 0;    
+    margin: 0.3rem 0;
 }
 
 .fret {
     display: flex;
     flex-direction: column;
-
-
     width: 100%;
-
     position: relative;
-}
-
-.fret:last-child {
-    color: blue;
-    border-left-color: chartreuse;
 }
 
 .fret p {
@@ -123,38 +122,21 @@
     position: absolute;
     top: 2rem;
     left: 0;
+    width: .3rem;
+    height: calc(100% - 2rem);
     transform: translateX(-.15rem);
-    width: .3rem;
-    height: 100%;
 }
-.fret::after {
-    content: "";
-    background: rgba(70, 70, 70);
-    position: absolute;
-    top: 2rem;
-    right: 0;
-    transform: translateX(.15rem);
-    width: .3rem;
-    height: 100%;
-}
-
 
 .strings {
-
-    /* min-width: 2.2rem; */
-
     z-index: 1;
     background: rgb(87, 87, 87);
     width: 100%;
+    height: .3rem;
     margin: 1.4rem 0;
-
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-
-
 
 .note {
     border-radius: 50%;
@@ -162,12 +144,9 @@
     height: 2.5rem;
     background: var(--bg-secondary-color);
     margin: .5rem;
-    
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     cursor: pointer;
 }
 
@@ -179,21 +158,39 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
     cursor: pointer;
 }
 
 
-
-.sth {
-    display: flex;
+/* -------- Small Screen -------- */
+@media only screen and (max-width: 750px) {
+    /* -------- Fretboard Config -------- */
+    .fretboardConfig {
+        flex-direction: column;
+    }
+    .fretboardConfig::after {
+        content: "";
+        position: absolute;
+        opacity: .5;
+        height: .5px;
+        width: 100%;
+        background-color: var(--text-primary);
+        top: 50%;
+    }
+    .fretboardConfig .configStrings {
+        margin-bottom: .5rem;
+    }
 }
 
-/* -------- Small Screen -------- */
-@media only screen and (max-width: 600px) {    
-    .board2 {
-        overflow: hidden;
-        overflow-x: scroll;
+/* -------- Big Screen -------- */
+@media only screen and (min-width: 750px) {
+    .fretboardConfig::after {
+        content: "";
+        position: absolute;
+        opacity: .5;
+        height: 100%;
+        width: .5px;
+        background-color: var(--text-primary);
+        left: 50%;
     }
-    
-}  
+}

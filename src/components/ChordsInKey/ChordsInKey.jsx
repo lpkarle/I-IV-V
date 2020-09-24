@@ -3,6 +3,7 @@ import cx from 'classnames';
 import styles from './ChordsInKey.module.css';
 import { NotePicker } from '../Multipurpose/';
 import { getScales, getScaleAndCommonProg } from '../../logic/';
+import LegendVoicing from '../Multipurpose/LegendVoicing/LegendVoicing';
 
 
 export default function ChordsInKey() {
@@ -94,6 +95,8 @@ export default function ChordsInKey() {
                         style={styleChordVoicing} />
                 ))}
             </CommonProgressions>
+
+            <LegendVoicing />
         </div>
     )
 }

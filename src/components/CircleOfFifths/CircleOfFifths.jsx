@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './CircleOfFifths.module.css';
 import {ReactComponent as Circle} from '../../images/svgs/CircleOfFifths/fifths.svg';
+import LegendVoicing from '../Multipurpose/LegendVoicing/LegendVoicing';
 
 export default function CircleOfFifths() {
 
@@ -89,6 +90,7 @@ export default function CircleOfFifths() {
     return (
         <div className={styles.circleOfFifths}>
             <Circle className={styles.circle}/>
+            <LegendVoicing/>
         </div>
     );
 }

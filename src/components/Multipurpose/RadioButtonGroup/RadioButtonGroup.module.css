@@ -9,6 +9,7 @@
     display: inline-block;
     vertical-align: middle;
     display: flex;
+    align-items: center;
     position: relative;
     cursor: pointer;
 }
@@ -28,7 +29,6 @@
     border: 3px solid var(--accent-color);
     display: block;
     position: absolute;
-
 }
 
 .rb span::after {

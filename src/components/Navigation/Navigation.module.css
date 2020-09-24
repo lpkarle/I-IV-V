@@ -1,28 +1,33 @@
 /* ------------ Navigation ------------ */
 .navbar .topNavbar {
-    /* background-color: var(--bg-top-nav); */
     position: fixed;
     width: var(--width-top-nav);
     height: var(--height-top-nav);
     display: flex;
     z-index: 0;
+    -webkit-box-shadow: 0px 3px 11px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 3px 11px -4px rgba(0,0,0,0.75);
+    box-shadow: 0px 3px 11px -4px rgba(0,0,0,0.75);
 } 
 
 .navbar .logoWrapper {
     position: fixed;
     display: flex;
+    height: var(--height-top-nav);
     top: 0;
     left: 0;
     z-index: 2;
 }
 
+
 .navbar .logo {
-    /* background: red; */
     display: flex;
+    align-self: center;
     width: var(--width-side-nav);
     height: var(--width-side-nav);
     padding: 1.2rem;
 }
+
 
 .navbar .logoWrapper .logoText {
     color: var(--text-primary);/* --accent-color); */
@@ -109,18 +114,16 @@ svg {
 
 /* -------- Big Screen -------- */
 @media only screen and (min-width: 600px) {
-    /* .navbar .logo::after {
-        content: ""; 
+    .navbar .logoWrapper::after {
+        content: "";
         background: var(--text-primary);
-        opacity: .4;
         position: absolute;
-       
-        bottom: 0;
-        left: 0;
-        margin-left: 5px;
-        width: calc(var(--width-side-nav) - 10px);
-        height: 1px; 
-    } */
+        width: calc(var(--width-side-nav) - 1rem);
+        left: .5rem;
+        height: 1px;
+        top: var(--height-top-nav);
+        opacity: .4;
+    }
 
     .navbar .sideNavbar {
         top: 0;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Fretboard.module.css';
 import cx from 'classnames';
-import { DropdownMenu, NotePicker, NumberPicker, Checkbox, RadioButtonGroup, CollapsableContainer } from '../Multipurpose/';
+import { Dropdown, NotePicker, NumberPicker, Checkbox, RadioButtonGroup, CollapsableContainer } from '../Multipurpose/';
 
 import { getScales, getChord, getChords, getScale, getAccidental, getChromaticScale } from '../../logic/index';
 import { getTuningNames, getInstruments, getTuningByName } from '../../logic/index';
@@ -137,18 +137,6 @@ export default function Fretboard() {
         });
     }
 
-
-
-    const handlePrint = () => {
-        /* Open a new Tab for that */
-        const printContent = document.querySelector(`.${styles.boardWrapper}`).innerHTML;
-        const originalContent = document.body.innerHTML;
-
-        document.body.innerHTML = printContent;
-        window.print();
-        document.body.innerHTML = originalContent;
-    }
-
     /* Show and hide instead of generate */
     const styleFrets = (num) => {
         return {
@@ -161,30 +149,27 @@ export default function Fretboard() {
         if (highlightedNotes.notes[0] === note) {
             return {
                 display: showRoot ? null : "none",
-                background: 'red',
+                background: 'var(--p1-color)',
                 color: "var(--bg-primary-color)",
                 fontWeight: "bold",
+                textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)",
                 border: "none"
             }
         } else if (highlightedNotes.notes.includes(note)) {
             return {
-                background: showScaleNotes ? 'black' : 'transparent',
+                background: showScaleNotes ? 'var(--accent-color)' : 'transparent',
                 color: showScaleNotes ? "var(--bg-primary-color)" : 'transparent',
                 fontWeight: "bold",
+                textShadow: showScaleNotes ? "1px 1px 2px rgba(0, 0, 0, 0.5)" : 'none',
                 border: "none"
             }
         } else {
             return {
                 background: showAllNotes ? 'var(--bg-secondary-color)' : 'transparent',
                 color: showAllNotes ? 'var(--text-primary)' : 'transparent',
+                textShadow: "none",
                 fontSize: note.length > 2 ? "10px" : "16px"
             }
-        }
-    }
-
-    const styleString = (index) => {
-        return {
-            height: `${1 + index}px`
         }
     }
 
@@ -198,19 +183,10 @@ export default function Fretboard() {
             </CollapsableContainer>
 
             <CollapsableContainer label={`Show: ${selectedVoicing} ${selectedChordOrScaleEl}`}>
-                <div className={styles.sth}>
-
-
-                    <select
-                        className={styles.dd}
-                        name=""
-                        id=""
-                        onChange={(e) => setSelectedVoicing(e.target.value)}
-                        style={{ width: "5rem" }}>
-                        {ddElements.map((element, index) => (
-                            <option value={element} key={index}>{element}</option>
-                        ))}
-                    </select>
+                <div className={styles.configVoicing}>
+                    <Dropdown
+                        list={ddElements} 
+                        onChange={setSelectedVoicing}/> 
 
                     <RadioButtonGroup
                         buttonList={{ groupName: 'scaleChord', btns: buttonGroupRename }}
@@ -230,50 +206,30 @@ export default function Fretboard() {
                 </div>
             </CollapsableContainer>
 
-
-
-
-
             {/* -------- Configure Fretboard Appearance -------- */}
             <CollapsableContainer label="Fretboard Config">
-
                 <div className={cx(styles.fretboardConfig)}>
+                    <div className={styles.configStrings}>
+                        <div>
+                            <Dropdown
+                                list={instruments} 
+                                onChange={changeInstrument}/> 
+                            <Dropdown
+                                list={defaultTunings} 
+                                onChange={changeTuning}/>              
+                        </div>
+                        <div>
+                            <AddIcon className="svg-btn" onClick={addString} />
+                            <RemoveIcon className="svg-btn" onClick={() => removeString(0)} />
 
-                    <div className={styles.fretboardConfigA}>
-                        <select
-                            className={styles.dd}
-                            name=""
-                            id=""
-                            onChange={(e) => changeInstrument(e.target.value)}
-                            style={{ width: "5rem" }}>
-                            {instruments.map((element, index) => (
-                                <option value={element} key={index}>{element}</option>
-                            ))}
-                        </select>
-
-                        <select
-                            className={styles.dd}
-                            name=""
-                            id=""
-                            onChange={(e) => changeTuning(e.target.value)}
-                            style={{ width: "5rem" }}>
-                            {defaultTunings.map((element, index) => (
-                                <option value={element} key={index}>{element}</option>
-                            ))}
-                        </select>
-
-                        <AddIcon className="svg-btn" onClick={addString} />
-                        <RemoveIcon className="svg-btn" onClick={() => removeString(0)} />
-
-                        <MirrorHIcon className="svg-btn" onClick={changeHorizontalOrientation} />
-                        <MirrorVIcon className="svg-btn" onClick={changeVerticalOrientation} />
-
-
+                            <MirrorHIcon className="svg-btn" onClick={changeHorizontalOrientation} />
+                            <MirrorVIcon className="svg-btn" onClick={changeVerticalOrientation} />
+                        </div>
                     </div>
 
-                    <div className={styles.fretboardConfigB}>
+                    <div className={styles.configNotes}>
                         <div className={styles.showFrets}>
-                            <p>Show Fret from</p>
+                            <p>Show Fret</p>
                             <NumberPicker
                                 defaultNum={fretFromTo.from}
                                 range={{ min: FRETBOARDMIN, max: fretFromTo.to }}
@@ -288,8 +244,7 @@ export default function Fretboard() {
                                 from={false}
                             />
                         </div>
-
-                        <div className={styles.cb}>
+                        <div className={styles.shownNotes}>
                             <Checkbox
                                 label={'All Notes'}
                                 checked={showAllNotes}
@@ -304,14 +259,12 @@ export default function Fretboard() {
                                 checked={showScaleNotes}
                                 onChange={() => setShowScaleNotes(!showScaleNotes)} />
                         </div>
-
                     </div>
                 </div>
             </CollapsableContainer>
 
-
             <div className={cx("card", styles.boardWrapper)}>
-                <div className={styles.board2}>
+                <div className={styles.board}>
 
                     <OpenStrings
                         orientation={fretboardOrientation.vertical}
@@ -330,8 +283,7 @@ export default function Fretboard() {
                                 <Strings
                                     note={element[indexFret]}
                                     key={indexTuning}
-                                    styleNote={styleNotes}
-                                    styleString={styleString(indexTuning)} />
+                                    styleNote={styleNotes} />
                             ))}
 
                         </Fret>
@@ -345,11 +297,8 @@ export default function Fretboard() {
                         style={styleNotes} />
                 </div>
             </div>
-            <br />
-
-            {/* <button onClick={handlePrint}>Print</button> */}
         </div>
-    )
+    );
 }
 
 
@@ -366,8 +315,7 @@ function OpenStrings({ orientation, sideMargin, style, tuning, onClick }) {
                             style={style(element[0])}
                             className={styles.note}
                             onClick={() => onClick(index, 'C')}
-                            key={index}
-                        >
+                            key={index}>
                             {element[0]}
                         </div>
                     ))}

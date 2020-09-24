@@ -54,6 +54,10 @@
     --major-color: rgb(250, 91, 93);
     --minor-color: rgb(0, 147, 251);
     --dim-color: rgb(70, 252, 133);	
+    --p1-color: rgb(239, 243, 10);
+    --p4-color: rgb(239, 243, 10);
+    --p5-color: rgb(239, 243, 10);
+    --p8-color: rgb(250, 91, 93);
 }
 
 /* Theme dark */
@@ -78,7 +82,7 @@ body {
     background: var(--bg-secondary-color);
     z-index: -1;          /* so the box shadow in top nav is visible */
     width: calc(100% - var(--width-side-nav));
-    min-height:  calc(100% - var(--height-top-nav)); 
+    min-height: calc(100vh - var(--height-top-nav)); 
     margin-left: var(--width-side-nav);
     margin-top: var(--height-top-nav);
     padding: 1rem;
@@ -149,8 +153,8 @@ body {
 
 /* ---- Scrollbar ---- */
 ::-webkit-scrollbar {
-    width: 0.3em;
-    
+    width: 3px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-track {

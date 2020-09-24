@@ -1,0 +1,5 @@
+footer {
+    position: absolute;
+    top: 100vh;
+    left: var(--width-side-nav);
+}

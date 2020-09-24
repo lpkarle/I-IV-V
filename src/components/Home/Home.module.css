@@ -23,4 +23,8 @@
     .cardWrapper {
         gap: 1rem;
     }
+
+    .cardWrapper .card:hover {
+        transform: scale(1.01);
+    }
 }
