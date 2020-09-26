@@ -4,3 +4,5 @@ export { default as NotePicker } from './NotePicker/NotePicker';
 export { default as NumberPicker } from './NumberPicker/NumberPicker';
 export { default as RadioButtonGroup } from './RadioButtonGroup/RadioButtonGroup';
 export { default as CollapsableContainer } from './CollapsableContainer/CollapsableContainer';
+export { default as LegendVoicing } from './LegendVoicing/LegendVoicing';
+export { default as ResultingChords } from './ResultingChords/ResultingChords';

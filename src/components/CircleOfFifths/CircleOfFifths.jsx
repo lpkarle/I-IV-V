@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styles from './CircleOfFifths.module.css';
-import {ReactComponent as Circle} from '../../images/svgs/CircleOfFifths/fifths.svg';
-import LegendVoicing from '../Multipurpose/LegendVoicing/LegendVoicing';
+import {ReactComponent as Circle} from '../../images/svgs/CircleOfFifths/circle_of_fifths.svg';
+import { LegendVoicing, ResultingChords } from '../Multipurpose/';
+// import { getScaleAndCommonProg } from '../../logic/';
 
 export default function CircleOfFifths() {
 
-    const [selectedEl, setSelectedEl] = useState(0);
+    const [selectedEl, setSelectedEl] = useState({index: 0, voicing: 'Major', note: 'C'});
 
     useEffect(() => {
         document.title = "I IV V - Circle of Fifths";
@@ -34,36 +35,35 @@ export default function CircleOfFifths() {
     }
 
     const initEventListener = () => {
-        const notesMajor = document.getElementById("circleMajor").childNodes;
-        const notesMinor = document.getElementById("circleMinor").childNodes;
-        const notesDim = document.getElementById("circleDim").childNodes;
+        const notesMajor = document.getElementById("major").childNodes;
+        const notesMinor = document.getElementById("minor").childNodes;
+        const notesDim = document.getElementById("dim").childNodes;
        
-        notesMajor.forEach((element, index) => {
-            element.addEventListener("click", () => {
-                setSelectedEl(index);
+        notesMajor.forEach((el, i) => {
+            el.addEventListener("click", () => {
+                setSelectedEl({index: i, voicing: 'Major', note: el.id});
             });
         });
-        notesMinor.forEach((element, index) => {
-            element.addEventListener("click", () => {
-                setSelectedEl(index);
+        notesMinor.forEach((el, i) => {
+            el.addEventListener("click", () => {
+                setSelectedEl({index: i, voicing: 'Minor', note: el.id});
             });
         });
-        notesDim.forEach((element, index) => {
-            element.addEventListener("click", () => {
-                setSelectedEl(index);
+        notesDim.forEach((el, i) => {
+            el.addEventListener("click", () => {
+                setSelectedEl({index: i, note: el.id});
             });
         });
     }
 
     const setActive = () => {
-        const notesMajor = document.getElementById("circleMajor").childNodes;
-        const notesMinor = document.getElementById("circleMinor").childNodes;
-        const notesDim = document.getElementById("circleDim").childNodes;
-
-        const range = indexRange(selectedEl);
+        const notesMajor = document.getElementById("major").childNodes;
+        const notesMinor = document.getElementById("minor").childNodes;
+        const notesDim = document.getElementById("dim").childNodes;
+        const range = indexRange(selectedEl.index);
 
         notesMajor.forEach((element, index) => {
-            if (index === range.left || index === selectedEl || index === range.right) {
+            if (index === range.left || index === selectedEl.index || index === range.right) {
                 element.classList.add("active");
             } else {
                 element.classList.remove("active");
@@ -71,7 +71,7 @@ export default function CircleOfFifths() {
         });
 
         notesMinor.forEach((element, index) => {
-            if (index === range.left || index === selectedEl || index === range.right) {
+            if (index === range.left || index === selectedEl.index || index === range.right) {
                 element.classList.add("active");
             } else {
                 element.classList.remove("active");
@@ -79,7 +79,7 @@ export default function CircleOfFifths() {
         });
 
         notesDim.forEach((element, index) => {
-            if (index === selectedEl) {
+            if (index === selectedEl.index) {
                 element.classList.add("active");
             } else {
                 element.classList.remove("active");
@@ -90,6 +90,7 @@ export default function CircleOfFifths() {
     return (
         <div className={styles.circleOfFifths}>
             <Circle className={styles.circle}/>
+            {/* <ResultingChords chordsAndProgressions={getScaleAndCommonProg(selectedEl.voicing, selectedEl.note)}/> */}
             <LegendVoicing/>
         </div>
     );

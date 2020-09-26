@@ -3,7 +3,7 @@ import cx from 'classnames';
 import styles from './ChordsInKey.module.css';
 import { NotePicker } from '../Multipurpose/';
 import { getScales, getScaleAndCommonProg } from '../../logic/';
-import LegendVoicing from '../Multipurpose/LegendVoicing/LegendVoicing';
+import { ResultingChords, LegendVoicing } from '../Multipurpose/';
 
 export default function ChordsInKey() {
 
@@ -20,18 +20,6 @@ export default function ChordsInKey() {
     useEffect(() => {
         setChordsAndProgressions(getScaleAndCommonProg(selectedVoicing, selectedNote));
     }, [selectedNote, selectedVoicing]);
-
-    const styleChordVoicing = (chordVoicing) => {
-        if (chordVoicing.includes('°')) {
-            return { border: 'var(--dim-color) solid 3px' };
-        }
-        if (chordVoicing === chordVoicing.toString().toUpperCase()) {
-            return { border: 'var(--major-color) solid 3px' };
-        }
-        if (chordVoicing === chordVoicing.toString().toLowerCase()) {
-            return { border: 'var(--minor-color) solid 3px' };
-        }
-    }
 
     const styleSelectedVoicing = (voicing) => {
         if (selectedVoicing === voicing) {
@@ -71,85 +59,8 @@ export default function ChordsInKey() {
                 </div>
             </div>
 
-            <ResultingChords >
-                {chordsAndProgressions.scale.notes.map((note, index) => (
-                    <ChordAndVoicing
-                        chordNote={note}
-                        voicing={chordsAndProgressions.chords[index]}
-                        key={index}
-                        style={styleChordVoicing(chordsAndProgressions.chords[index])}
-                    />
-                ))}
-            </ResultingChords>
-
-            <CommonProgressions>
-                {chordsAndProgressions.progressions.map((num, index) => (
-                    <Progression
-                        progression={num}
-                        chords={chordsAndProgressions.chords}
-                        scale={chordsAndProgressions.scale}
-                        key={index}
-                        style={styleChordVoicing} />
-                ))}
-            </CommonProgressions>
-
+            <ResultingChords chordsAndProgressions={chordsAndProgressions}/> 
             <LegendVoicing />
-        </div>
-    );
-}
-
-function ResultingChords({ children }) {
-    return (
-        <div className={"card-wrapper"}>
-            <h4 style={{ marginBottom: ".5rem" }}>Resulting Chords:</h4>
-            <div className={cx("card", "card-padding", styles.resultingChords)}>
-                {children}
-            </div>
-        </div>
-    );
-}
-
-function ChordAndVoicing({ chordNote, voicing, style }) {
-    return (
-        <div className={styles.chordAndVoicing}>
-            <div className={styles.chordNote} style={style}>{chordNote}</div>
-            <div className={styles.voicing}>{voicing}</div>
-        </div>
-    );
-}
-
-function CommonProgressions({ children }) {
-    return (
-        <div className={"card-wrapper"}>
-            <h4 style={{ marginBottom: ".5rem" }}>Common Progressions:</h4>
-            <div className={cx("card", "card-padding", styles.commonProgressions)}>
-                {children}
-            </div>
-        </div>
-    );
-}
-
-function Progression({ progression, chords, scale, style }) {
-    return (
-        <div className={styles.progression}>
-            <div className={styles.progressionNum}>
-                {progression.map((prog, index) => (
-                    <div className={styles.chordNumber}
-                        key={index}>
-                        {chords[prog - 1]}
-                    </div>
-                ))}:
-            </div>
-
-            <div className={styles.progressionChords}>
-                {progression.map((prog, index) => (
-                    <div className={styles.chordNote}
-                        key={index}
-                        style={style(chords[prog - 1])}>
-                        {scale.notes[prog - 1]}
-                    </div>
-                ))}
-            </div>
         </div>
     );
 }

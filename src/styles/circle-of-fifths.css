@@ -3,15 +3,15 @@
     cursor: pointer;
 }
 
-#circleDim path {
+#dim path {
     fill: var(--dim-color);
 }
 
-#circleMinor path {
+#minor path {
     fill: var(--minor-color);
 }
 
-#circleMajor path {
+#major path {
     fill: var(--major-color);
 }
 
