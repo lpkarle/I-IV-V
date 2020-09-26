@@ -8,17 +8,18 @@
     align-items: center;
     margin-bottom: .3rem;
 }
+
 .label > div {
     cursor: pointer;
 }
 
 .label svg {   
     fill: var(--text-primary);
-    transition: transform var(--transition-speed);
     border: var(--text-primary) solid 1px;
     border-radius: 50%;
     justify-self: center;
     align-self: center;
+    transition: transform var(--transition-speed);
 }
 
 .content {

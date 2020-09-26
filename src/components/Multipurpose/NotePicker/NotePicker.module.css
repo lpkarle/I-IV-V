@@ -9,24 +9,21 @@
 }
 
 .accidentals {
-    margin-top: 1rem;
-    width: 200px;
     background: rgba(255, 255, 0, 0);
+    width: 200px;
+    margin-top: 1rem;
 }
 
 .notePickerElement {
     border: var(--accent-color) solid 3px;
-    border-radius: 5px;
-    height: 4rem;
-    width: 100%;
-  
-
+    border-radius: var(--radius-small);
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 4rem;
+    width: 100%;
     cursor: pointer;
 }
-
 
 @media only screen and (max-width: 600px) {     
     .notes {

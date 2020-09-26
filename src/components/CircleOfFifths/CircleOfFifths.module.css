@@ -1,11 +1,9 @@
 .circleOfFifths {
     display: flex;
     flex-direction: column;
-
-
 }
 
 .circle {
-    margin-top: 1.5rem;
     height: 80vh;
+    margin-top: 1.5rem;
 }

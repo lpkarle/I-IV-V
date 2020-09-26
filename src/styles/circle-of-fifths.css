@@ -2,12 +2,15 @@
     fill-opacity: .5;
     cursor: pointer;
 }
+
 #circleDim path {
     fill: var(--dim-color);
 }
+
 #circleMinor path {
     fill: var(--minor-color);
 }
+
 #circleMajor path {
     fill: var(--major-color);
 }

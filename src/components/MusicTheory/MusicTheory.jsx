@@ -16,9 +16,8 @@ export default function MusicTheory() {
 
     return (
         <div className="content">
-
             <div className={cx("card")}>
-                <div className={styles.bla}>
+                <div className={styles.module}>
                     <div onClick={() => setSelectedEl('chordsInKey')} style={styleButton('chordsInKey')}>
                         Chords in Key
                     </div>
@@ -30,5 +29,5 @@ export default function MusicTheory() {
 
             {selectedEl === 'chordsInKey' ? <ChordsInKey/> : <CircleOfFifths/> }
         </div>
-    )
+    );
 }

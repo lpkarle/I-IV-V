@@ -13,3 +13,9 @@ export default function CheckBox({ label, checked, onChange }) {
         </label>
     );
 }
+
+CheckBox.defaultProps = {
+    label: 'Checkbox',
+    checked: true,
+    onChange: () => console.log("Checkbox")
+}

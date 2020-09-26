@@ -1,4 +1,3 @@
-/* ---- Reset CSS ---- */
 *,
 *::before,
 *::after {
@@ -17,38 +16,30 @@
     font-size: 16px;
     text-align: center;
 
-    --text-color-primary: rgb(31, 31, 31);
-
     /* Theme light */
+    --text-color-primary: rgb(31, 31, 31);
     --bg-primary-color: white;
     --bg-secondary-color: rgb(240, 240, 240);
     --text-primary: rgb(53, 53, 53);
     --text-unselected: rgb(117, 117, 117);
     
-
     /* Accent Color */
     --accent-color: rgb(0, 160, 235);
     --accent-color-light: rgb(33, 171, 235);
-
-
 
     /* Animation */
     --transition-speed: 600ms;
     --transition-speed-fast: 300ms;
 
-
     /* Navigation */
     --bg-top-nav: white;
     --bg-side-nav: royalblue;
     --selected-nav-item: white;
-
     --width-top-nav: 100vw;
     --height-top-nav: 4rem;
-
     --width-side-nav: 5rem;
     --height-side-nav: 100%;
-    --width-side-nav-open: 13rem; /* lose anim */
-
+    --width-side-nav-open: 13rem; 
 
     /* Major / Minor ... Colors */
     --major-color: rgb(250, 91, 93);
@@ -58,6 +49,11 @@
     --p4-color: rgb(239, 243, 10);
     --p5-color: rgb(239, 243, 10);
     --p8-color: rgb(250, 91, 93);
+
+    /* Radius */
+    --radius-big: 10px;
+    --radius-small: 5px;
+
 }
 
 /* Theme dark */
@@ -74,20 +70,17 @@ body {
     fill: var(--text-primary);
 }
 
-
-
 /* Container for all Components */
 .content {
-    position: absolute;
     background: var(--bg-secondary-color);
-    z-index: -1;          /* so the box shadow in top nav is visible */
+    color: var(--text-primary);
+    position: absolute;
+    z-index: -1;     
     width: calc(100% - var(--width-side-nav));
     min-height: calc(100vh - var(--height-top-nav)); 
     margin-left: var(--width-side-nav);
     margin-top: var(--height-top-nav);
     padding: 1rem;
-
-    color: var(--text-primary);
 }
 
 /* Card */
@@ -96,9 +89,10 @@ body {
     -webkit-box-shadow: 5px 5px 11px -4px rgba(0,0,0,0.39);
     -moz-box-shadow: 5px 5px 11px -4px rgba(0,0,0,0.39);
     box-shadow: 5px 5px 11px -4px rgba(0,0,0,0.39);
-    border-radius: 10px;    
+    border-radius: var(--radius-big);   
     color: var(--text-primary);
 }
+
 .card-padding {
     padding: 1rem;
 }
@@ -108,45 +102,27 @@ body {
     margin-top: 1.5rem;
 }
 
-.section-label {
-    color: red;
-}
-.section-label::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background: var(--accent-color);
-    width: 1rem;
-    height: 1rem;
-}
-
 /* Button */
 .btn {
-    color: var(--text-primary);
     background: var(--bg-primary-color);
     border: var(--accent-color) solid 3px;
-    border-radius: 10px;
+    border-radius: var(--radius-big);
     opacity: .6;
+    width: 100%;
+    padding: .4em 2em;
+    color: var(--text-primary);
     text-decoration: none;
     font-size: 1.5rem;
-
-    width: 100%;
-
-    padding: .4em 2em;
-
     font-weight: lighter;
-
-
 }
 .btn:hover {
-    opacity: 1;
     text-decoration: none;
+    opacity: 1;
 }
 
 .svg-btn {
     border: var(--text-primary) solid 1px;
-    border-radius: 5px;
+    border-radius: var(--radius-small);
     width: 2rem;
     height: 2rem;
 }
@@ -159,26 +135,24 @@ body {
 
 ::-webkit-scrollbar-track {
     background-color: rgba(172, 172, 172, .50);
-    border-radius: 5px;
+    border-radius: var(--radius-small);
 }
 
 ::-webkit-scrollbar-thumb {
     background: var(--accent-color);
-    border-radius: 5px;
+    border-radius: var(--radius-small);
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-color);
 }
 
-
-
 @media only screen and (max-width: 600px) {     
     .content {
         width: 100%;
+        margin-top: var(--height-top-nav);
         margin-left: 0;
         margin-bottom: 9vh;
-        margin-top: var(--height-top-nav);
         padding: .5rem;
     }    
 }

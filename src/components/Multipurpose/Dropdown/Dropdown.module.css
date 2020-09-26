@@ -1,13 +1,12 @@
 .dd select {
-    font-size: 1.1rem;
-    width: 8rem;
-    height: 2rem;
     border: var(--accent-color) solid 3px;
-    border-radius: 5px;
-    padding: .1rem 1rem;
     background: transparent;
     color: var(--text-primary);
-    appearance: none;
-
+    border-radius: var(--radius-small);
+    font-size: 1.1rem;
     text-align-last: center;
+    width: 8rem;
+    height: 2rem;
+    padding: .1rem 1rem;
+    appearance: none;
 }

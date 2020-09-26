@@ -5,12 +5,14 @@
 }
 
 .numberPicker svg {
-    cursor: pointer;
     fill: var(--text-primary);
+    cursor: pointer;
 }
+
 .numberPicker svg:first-child {
     transform: rotate(180deg);
 }
+
 .numberPicker div {
     color: var(--text-primary);
     user-select: none;

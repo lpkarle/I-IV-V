@@ -15,18 +15,15 @@ export default function Fretboard() {
         FRETBOARDMAX = 24;
 
     const [fretFromTo, setFretFromTo] = useState({ from: 1, to: 12 });
-
     const [fretboardOrientation, setFretboardOrientation] = useState({ horizontal: false, vertical: true });
 
     const instruments = getInstruments();   // List for Dropdown
     const [instrument, setInstrument] = useState(instruments[0]);
     const [defaultTunings, setDefaultTunings] = useState(getTuningNames(instrument));
 
-
     /* ---- Note Selction ---- */
     const [selectedNote, setSelectedNote] = useState('C');
     const [selectedVoicing, setSelectedVoicing] = useState('Major');
-
     const [scale, setScale] = useState({
         ddElements: getScales(),
         scale: getScale(selectedVoicing, selectedNote)
@@ -36,17 +33,13 @@ export default function Fretboard() {
         chord: getChord(selectedVoicing, selectedNote)
     });
 
-
-
     const [ddElements, setDdElements] = useState(scale.ddElements);
     const [highlightedNotes, setHighlightedNotes] = useState(scale.scale);
-
 
     /* ---- Defines Style/Highlited Notes */
     const buttonGroupRename = ['Scale', 'Chord'];
     // bei Sclae -> alle möglichen Scales bzw chords
     const [selectedChordOrScaleEl, setSelectedChordOrScaleEl] = useState(buttonGroupRename[0]);
-
 
     /* ---- Fretboard-Config ---- */
     const [tuning, setTuning] = useState(getTuningByName(
@@ -78,7 +71,6 @@ export default function Fretboard() {
             getTuningByName(instrument, tuning.name, fretboardOrientation.horizontal, highlightedNotes.notes)
         );
     }, [instrument, defaultTunings, fretboardOrientation, highlightedNotes]);
-
 
     /* Generate Frets */
     const fretArray = () => {
@@ -172,7 +164,6 @@ export default function Fretboard() {
             }
         }
     }
-
 
     return (
         <div className="content">
@@ -285,7 +276,6 @@ export default function Fretboard() {
                                     key={indexTuning}
                                     styleNote={styleNotes} />
                             ))}
-
                         </Fret>
                     ))}
 
@@ -336,7 +326,6 @@ function Fret({ children, style, number }) {
 }
 
 function Strings({ note, styleString, styleNote }) {
-
     return (
         <div className={styles.strings} style={styleString}>
             <div

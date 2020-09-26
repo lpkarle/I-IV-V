@@ -2,28 +2,27 @@
     display: flex;
 }
 
-.bla {
+.module {
+    border: var(--accent-color) solid 3px;
     position: relative;
     display: flex;
     justify-content: space-evenly;
-    border: var(--accent-color) solid 3px;
-    
-    border-radius: 10px;
-    
+    border-radius: var(--radius-big);
 }
-.bla::after {
-    position: absolute;
+
+.module::after {
     content: "";
+    background: var(--accent-color);
+    position: absolute;
     height: 100%;
     width: 3px;
-    background: var(--accent-color);
-
 }
-.bla > div {
-    width: 100%;
-    padding: .5rem 0;
-    font-size: 20px;
+
+.module > div {
     color: var(--accent-color);
     background: transparent;
+    font-size: 20px;
+    width: 100%;
+    padding: .5rem 0;
     cursor: pointer;
 }

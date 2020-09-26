@@ -5,14 +5,11 @@ import { NotePicker } from '../Multipurpose/';
 import { getScales, getScaleAndCommonProg } from '../../logic/';
 import LegendVoicing from '../Multipurpose/LegendVoicing/LegendVoicing';
 
-
 export default function ChordsInKey() {
 
     const ddElements = getScales();
-
     const [selectedNote, setSelectedNote] = useState('C');
     const [selectedVoicing, setSelectedVoicing] = useState('Major');
-
     const [chordsAndProgressions, setChordsAndProgressions] = useState(
         getScaleAndCommonProg(selectedVoicing, selectedNote));
 
@@ -23,7 +20,6 @@ export default function ChordsInKey() {
     useEffect(() => {
         setChordsAndProgressions(getScaleAndCommonProg(selectedVoicing, selectedNote));
     }, [selectedNote, selectedVoicing]);
-
 
     const styleChordVoicing = (chordVoicing) => {
         if (chordVoicing.includes('°')) {
@@ -49,6 +45,7 @@ export default function ChordsInKey() {
     return (
         <div className={styles.chordsInKey}>
 
+            {/* Key Selection */}
             <div className={"card-wrapper"}>
                 <h4 style={{ marginBottom: ".5rem" }}>Select Key:</h4>
                 <div className={cx("card", "card-padding")}>
@@ -57,9 +54,9 @@ export default function ChordsInKey() {
                 </div>
             </div>
 
-
+            {/* Voicing Selection */}
             <div className={"card-wrapper"}>
-                <h4 /*  className="section-label"  */ style={{ marginBottom: ".5rem" }}>Select Voicing:</h4>
+                <h4 style={{ marginBottom: ".5rem" }}>Select Voicing:</h4>
                 <div className={cx("card", "card-padding", styles.voicingPicker)}>
 
                     {ddElements.map((name, index) => (
@@ -98,7 +95,7 @@ export default function ChordsInKey() {
 
             <LegendVoicing />
         </div>
-    )
+    );
 }
 
 function ResultingChords({ children }) {
