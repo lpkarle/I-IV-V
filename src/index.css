@@ -91,6 +91,7 @@ body {
     box-shadow: 5px 5px 11px -4px rgba(0,0,0,0.39);
     border-radius: var(--radius-big);   
     color: var(--text-primary);
+    /* height: 100%; */
 }
 
 .card-padding {
@@ -99,7 +100,7 @@ body {
 
 .card-wrapper {
     position: relative;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
 }
 
 /* Button */
@@ -115,6 +116,7 @@ body {
     font-size: 1.5rem;
     font-weight: lighter;
 }
+
 .btn:hover {
     text-decoration: none;
     opacity: 1;

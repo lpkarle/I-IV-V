@@ -4,12 +4,64 @@
     flex-direction: column;
 }
 
-/* ---- Select Voicing ---- */
-.voicingPicker {
+/* ---- Resulting Chords ---- */
+.chordNote {
+    border: grey solid 1.5px;
+    border-radius: var(--radius-big);
+    font-weight: bold;
+    font-size: 30px;
     display: flex;
+    justify-content: center;
     align-items: center;
+    height: 4rem;
+    width: 4rem;
+}
+
+.progression {
+    display: flex;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.progression::after {
+    content: "";
+    background: var(--text-primary);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: .1rem;
+    opacity: .1;
+    transform: translateY(.5rem);
+}
+
+.progression:last-child {
+    margin-bottom: 0;
+}
+
+.progression:last-child::after {
+    display: none;
+}
+
+.progressionNum {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    gap: .1rem;
+}
+
+.progressionNum .chordNumber {
+    height: 2rem;
+    width: 2rem;
+}
+.progressionChords {
+    display: flex;
+    width: 100%;
+    gap: .4rem;
     justify-content: space-evenly;
-    gap: 1rem;
 }
 
 @media only screen and (max-width: 600px) {     

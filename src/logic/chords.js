@@ -1,7 +1,7 @@
 import { getHeptatonicScale } from './scales';
 
 
-const availableChords = ['Major', 'Minor', '7th'];
+const availableChords = ['Major', 'Minor', /* '7th' */];
 
 const chords = [
     {name: 'Major', intervals: ['P1', 'M3', 'P5'], steps: [1, 3, 5], 

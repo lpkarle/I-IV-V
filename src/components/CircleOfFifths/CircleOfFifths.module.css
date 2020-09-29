@@ -7,3 +7,37 @@
     height: 80vh;
     margin-top: 1.5rem;
 }
+
+.sharpAndFlatAmount {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+table {
+    width: 100%;
+    text-align: left;
+}
+
+table th {
+    padding-bottom: .5rem;
+}
+
+table td {
+    padding: .2rem;
+    height: 1.5rem;
+}
+
+@media only screen and (max-width: 875px) {    
+    .sharpAndFlatAmount {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+@media only screen and (max-width: 620px) {    
+    .circle {
+        height: 100%;
+    }  
+}

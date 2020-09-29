@@ -25,6 +25,11 @@ const theoreticalScales = {
     minor: ['C♭', 'D♭', 'E♯', 'F♭', 'G♭']
 }
 
+const circleOfFifthsSharpsAndFlats = {
+    sharps: {keys: ['C', 'G', 'D', 'A', 'E', 'B', 'F♯', 'C♯'], notes:['', 'F♯', 'C♯', 'G♯', 'D♯', 'A♯', 'E♯', 'B♯']},
+    flats:  {keys: ['F', 'B♭', 'E♭', 'A♭', 'D♭', 'G♭', 'C♭'], notes:['B♭', 'E♭', 'A♭', 'D♭', 'G♭', 'C♭', 'F♭']}
+}
+
 /*  Dim  <  Perfect <  Aug
     Dim  <  Minor  <  Major  <  Aug  */
 const intervals = [
@@ -73,6 +78,6 @@ export {
     notesAll,
     enharmonicNotes,
     theoreticalScales,
+    circleOfFifthsSharpsAndFlats,
     intervals,
-
 };

@@ -6,3 +6,4 @@ export { default as RadioButtonGroup } from './RadioButtonGroup/RadioButtonGroup
 export { default as CollapsableContainer } from './CollapsableContainer/CollapsableContainer';
 export { default as LegendVoicing } from './LegendVoicing/LegendVoicing';
 export { default as ResultingChords } from './ResultingChords/ResultingChords';
+export { default as CardWrapper } from './CardWrapper/CardWrapper';
