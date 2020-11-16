@@ -6,7 +6,7 @@ import cx from 'classnames';
 export default function Home({ elements }) {
 
     useEffect(() => {
-        document.title = "I IV V - Home"
+        document.title = "IV V - Home";
     }, []);
 
     return (

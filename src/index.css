@@ -65,6 +65,7 @@ body[data-theme="dark"] {
 }
 
 body {
+    position: relative;
     background: var(--bg-secondary-color);
     color: var(--text-primary);
     fill: var(--text-primary);
@@ -154,7 +155,6 @@ body {
         width: 100%;
         margin-top: var(--height-top-nav);
         margin-left: 0;
-        margin-bottom: 9vh;
-        padding: .5rem;
+        margin-bottom: var(--height-top-nav);
     }    
 }

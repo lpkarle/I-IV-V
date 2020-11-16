@@ -1,5 +1,5 @@
 h1 {
-    font-size: 96px;
+    font-size: 72px;
     font-weight: lighter;
     letter-spacing: -1.5pt;
 }
@@ -38,4 +38,12 @@ h6 {
 .subtitle2 {
     font-size: 14px;
     letter-spacing: .1px;
+}
+
+@media only screen and (max-width: 600px) {     
+    h1 {
+        font-size: 48px;
+        font-weight: lighter;
+        letter-spacing: -1.5pt;
+    } 
 }

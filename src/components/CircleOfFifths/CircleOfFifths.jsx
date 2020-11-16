@@ -10,7 +10,7 @@ export default function CircleOfFifths() {
     const [selectedEl, setSelectedEl] = useState({index: 0, note: 'C'});
 
     useEffect(() => {
-        document.title = "I IV V - Circle of Fifths";
+        document.title = "IV V - Music Theory - Circle of Fifths";
         initEventListener();
     }, []);
 
@@ -124,13 +124,13 @@ export default function CircleOfFifths() {
 function SharpAndFlatAmount({ sharpsAndFlats }) {
     return (
         <div className={styles.sharpAndFlatAmount}>
-            <Bla label="Sharp Keys" content={sharpsAndFlats.sharps} startIndex={1}/>
-            <Bla label="Flat Keys" content={sharpsAndFlats.flats} startIndex={0}/> 
+            <AmountTable label="Sharp Keys" content={sharpsAndFlats.sharps} startIndex={1}/>
+            <AmountTable label="Flat Keys" content={sharpsAndFlats.flats} startIndex={0}/> 
         </div>
     );
 }
 
-function Bla({ label, content, startIndex}) {
+function AmountTable({ label, content, startIndex }) {
 
     const amount = (list, from, to) => {
         let amount = '';

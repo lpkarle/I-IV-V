@@ -13,7 +13,7 @@ export default function ChordsInKey() {
         getScaleAndCommonProg(selectedVoicing, selectedNote));
 
     useEffect(() => {
-        document.title = "I IV V - Chords in Key";
+        document.title = "IV V - Music Theory - Chords in Key";
     }, []);
 
     useEffect(() => {

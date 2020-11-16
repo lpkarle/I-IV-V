@@ -67,11 +67,13 @@
     background-color: var(--bg-primary-color);
     position: fixed;
     z-index: 1;    
-    transition: all .3s ease;
+    transition: all .2s ease-in;
 }
 
 .navbar .sideNavbar ul li span.title {
-    display: none;
+    /* display: none; */
+    transition: opacity .2s ease-in;
+    opacity: 0;
 }
 
 .navbar .sideNavbar ul li:hover svg,
@@ -92,7 +94,7 @@ svg {
     .navbar .sideNavbar {
         box-shadow: 0 -1px 1px 0 rgba(0, 0, 0, 0.1);
         width: 100vw;
-        height: 9vh;
+        height: var(--height-top-nav);
         bottom: 0;
     }
     .navbar .sideNavbar ul {
@@ -104,6 +106,10 @@ svg {
     }
     .navbar .sideNavbar ul li.active svg{
         fill: var(--accent-color);
+    }
+
+    .navbar .sideNavbar span.title  {
+        display: none;
     }
 }
 
@@ -143,13 +149,13 @@ svg {
         padding-left: 27px;
         margin-bottom: 1px;
     }
+
+    .navbar .sideNavbar:hover span.title  {
+        opacity: 1;
+    }
     
     .navbar .sideNavbar:hover {
         width: 13rem;
-    }
-
-    .navbar .sideNavbar:hover ul li span.title {
-        display: inline-block;
     }
     
     .navbar .sideNavbar ul li:before {

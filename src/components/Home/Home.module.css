@@ -1,8 +1,8 @@
 .cardWrapper {
-    margin-top: 2rem;
+    margin-top: 1rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    gap: 2rem;
+    gap: 1rem;
 }
 
 .cardWrapper img {
@@ -19,7 +19,7 @@
 }
 
 .cardWrapper .card:hover {
-    transform: scale(1.04);
+    transform: scale(0.975);
 }
 
 .cardWrapper .card h3, .cardWrapper .card p {
@@ -32,6 +32,6 @@
     }
 
     .cardWrapper .card:hover {
-        transform: scale(1.01);
+        transform: scale(0.975);
     }
 }

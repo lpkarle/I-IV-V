@@ -21,7 +21,7 @@ export default function Navigation({ logo, topNavElements, sideNavElements, curr
         <div className={styles.navbar}>
 
             <div className={styles.logoWrapper}>
-                <div className={styles.logo}>{logo}</div>
+                <div className={styles.logo}><Link to={sideNavElements[0].address}>{logo}</Link></div>
                 <div className={styles.logoText}>{selectedSideNavEl}</div>
             </div>
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
-import { Navigation, Home, ChordsInKey, Fretboard, CircleOfFifths, MusicTheory } from './components/';
+import { Navigation, Home, ChordsInKey, Fretboard, CircleOfFifths, MusicTheory, NotFound } from './components/';
 import { LogoIcon, HomeIcon, MusicNoteIcon, MenuIcon, InvertColorIcon, MoreIcon } from './images/index';
 import fretboard from './images/fretboard.jpeg';
 import musicTheory from './images/notation.jpeg';
@@ -21,7 +21,6 @@ const useLocalStorage = (key, defaultValue) => {
       return result;
     })
   }
-
   return [value, setValueInLocalStorage];
 }
 
@@ -32,16 +31,27 @@ export default function App() {
     { icon: <MoreIcon />, onClick: () => console.log("Hello") },
   ];
   const sideNavElements = [
-    { label: 'Home', icon: <HomeIcon />, address: '/' },
-    { label: 'Music Theory', icon: <MusicNoteIcon />, address: '/music-theory' },
-    { label: 'Fretboard', icon: <MenuIcon />, address: '/fretboard' }
+    { label: 'Home', icon: <HomeIcon />, 
+      address: '/', onClick: (el) => { setCurrNavEl(el) } },
+    { label: 'Music Theory', icon: <MusicNoteIcon />, 
+      address: '/music-theory', onClick: (el) => { setCurrNavEl(el) } },
+    { label: 'Fretboard', icon: <MenuIcon />, 
+      address: '/fretboard', onClick: (el) => { setCurrNavEl(el) } }
   ];
 
   const homeElements = [
-    { address: '/music-theory', img: musicTheory, label: 'Music Theory', text: 'Circle of Fifths & Chords in Key', onClick: (el) => { console.log(el); setCurrNavEl(el) } },
-    { address: '/fretboard', img: fretboard, label: 'Fretboard', text: 'show chords and scales on fretboard', onClick: (el) => { console.log(el); setCurrNavEl(el) } },
+    { address: '/music-theory', 
+      img: musicTheory, 
+      label: 'Music Theory', 
+      text: 'Circle of Fifths & Chords in Key', 
+      onClick: (el) => { setCurrNavEl(el) } },
+    { address: '/fretboard', 
+      img: fretboard, 
+      label: 'Fretboard', 
+      text: 'show chords and scales on fretboard', 
+      onClick: (el) => { setCurrNavEl(el) } },
     // {address: '/metronom', img: time, label: 'Metronom', text: 'Rythm Practise', onClick: (el) => console.log(el)},
-  ]
+  ];
 
   const [currNavEl, setCurrNavEl] = useState(sideNavElements[0].label);
   const [theme, setTheme] = useLocalStorage("theme", "dark");
@@ -70,10 +80,11 @@ export default function App() {
 
           <Route path="/music-theory/chords-in-key" component={ChordsInKey} />
           <Route path="/music-theory/circle-of-fifths" component={CircleOfFifths} />
-        </Switch>
 
-        {/* <Footer /> */}
-        
+          <Route path="*">
+            <NotFound />
+          </Route>
+        </Switch>
       </Router>
     </HelmetProvider>
   );
