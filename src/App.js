@@ -75,12 +75,12 @@ export default function App() {
           <Route path={"/"} exact render={(props) => (
             <Home {...props} elements={homeElements} onClick={(navEl) => console.log(navEl)} />
           )} />
-          <Route path="/music-theory" component={MusicTheory} />
-          <Route path="/fretboard" component={Fretboard} />
-
-          <Route path="/music-theory/chords-in-key" component={ChordsInKey} />
-          <Route path="/music-theory/circle-of-fifths" component={CircleOfFifths} />
-
+          <Route path="/music-theory" render={(props) => (
+            <MusicTheory {...props} changeSelNavIcon={(navEl) => setCurrNavEl(navEl)} />
+          )} />
+          <Route path="/fretboard" render={(props) => (
+            <Fretboard {...props} changeSelNavIcon={(navEl) => setCurrNavEl(navEl)} />
+          )} />
           <Route path="*">
             <NotFound />
           </Route>

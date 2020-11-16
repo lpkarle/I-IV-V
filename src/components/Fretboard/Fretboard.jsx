@@ -8,7 +8,7 @@ import { getTuningNames, getInstruments, getTuningByName } from '../../logic/ind
 
 import { AddIcon, RemoveIcon, MirrorVIcon, MirrorHIcon } from '../../images';
 
-export default function Fretboard() {
+export default function Fretboard({ changeSelNavIcon }) {
 
     /* ---- Fretboard ---- */
     const FRETBOARDMIN = 1,
@@ -49,8 +49,9 @@ export default function Fretboard() {
     const [showAllNotes, setShowNone] = useState(true);
 
     useEffect(() => {
-        document.title = "I IV V - Fretboard"
-    }, [])
+        document.title = "I IV V - Fretboard";
+        changeSelNavIcon("Fretboard");
+    }, []);
 
     useEffect(() => {
         setScale(prevScale => {
