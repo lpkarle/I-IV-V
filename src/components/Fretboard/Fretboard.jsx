@@ -2,17 +2,15 @@ import React, { useState, useEffect } from 'react';
 import styles from './Fretboard.module.css';
 import cx from 'classnames';
 import { Dropdown, NotePicker, NumberPicker, Checkbox, RadioButtonGroup, CollapsableContainer } from '../Multipurpose/';
-
-import { getScales, getChord, getChords, getScale, getAccidental, getChromaticScale } from '../../logic/index';
+import { getAllAvailabeScaleNames, getChord, getChords, getScale, getAccidental, getChromaticScale } from '../../logic/index';
 import { getTuningNames, getInstruments, getTuningByName } from '../../logic/index';
-
 import { AddIcon, RemoveIcon, MirrorVIcon, MirrorHIcon } from '../../images';
 
 export default function Fretboard({ changeSelNavIcon }) {
 
     /* ---- Fretboard ---- */
     const FRETBOARDMIN = 1,
-        FRETBOARDMAX = 24;
+          FRETBOARDMAX = 24;
 
     const [fretFromTo, setFretFromTo] = useState({ from: 1, to: 12 });
     const [fretboardOrientation, setFretboardOrientation] = useState({ horizontal: false, vertical: true });
@@ -25,7 +23,7 @@ export default function Fretboard({ changeSelNavIcon }) {
     const [selectedNote, setSelectedNote] = useState('C');
     const [selectedVoicing, setSelectedVoicing] = useState('Major');
     const [scale, setScale] = useState({
-        ddElements: getScales(),
+        ddElements: getAllAvailabeScaleNames(),
         scale: getScale(selectedVoicing, selectedNote)
     });
     const [chord, setChord] = useState({
@@ -190,8 +188,7 @@ export default function Fretboard({ changeSelNavIcon }) {
                 <div className={cx(styles.resultScale)}>
                     {highlightedNotes.intervals.map((interval, index) => (
                         <div key={index} className={styles.noteAndInterval}>
-                            <div className={styles.intervalNote}>{index === (highlightedNotes.intervals.length - 1)
-                                ? highlightedNotes.notes[0] : highlightedNotes.notes[index]}</div>
+                            <div className={styles.intervalNote}>{highlightedNotes.notes[index]}</div>
                             <div className={styles.interval}>{interval}</div>
                         </div>
                     ))}
@@ -255,9 +252,8 @@ export default function Fretboard({ changeSelNavIcon }) {
                 </div>
             </CollapsableContainer>
 
-            <div className={cx("card", styles.boardWrapper)}>
+            <div className={styles.boardWrapper}>
                 <div className={styles.board}>
-
                     <OpenStrings
                         orientation={fretboardOrientation.vertical}
                         tuning={tuning.notes}
@@ -279,7 +275,6 @@ export default function Fretboard({ changeSelNavIcon }) {
                             ))}
                         </Fret>
                     ))}
-
                     <OpenStrings
                         orientation={!fretboardOrientation.vertical}
                         tuning={tuning.notes}
@@ -291,7 +286,6 @@ export default function Fretboard({ changeSelNavIcon }) {
         </div>
     );
 }
-
 
 function OpenStrings({ orientation, sideMargin, style, tuning, onClick }) {
     return (

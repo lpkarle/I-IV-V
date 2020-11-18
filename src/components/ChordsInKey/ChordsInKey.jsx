@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ChordsInKey.module.css';
 import { NotePicker } from '../Multipurpose/';
-import { getScales, getScaleAndCommonProg } from '../../logic/';
+import { getHeptatonicScaleNames, getScaleAndCommonProg } from '../../logic/';
 import { CardWrapper, ResultingChords, LegendVoicing } from '../Multipurpose/';
 
 export default function ChordsInKey() {
 
-    const ddElements = getScales();
+    const ddElements = getHeptatonicScaleNames();
     const [selectedNote, setSelectedNote] = useState('C');
     const [selectedVoicing, setSelectedVoicing] = useState('Major');
     const [chordsAndProgressions, setChordsAndProgressions] = useState(

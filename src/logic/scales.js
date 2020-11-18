@@ -2,11 +2,14 @@ import {notes, enharmonicNotes, theoreticalScales} from './musicConst.js';
 import * as MusicConst from './musicConst.js';
 
 
-const availableScales = ['Major', 'Minor'];
-const scales = [
-    {name: 'Major', intervals: ['P1', 'M2', 'M3', 'P4', 'P5', 'M6', 'M7', 'P8'], steps: [2, 2, 1, 2, 2, 2, 1]},
-    {name: 'Minor', intervals: ['P1', 'M2', 'm3', 'P4', 'P5', 'm6', 'm7', 'P8'], steps: [2, 1, 2, 2, 1, 2, 2]},
+const heptatonicScales = ['Major', 'Minor'];
+const allScales = ['Major', 'Minor', 'Major Pentatonic', 'Minor Pentatonic'];
 
+const scales = [
+    {name: 'Major', intervals: ['P1', 'M2', 'M3', 'P4', 'P5', 'M6', 'M7'], steps: [2, 2, 1, 2, 2, 2, 1]},
+    {name: 'Minor', intervals: ['P1', 'M2', 'm3', 'P4', 'P5', 'm6', 'm7'], steps: [2, 1, 2, 2, 1, 2, 2]},
+    {name: 'Major Pentatonic', intervals: ['P1', 'M2', 'M3', 'P5', 'M6'], steps: [0, 1, 3, 4, 5]},
+    {name: 'Minor Pentatonic', intervals: ['P1', 'm3', 'P4', 'P5', 'm7'], steps: [0, 2, 3, 4, 6]},
 ];
 const THEORETICAL_PLACEHOLDER = ['-', '-', '-', '-', '-', '-', '-'];
 
@@ -35,7 +38,6 @@ const getCurrentNoteIndex = (note) => {
     return notes.indexOf(note);
 }
 
-
 /**
  * Returns the distance/step between two given notes
  * @param {String} note1 
@@ -46,21 +48,18 @@ const getNoteDistance = (note1, note2) => {
                     MusicConst.naturalNotes.indexOf(note2));
 }
 
-
 /**
  * 
  * @param {String} scale 
  */
 const clearScaleFromAccidents = (scale) => {
-    
     let tmpScale = [];     
     let natPredecessor;
     let successor;
     let noteDistance1;
     let noteDistance2;
+    tmpScale[0] = scale[0];
 
-    tmpScale.push(scale[0]);
-    
     for (let i = 0; i < scale.length - 1; i++) {        
         natPredecessor = tmpScale[i].substr(0, 1);
         successor = scale[i + 1];
@@ -143,7 +142,6 @@ const getChromaticScale = (accidental, note) => {
     return chromScale;   
 }
 
-
 /**
  * Returns a 7 note scale by note and voicing
  * 
@@ -186,10 +184,42 @@ const getHeptatonicScale = (voicing, note) => {
     return scale;
 }
 
+const getPentatonicScale = (voicing, note) => {
+    let voicingCleared = voicing;
+    if (voicing.includes(' ')) { 
+        voicingCleared = voicing.substr(0, voicing.indexOf(' '))
+    }
+
+    if (scaleIsTheoratical(voicingCleared, note)) {
+        return THEORETICAL_PLACEHOLDER;
+    }
+
+    const parentScale = getHeptatonicScale(voicingCleared, note);
+    let steps = [];
+    scales.forEach(element => {
+        if (element.name === voicing) {
+            steps = element.steps;
+        }
+    });
+
+    let scale = [];
+
+    for (let i = 0; i < steps.length; i++) {
+        scale[i] = parentScale[steps[i]];
+    }
+
+    if (voicingCleared === 'Major') { // m3
+        scale[2] = getHeptatonicScale(voicingCleared, note)[2];
+    }
+
+    return scale;
+}
 
 export {
-    availableScales, 
+    heptatonicScales,
+    allScales, 
     scales,
     getChromaticScale,
     getHeptatonicScale,
+    getPentatonicScale
 }

@@ -4,11 +4,12 @@ import { instruments, tunings } from './tuning';
 
 
 /* ------------ Scales ------------ */
-/**
- * Returns all available scales (for dropdown)
- */
-const getScales = () => {
-    return Scale.availableScales;
+const getAllAvailabeScaleNames = () => {
+return Scale.allScales;
+}
+
+const getHeptatonicScaleNames = () => {
+    return Scale.heptatonicScales;
 }
 
 /**
@@ -58,9 +59,13 @@ export const getScale = (voicing, note) => {
     Scale.scales.forEach(element => {
         if (element.name === voicing) {
             scale.intervals = element.intervals;
-            scale.notes = Scale.getHeptatonicScale(voicing, note);
+            if (element.name === 'Major' || element.name === 'Minor') {
+                scale.notes = Scale.getHeptatonicScale(voicing, note);
+            } else {
+                scale.notes = Scale.getPentatonicScale(voicing, note);
+            }
             return;
-        } 
+        }
     });
     return scale;
 }
@@ -166,9 +171,9 @@ export const getChord = (voicing, note) => {
     return chord;
 }
 
-
 export {
-    getScales,
+    getAllAvailabeScaleNames,
+    getHeptatonicScaleNames,
     getChromaticScale,
     getScaleAndCommonProg,
 
