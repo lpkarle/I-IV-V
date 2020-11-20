@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
-import { Navigation, Home, ChordsInKey, Fretboard, CircleOfFifths, MusicTheory, NotFound } from './components/';
-import { LogoIcon, HomeIcon, MusicNoteIcon, MenuIcon, InvertColorIcon, MoreIcon } from './images/index';
+import { Navigation, Home, Fretboard, MusicTheory, NotFound } from './components/';
+import { LogoIcon, HomeIcon, MusicNoteIcon, MenuIcon, InvertColorIcon, MoreIcon, HelpIcon, LanguageIcon } from './images/index';
 import fretboard from './images/fretboard.jpeg';
 import musicTheory from './images/notation.jpeg';
 // import time from './images/time.jpg';
@@ -28,7 +28,10 @@ export default function App() {
 
   const topNavElements = [
     { icon: <InvertColorIcon />, onClick: () => setTheme(cur => cur === "light" ? "dark" : "light") },
-    { icon: <MoreIcon />, onClick: () => console.log("Hello") },
+    { icon: <MoreIcon />, onClick: () => console.log("more"), 
+      dd: [{label: 'About', address: '/music-theory', icon: <HelpIcon/>},
+           {label: 'Language', address: '/music-theory', icon: <LanguageIcon/>}]
+    },
   ];
   const sideNavElements = [
     { label: 'Home', icon: <HomeIcon />, 
@@ -73,7 +76,7 @@ export default function App() {
 
         <Switch>
           <Route path={"/"} exact render={(props) => (
-            <Home {...props} elements={homeElements} onClick={(navEl) => console.log(navEl)} />
+            <Home {...props} elements={homeElements} />
           )} />
           <Route path="/music-theory" render={(props) => (
             <MusicTheory {...props} changeSelNavIcon={(navEl) => setCurrNavEl(navEl)} />

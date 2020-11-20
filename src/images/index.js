@@ -11,4 +11,5 @@ export { ReactComponent as LogoIcon } from './svgs/Navigation/logo_v0_small.svg'
 export { ReactComponent as MenuIcon } from './svgs/Navigation/menu-24px.svg';
 export { ReactComponent as MoreIcon } from './svgs/Navigation/more_vert-24px.svg';
 export { ReactComponent as MusicNoteIcon } from './svgs/Navigation/music_note-24px.svg';
+export { ReactComponent as LanguageIcon } from './svgs/language-24px.svg';
 

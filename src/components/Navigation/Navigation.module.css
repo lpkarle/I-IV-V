@@ -89,6 +89,43 @@ svg {
     margin:auto;
 }
 
+.dropdown {
+    flex-direction: column;
+    width: 12rem;
+    background-color: var(--bg-primary-color);
+    position: absolute;
+    top: 4rem;
+    right: 1rem;
+    border-radius: 5px;
+    gap: .15rem;
+    padding: .3rem;
+}
+
+.dropdown .menuItem {
+    color: var(--text-primary);
+    opacity: .8;
+    text-align: left;
+    
+    border-radius: 5px;
+    
+    display: flex;
+    align-items: center;
+    padding: .3rem;
+}
+.dropdown .menuItem svg {
+    height: 2rem;
+    width: 2rem;
+    background-color: var(--bg-secondary-color);
+    border-radius: 1rem;
+    fill: var(--text-primary);
+    padding: .2rem;
+    margin-right: .2rem;
+}
+
+.dropdown .menuItem:hover {
+    background-color: var(--accent-color);
+}
+
 /* -------- Small Screen -------- */
 @media only screen and (max-width: 600px) {      
     .navbar .sideNavbar {

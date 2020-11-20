@@ -7,6 +7,7 @@ import cx from 'classnames';
 export default function Navigation({ logo, topNavElements, sideNavElements, currNavEl, onClick }) {
 
     const [selectedSideNavEl, setSelectedSideNavEl] = useState(currNavEl);
+    const [toggleOpen, setToggleOpen] = useState(false);
 
     useEffect(() => {
         setSelectedSideNavEl(currNavEl);
@@ -15,6 +16,11 @@ export default function Navigation({ logo, topNavElements, sideNavElements, curr
     const handleSideNavEl = (element) => {
         setSelectedSideNavEl(element);
         onClick(element);
+    }
+
+    const handleTopNavClick = (item, dd) => {
+        if (dd) setToggleOpen(!toggleOpen)
+        item();
     }
 
     return (
@@ -31,8 +37,9 @@ export default function Navigation({ logo, topNavElements, sideNavElements, curr
                         <TopNavElement
                             key={index}
                             icon={item.icon}
-                            onClick={item.onClick}
-                        />
+                            onClick={() => handleTopNavClick(item.onClick, item.dd)}>
+                            {item.dd ? <DropdownMenu open={toggleOpen} items={item.dd} /> : null}
+                        </TopNavElement>
                     ))}
                 </TopNavElements>
             </div>
@@ -72,10 +79,11 @@ function TopNavElements({ children }) {
     );
 }
 
-function TopNavElement({ icon, onClick }) {
+function TopNavElement({ icon, onClick, children }) {
     return (
         <li className={styles.navItem} onClick={onClick}>
             <span className={styles.icon}>{icon}</span>
+            { children }
         </li>
     );
 }
@@ -105,5 +113,33 @@ function SideNavElement({ icon, label, address, onClick, selectedEl }) {
                 <span className={styles.title}>{label}</span>
             </li>
         </Link>
+    );
+}
+
+function DropdownMenu({ open, items }) {
+
+    const styleMenu = () => {
+        return {
+            display: open ? 'flex' : 'none'
+        }
+    }
+
+    function DropdownItem({ children, icon, address }) {
+        return (
+            <Link className={styles.menuItem} to={address}>
+                <span className={styles.iconButton}>{icon}</span>
+                {children}
+            </Link>
+        );
+    }
+
+    return (
+        <div className={styles.dropdown} style={styleMenu()}>
+            {items.map((item, index) => 
+                <DropdownItem key={index} icon={item.icon} address={item.address}>
+                    <h6>{item.label}</h6>
+                </DropdownItem>
+            )}
+        </div>
     );
 }
