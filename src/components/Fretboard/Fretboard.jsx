@@ -6,7 +6,7 @@ import { getAllAvailabeScaleNames, getChord, getChords, getScale, getAccidental,
 import { getTuningNames, getInstruments, getTuningByName } from '../../logic/index';
 import { AddIcon, RemoveIcon, MirrorVIcon, MirrorHIcon } from '../../images';
 
-export default function Fretboard({ changeSelNavIcon }) {
+export default function Fretboard({ changeSelNavIcon, lang }) {
 
     /* ---- Fretboard ---- */
     const FRETBOARDMIN = 1,
@@ -47,9 +47,9 @@ export default function Fretboard({ changeSelNavIcon }) {
     const [showAllNotes, setShowNone] = useState(true);
 
     useEffect(() => {
-        document.title = "I IV V - Fretboard";
-        changeSelNavIcon("Fretboard");
-    }, []);
+        document.title = `${lang.str.ivv} - ${lang.str.fretboard}`;
+        changeSelNavIcon('fretboard');
+    }, [lang]);
 
     useEffect(() => {
         setScale(prevScale => {
@@ -132,34 +132,34 @@ export default function Fretboard({ changeSelNavIcon }) {
     const styleFrets = (num) => {
         return {
             display: (num >= fretFromTo.from && num <= fretFromTo.to)
-                ? "flex" : "none",
+                ? 'flex' : 'none',
         }
     }
 
     const styleNotes = (note) => {
         if (highlightedNotes.notes[0] === note) {
             return {
-                display: showRoot ? null : "none",
+                display: showRoot ? null : 'none',
                 background: 'var(--p1-color)',
-                color: "var(--bg-primary-color)",
-                fontWeight: "bold",
-                textShadow: "1px 1px 2px rgba(0, 0, 0, 0.5)",
-                border: "none"
+                color: 'var(--bg-primary-color)',
+                fontWeight: 'bold',
+                textShadow: '1px 1px 2px rgba(0, 0, 0, 0.5)',
+                border: 'none'
             }
         } else if (highlightedNotes.notes.includes(note)) {
             return {
                 background: showScaleNotes ? 'var(--accent-color)' : 'transparent',
-                color: showScaleNotes ? "var(--bg-primary-color)" : 'transparent',
-                fontWeight: "bold",
-                textShadow: showScaleNotes ? "1px 1px 2px rgba(0, 0, 0, 0.5)" : 'none',
-                border: "none"
+                color: showScaleNotes ? 'var(--bg-primary-color)' : 'transparent',
+                fontWeight: 'bold',
+                textShadow: showScaleNotes ? '1px 1px 2px rgba(0, 0, 0, 0.5)' : 'none',
+                border: 'none'
             }
         } else {
             return {
                 background: showAllNotes ? 'var(--bg-secondary-color)' : 'transparent',
                 color: showAllNotes ? 'var(--text-primary)' : 'transparent',
-                textShadow: "none",
-                fontSize: note.length > 2 ? "10px" : "16px"
+                textShadow: 'none',
+                fontSize: note.length > 2 ? '10px' : '16px'
             }
         }
     }
@@ -168,11 +168,11 @@ export default function Fretboard({ changeSelNavIcon }) {
         <div className="content">
 
             {/* -------- Configure Note and Chord / Scale -------- */}
-            <CollapsableContainer label={`Selected Note: ${selectedNote}`}>
+            <CollapsableContainer label={`${lang.str.sel_note}: ${selectedNote}`}>
                 <NotePicker onClick={(note) => setSelectedNote(note)} />
             </CollapsableContainer>
 
-            <CollapsableContainer label={`Show: ${selectedVoicing} ${selectedChordOrScaleEl}`}>
+            <CollapsableContainer label={`${lang.str.show}: ${selectedVoicing} ${selectedChordOrScaleEl}`}>
                 <div className={styles.configVoicing}>
                     <Dropdown
                         list={ddElements} 
@@ -184,7 +184,7 @@ export default function Fretboard({ changeSelNavIcon }) {
                 </div>
             </CollapsableContainer>
 
-            <CollapsableContainer label="Notes & Intervals">
+            <CollapsableContainer label={lang.str.notes_and_intervals}>
                 <div className={cx(styles.resultScale)}>
                     {highlightedNotes.intervals.map((interval, index) => (
                         <div key={index} className={styles.noteAndInterval}>
@@ -196,7 +196,7 @@ export default function Fretboard({ changeSelNavIcon }) {
             </CollapsableContainer>
 
             {/* -------- Configure Fretboard Appearance -------- */}
-            <CollapsableContainer label="Fretboard Config">
+            <CollapsableContainer label={lang.str.fretboard_config}>
                 <div className={cx(styles.fretboardConfig)}>
                     <div className={styles.configStrings}>
                         <div>
@@ -218,14 +218,14 @@ export default function Fretboard({ changeSelNavIcon }) {
 
                     <div className={styles.configNotes}>
                         <div className={styles.showFrets}>
-                            <p>Show Fret</p>
+                            <p>{lang.str.fret_from}</p>
                             <NumberPicker
                                 defaultNum={fretFromTo.from}
                                 range={{ min: FRETBOARDMIN, max: fretFromTo.to }}
                                 onClick={(num) => setFretFromTo(prev => { return { ...prev, from: num } })}
                                 from={true}
                             />
-                            <p> to</p>
+                            <p>{lang.str.to}</p>
                             <NumberPicker
                                 defaultNum={fretFromTo.to}
                                 range={{ min: fretFromTo.from, max: FRETBOARDMAX }}
@@ -235,16 +235,16 @@ export default function Fretboard({ changeSelNavIcon }) {
                         </div>
                         <div className={styles.shownNotes}>
                             <Checkbox
-                                label={'All Notes'}
+                                label={lang.str.all_notes}
                                 checked={showAllNotes}
                                 onChange={() => setShowNone(!showAllNotes)} />
                             <Checkbox
-                                label={'Root'}
+                                label={lang.str.root}
                                 checked={showRoot}
                                 onChange={() => setShowRoot(!showRoot)} />
 
                             <Checkbox
-                                label={`Notes in ${selectedChordOrScaleEl}`}
+                                label={`${lang.str.notes_in} ${selectedChordOrScaleEl}`}
                                 checked={showScaleNotes}
                                 onChange={() => setShowScaleNotes(!showScaleNotes)} />
                         </div>
@@ -258,7 +258,7 @@ export default function Fretboard({ changeSelNavIcon }) {
                         orientation={fretboardOrientation.vertical}
                         tuning={tuning.notes}
                         onClick={changeStringNote}
-                        sideMargin={{ marginRight: ".5rem" }}
+                        sideMargin={{ marginRight: '.5rem' }}
                         style={styleNotes} />
 
                     {fretArray().map((indexFret) => (
@@ -279,7 +279,7 @@ export default function Fretboard({ changeSelNavIcon }) {
                         orientation={!fretboardOrientation.vertical}
                         tuning={tuning.notes}
                         onClick={changeStringNote}
-                        sideMargin={{ marginLeft: ".5rem" }}
+                        sideMargin={{ marginLeft: '.5rem' }}
                         style={styleNotes} />
                 </div>
             </div>

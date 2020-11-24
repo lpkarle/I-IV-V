@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styles from './ChordsInKey.module.css';
 import { NotePicker } from '../Multipurpose/';
 import { getHeptatonicScaleNames, getScaleAndCommonProg } from '../../logic/';
-import { CardWrapper, ResultingChords, LegendVoicing } from '../Multipurpose/';
+import { CardWrapper, ResultingChords } from '../Multipurpose/';
 
-export default function ChordsInKey() {
+export default function ChordsInKey({ lang }) {
 
     const ddElements = getHeptatonicScaleNames();
     const [selectedNote, setSelectedNote] = useState('C');
@@ -13,8 +13,8 @@ export default function ChordsInKey() {
         getScaleAndCommonProg(selectedVoicing, selectedNote));
 
     useEffect(() => {
-        document.title = "IV V - Music Theory - Chords in Key";
-    }, []);
+        document.title = `${lang.str.ivv} - ${lang.str.music_theory} - ${lang.str.chords_in_key}`;
+    }, [lang]);
 
     useEffect(() => {
         setChordsAndProgressions(getScaleAndCommonProg(selectedVoicing, selectedNote));
@@ -32,8 +32,8 @@ export default function ChordsInKey() {
     const styleSelectedVoicing = (voicing) => {
         if (selectedVoicing === voicing) {
             return {
-                border: "var(--accent-color) solid 6px",
-                opacity: "1"
+                border: 'var(--accent-color) solid 6px',
+                opacity: '1'
             }
         }
     }
@@ -53,12 +53,12 @@ export default function ChordsInKey() {
     return (
         <div className={styles.chordsInKey}>
 
-            <CardWrapper label="Select Key:">
+            <CardWrapper label={lang.str.sel_key}>
                 <NotePicker
                     onClick={(note) => setSelectedNote(note)} />
             </CardWrapper>
         
-            <CardWrapper label="Select Voicing:" style={styleSelectVoicing()}>
+            <CardWrapper label={lang.str.sel_voicing} style={styleSelectVoicing()}>
                 {ddElements.map((name, index) => (
                     <button
                         className="btn"
@@ -70,23 +70,20 @@ export default function ChordsInKey() {
                 ))}
             </CardWrapper>
 
-            <CardWrapper label="Resulting Chords">
+            <CardWrapper label={lang.str.res_chords}>
                 <ResultingChords chordsAndProgressions={chordsAndProgressions}/>
             </CardWrapper>
 
-            <CardWrapper label="Common Progressions">
-
+            <CardWrapper label={lang.str.comm_progr}>
                 {chordsAndProgressions.progressions.map((num, index) => (
-                        <Progression
-                            progression={num}
-                            chords={chordsAndProgressions.chords}
-                            scale={chordsAndProgressions.scale}
-                            key={index}
-                            style={styleChordVoicing} />
-                    ))}
+                    <Progression
+                        progression={num}
+                        chords={chordsAndProgressions.chords}
+                        scale={chordsAndProgressions.scale}
+                        key={index}
+                        style={styleChordVoicing} />
+                ))}
             </CardWrapper>
-
-            <LegendVoicing />
         </div>
     );
 }

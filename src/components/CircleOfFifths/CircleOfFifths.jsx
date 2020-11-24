@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import styles from './CircleOfFifths.module.css';
 import {ReactComponent as Circle} from '../../images/svgs/CircleOfFifths/circle_of_fifths.svg';
-import { CardWrapper, LegendVoicing, ResultingChords } from '../Multipurpose/';
+import { CardWrapper, ResultingChords } from '../Multipurpose/';
 import { circleOfFifthsSharpsAndFlats } from '../../logic/musicConst';
 import { getScaleAndCommonProg } from '../../logic/';
 
-export default function CircleOfFifths() {
+export default function CircleOfFifths({ lang }) {
 
     const [selectedEl, setSelectedEl] = useState({index: 0, note: 'C'});
 
     useEffect(() => {
-        document.title = "IV V - Music Theory - Circle of Fifths";
+        document.title = `${lang.str.ivv} - ${lang.str.music_theory} - ${lang.str.circle_of_fifths}`;
         initEventListener();
-    }, []);
+    }, [lang]);
 
     useEffect(() => {
         setActive();
@@ -105,32 +105,27 @@ export default function CircleOfFifths() {
     return (
         <div className={styles.circleOfFifths}>
             <Circle className={styles.circle}/>
-
-            <SharpAndFlatAmount sharpsAndFlats={circleOfFifthsSharpsAndFlats}/>
-            
-            <CardWrapper label="Resulting Major Chords">
+            <SharpAndFlatAmount sharpsAndFlats={circleOfFifthsSharpsAndFlats} lang={lang}/>
+            <CardWrapper label={lang.str.res_maj_chords}>
                 <ResultingChords chordsAndProgressions={getScaleAndCommonProg('Major', selectedEl.note)}/>
             </CardWrapper>
-
-            <CardWrapper label="Resulting Minor Chords">
+            <CardWrapper label={lang.str.res_min_chords}>
                 <ResultingChords chordsAndProgressions={getScaleAndCommonProg('Minor', selectedEl.note)}/>
             </CardWrapper>
-        
-            <LegendVoicing/>
         </div>
     );
 }
 
-function SharpAndFlatAmount({ sharpsAndFlats }) {
+function SharpAndFlatAmount({ sharpsAndFlats, lang }) {
     return (
         <div className={styles.sharpAndFlatAmount}>
-            <AmountTable label="Sharp Keys" content={sharpsAndFlats.sharps} startIndex={1}/>
-            <AmountTable label="Flat Keys" content={sharpsAndFlats.flats} startIndex={0}/> 
+            <AmountTable label={lang.str.sharp_keys} content={sharpsAndFlats.sharps} startIndex={1} lang={lang}/>
+            <AmountTable label={lang.str.flat_keys} content={sharpsAndFlats.flats} startIndex={0} lang={lang}/> 
         </div>
     );
 }
 
-function AmountTable({ label, content, startIndex }) {
+function AmountTable({ label, content, startIndex, lang }) {
 
     const amount = (list, from, to) => {
         let amount = '';
@@ -145,11 +140,10 @@ function AmountTable({ label, content, startIndex }) {
             {<table>
                 <tbody>
                     <tr>
-                        <th>Key</th>
-                        <th>Amount</th>
-                        <th>Notes</th>
+                        <th>{lang.str.key}</th>
+                        <th>{lang.str.amount}</th>
+                        <th>{lang.str.notes}</th>
                     </tr>
-                    
                     {content.keys.map((key, index) => (
                         <tr key={index}>
                             <td>{key}</td>

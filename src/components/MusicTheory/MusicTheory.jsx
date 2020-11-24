@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { CircleOfFifths, ChordsInKey } from '../';
 import cx from 'classnames';
 import styles from './MusicTheory.module.css';
+import { LegendVoicing } from '../Multipurpose';
 
-export default function MusicTheory({ changeSelNavIcon }) {
+export default function MusicTheory({ changeSelNavIcon, lang }) {
 
     useEffect(() => {
-        changeSelNavIcon("Music Theory");
+        changeSelNavIcon('music_theory');
     }, []);
 
     const [selectedEl, setSelectedEl] = useState('chordsInKey');
@@ -23,15 +24,16 @@ export default function MusicTheory({ changeSelNavIcon }) {
             <div className={cx("card")}>
                 <div className={styles.module}>
                     <div onClick={() => setSelectedEl('chordsInKey')} style={styleButton('chordsInKey')}>
-                        Chords in Key
+                        {lang.str.chords_in_key}
                     </div>
                     <div onClick={() => setSelectedEl('circleOfFifths')} style={styleButton('circleOfFifths')}>
-                        Circle of Fifths
+                        {lang.str.circle_of_fifths}
                     </div>
                 </div>
             </div>
 
-            {selectedEl === 'chordsInKey' ? <ChordsInKey/> : <CircleOfFifths/> }
+            {selectedEl === 'chordsInKey' ? <ChordsInKey lang={lang}/> : <CircleOfFifths lang={lang}/> }
+            <LegendVoicing lang={lang}/> 
         </div>
     );
 }

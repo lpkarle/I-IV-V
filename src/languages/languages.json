@@ -1,0 +1,96 @@
+{
+    "en": {
+        "str": {
+            "ivv": "IV V",
+            "home": "Home",
+            "music_theory": "Music Theory",
+            "fretboard": "Fretboard",
+            "welcome": "Welcome on I-IV-V",
+
+            "about": "About",
+            "theme": "Theme",
+            "language": "Language",
+
+            "chords_in_key": "Chords in Key",
+            "circle_of_fifths": "Circle of Fifths",
+            "sel_key": "Select Key",
+            "sel_voicing": "Select Voicing",
+            "res_chords": "Resulting Chords",
+            "comm_progr": "Common Progessions", 
+            "maj": "Major",
+            "min": "Minor", 
+            "dim": "Diminished",
+
+            "sharp_keys": "Sharp Keys", 
+            "flat_keys": "Flat Keys",
+            "key": "Key",
+            "amount": "Amount",
+            "notes": "Notes",
+            "res_maj_chords": "Resulting Major Chords",
+            "res_min_chords": "Resulting Minor Chords",
+
+            "sel_note": "Selected Note",
+            "show": "Show",
+            "notes_and_intervals": "Notes & Intervals",
+            "fretboard_config": "Fretboard Config",
+            "fret_from": "Fret from",
+            "to": "to",
+            "all_notes": "All Notes",
+            "root": "Root",
+            "notes_in": "Notes in",
+
+            "not_found": "404 not found"
+        },
+        "descr": {
+            "music_theory": "Circle of Fifths & Chords in Key",
+            "fretboard": "Displays chords and Scales on a modifyable fretboard"
+        }
+    },
+    "de": {
+        "str": {
+            "ivv": "IV V",
+            "home": "Home",
+            "music_theory": "Musik Theory",
+            "fretboard": "Griffbrett",
+            "welcome": "Wilkommen bei I-IV-V",
+
+            "about": "Impressum",
+            "theme": "Theme",
+            "language": "Sprachen",
+            
+            "chords_in_key": "Akkorde in Tonleiter",
+            "circle_of_fifths": "Quintenzirkel",
+            "sel_key": "Tonleiter auswählen",
+            "sel_voicing": "Voicing auswählen",
+            "res_chords": "Resultierende Akkorde",
+            "comm_progr": "Herkömmliche Folgen", 
+            "maj": "Dur",
+            "min": "Moll", 
+            "dim": "Vermindert",
+
+            "sharp_keys": "Fis Tonleitern", 
+            "flat_keys": "Gis Tonleitern",
+            "key": "Tonleiter",
+            "amount": "Anzahl",
+            "notes": "Noten",
+            "res_maj_chords": "Resultierende Dur Akkorde",
+            "res_min_chords": "Resultierende Moll Akkorde",
+        
+            "sel_note": "Ausgewählte Note",
+            "show": "Zeige",
+            "notes_and_intervals": "Noten & Intervalle",
+            "fretboard_config": "Griffbrett Konfigurieren",
+            "fret_from": "Bund von",
+            "to": "bis",
+            "all_notes": "Alle Noten",
+            "root": "Grundton",
+            "notes_in": "Noten in",
+
+            "not_found": "404 nicht gefunden"
+        },
+        "descr": {
+            "music_theory": "Quintenzirkel & Akkorde in Tonleiter",
+            "fretboard": "Akkorde und Tonleitern auf Griffbrett"
+        }
+    }
+}

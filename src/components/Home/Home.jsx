@@ -2,25 +2,44 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Home.module.css';
 import cx from 'classnames';
+import fretboard from '../../images/fretboard.jpeg';
+import musicTheory from '../../images/notation.jpeg';
+// import time from './images/time.jpg';
+// import typewriter from './images/typewriter.jpg';
 
-export default function Home({ elements }) {
+export default function Home({ changeSelNavIcon, lang }) {
 
     useEffect(() => {
-        document.title = "IV V - Home";
+        document.title = `${lang.str.ivv} - ${lang.str.home}`;
+        changeSelNavIcon('home');
     }, []);
+
+    const homeElements = [
+        { address: '/music-theory', 
+          img: musicTheory, 
+          label: lang.str.music_theory, 
+          text: lang.descr.music_theory, 
+          onClick: () => changeSelNavIcon('music_theory') },
+        { address: '/fretboard', 
+          img: fretboard, 
+          label: lang.str.fretboard, 
+          text: lang.descr.fretboard, 
+          onClick: () => changeSelNavIcon('fretboard')},
+        // {address: '/metronom', img: time, label: 'Metronom', text: 'Rythm Practise', onClick: (el) => console.log(el)},
+      ];
 
     return (
         <div className="content">
-            <h1 className={styles.home}>Welcome to I-IV-V</h1>
+            <h1 className={styles.home}>{lang.str.welcome}</h1>
 
             <div className={styles.cardWrapper}>
-                {elements.map((element, index) => (
+                {homeElements.map((element, index) => (
                     <Link 
                         to={element.address}
                         key={index}
                         className={cx("card", styles.card, styles.card1)} >
                     
-                        <div onClick={() => element.onClick(element.label)}>
+                        <div onClick={element.onClick}>
                             <img src={element.img} alt="img"/>
                             <h3>{element.label}</h3>
                             <p>{element.text}</p>

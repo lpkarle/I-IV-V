@@ -2,12 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Navigation.module.css';
 import cx from 'classnames';
+import { LogoIcon, HomeIcon, MusicNoteIcon, MenuIcon, InvertColorIcon, 
+         MoreIcon, HelpIcon, LanguageIcon } from '../../images/index';
 
-
-export default function Navigation({ logo, topNavElements, sideNavElements, currNavEl, onClick }) {
-
+export default function Navigation({ currNavEl, invertColor, changeSelNavIcon, changeLang, lang }) {
+    
     const [selectedSideNavEl, setSelectedSideNavEl] = useState(currNavEl);
     const [toggleOpen, setToggleOpen] = useState(false);
+
+    const topNavElements = [
+        { icon: <MoreIcon />, onClick: () => setToggleOpen(!toggleOpen),
+            dd: [
+                { label: lang.str.about, address: '/about', icon: <HelpIcon/> },
+                { label: lang.str.theme, address: '#', icon: <InvertColorIcon/>, onClick: invertColor },
+                { label: lang.str.language, address: '#', icon: <LanguageIcon/>, onClick: changeLang }]
+        },
+    ];
+
+    const sideNavElements = [
+        { label: lang.str.home, icon: <HomeIcon />,
+          address: '/', onClick: (el) => { changeSelNavIcon(el) }},
+        { label: lang.str.music_theory, icon: <MusicNoteIcon />,
+          address: '/music-theory', onClick: (el) => { changeSelNavIcon(el) }},
+        { label: lang.str.fretboard, icon: <MenuIcon />,
+          address: '/fretboard', onClick: (el) => { changeSelNavIcon(el) }}
+    ];
 
     useEffect(() => {
         setSelectedSideNavEl(currNavEl);
@@ -15,19 +34,16 @@ export default function Navigation({ logo, topNavElements, sideNavElements, curr
 
     const handleSideNavEl = (element) => {
         setSelectedSideNavEl(element);
-        onClick(element);
-    }
-
-    const handleTopNavClick = (item, dd) => {
-        if (dd) setToggleOpen(!toggleOpen)
-        item();
+        changeSelNavIcon(element); 
     }
 
     return (
         <div className={styles.navbar}>
 
             <div className={styles.logoWrapper}>
-                <div className={styles.logo}><Link to={sideNavElements[0].address}>{logo}</Link></div>
+                <div className={styles.logo}>
+                    <Link to={sideNavElements[0].address}><LogoIcon/></Link>
+                </div>
                 <div className={styles.logoText}>{selectedSideNavEl}</div>
             </div>
 
@@ -37,7 +53,7 @@ export default function Navigation({ logo, topNavElements, sideNavElements, curr
                         <TopNavElement
                             key={index}
                             icon={item.icon}
-                            onClick={() => handleTopNavClick(item.onClick, item.dd)}>
+                            onClick={item.onClick}>
                             {item.dd ? <DropdownMenu open={toggleOpen} items={item.dd} /> : null}
                         </TopNavElement>
                     ))}
@@ -63,14 +79,6 @@ export default function Navigation({ logo, topNavElements, sideNavElements, curr
     );
 }
 
-Navigation.defaultProps = {
-    logo: 'svg',
-    topNavElements: [{icon: 'svg', onClick: () => console.log('Top')}],
-    sideNavElements: [{ label: 'Side', icon: 'svg', address: '/' }],
-    currNavEl: 'Side',
-    onClick: () => console.log('Side')
-}
-
 function TopNavElements({ children }) {
     return (
         <ul>
@@ -83,7 +91,7 @@ function TopNavElement({ icon, onClick, children }) {
     return (
         <li className={styles.navItem} onClick={onClick}>
             <span className={styles.icon}>{icon}</span>
-            { children }
+            { children}
         </li>
     );
 }
@@ -124,9 +132,9 @@ function DropdownMenu({ open, items }) {
         }
     }
 
-    function DropdownItem({ children, icon, address }) {
+    function DropdownItem({ children, icon, address, onClick }) {
         return (
-            <Link className={styles.menuItem} to={address}>
+            <Link className={styles.menuItem} to={address} onClick={onClick}>
                 <span className={styles.iconButton}>{icon}</span>
                 {children}
             </Link>
@@ -135,8 +143,8 @@ function DropdownMenu({ open, items }) {
 
     return (
         <div className={styles.dropdown} style={styleMenu()}>
-            {items.map((item, index) => 
-                <DropdownItem key={index} icon={item.icon} address={item.address}>
+            {items.map((item, index) =>
+                <DropdownItem key={index} icon={item.icon} address={item.address} onClick={item.onClick}>
                     <h6>{item.label}</h6>
                 </DropdownItem>
             )}
