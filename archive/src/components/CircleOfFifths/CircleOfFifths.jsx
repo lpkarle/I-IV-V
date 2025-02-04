@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styles from './CircleOfFifths.module.css';
 import {ReactComponent as Circle} from '../../images/svgs/CircleOfFifths/circle_of_fifths.svg';
-import { CardWrapper, ResultingChords } from '../Multipurpose/';
+import { CardWrapper, ResultingChords } from '../Multipurpose';
 import { circleOfFifthsSharpsAndFlats } from '../../logic/musicConst';
-import { getScaleAndCommonProg } from '../../logic/';
+import { getScaleAndCommonProg } from '../../logic';
 
 export default function CircleOfFifths({ lang }) {
 

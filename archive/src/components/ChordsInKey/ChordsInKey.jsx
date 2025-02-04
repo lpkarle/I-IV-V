@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ChordsInKey.module.css';
-import { NotePicker } from '../Multipurpose/';
-import { getHeptatonicScaleNames, getScaleAndCommonProg } from '../../logic/';
-import { CardWrapper, ResultingChords } from '../Multipurpose/';
+import { NotePicker } from '../Multipurpose';
+import { getHeptatonicScaleNames, getScaleAndCommonProg } from '../../logic';
+import { CardWrapper, ResultingChords } from '../Multipurpose';
 
 export default function ChordsInKey({ lang }) {
 

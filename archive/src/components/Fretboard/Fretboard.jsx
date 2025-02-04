@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Fretboard.module.css';
 import cx from 'classnames';
-import { Dropdown, NotePicker, NumberPicker, Checkbox, RadioButtonGroup, CollapsableContainer } from '../Multipurpose/';
+import { Dropdown, NotePicker, NumberPicker, Checkbox, RadioButtonGroup, CollapsableContainer } from '../Multipurpose';
 import { getAllAvailabeScaleNames, getChord, getChords, getScale, getAccidental, getChromaticScale } from '../../logic/index';
 import { getTuningNames, getInstruments, getTuningByName } from '../../logic/index';
 import { AddIcon, RemoveIcon, MirrorVIcon, MirrorHIcon } from '../../images';

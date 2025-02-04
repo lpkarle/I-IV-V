@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './NotePicker.module.css';
 import { naturalNotes, accidentals } from '../../../logic/musicConst.js';
-import RadioButtonGroup from '../RadioButtonGroup/RadioButtonGroup';
+import RadioButtonGroup from '../RadioButtonGroup/RadioButtonGroup.jsx';
 
 
 export default function NotePicker({ onClick }) {

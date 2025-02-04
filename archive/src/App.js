@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
-import { Navigation, Home, Fretboard, MusicTheory, NotFound } from './components/';
+import { Navigation, Home, Fretboard, MusicTheory, NotFound } from './components';
 import languages from './languages/languages.json';
 
 const useLocalStorage = (key, defaultValue) => {

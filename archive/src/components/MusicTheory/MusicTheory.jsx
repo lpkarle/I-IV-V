@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CircleOfFifths, ChordsInKey } from '../';
+import { CircleOfFifths, ChordsInKey } from '..';
 import cx from 'classnames';
 import styles from './MusicTheory.module.css';
 import { LegendVoicing } from '../Multipurpose';
