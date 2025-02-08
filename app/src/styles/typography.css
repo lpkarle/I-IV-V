@@ -1,0 +1,7 @@
+h1 {
+    @apply text-4xl font-sans text-amber-100 ;
+}
+
+.btn {
+    @apply rounded-4xl;
+}
