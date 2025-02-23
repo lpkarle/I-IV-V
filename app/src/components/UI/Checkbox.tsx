@@ -1,10 +1,8 @@
-import { BaseSyntheticEvent } from "react";
-
 type CheckboxProps = {
   id: string;
   title: string;
   checked?: boolean;
-  onChange?: (e: BaseSyntheticEvent) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export default function Checkbox({
@@ -20,7 +18,7 @@ export default function Checkbox({
           id={id}
           type="checkbox"
           value={title}
-          defaultChecked={checked ?? false}
+          checked={checked}
           className="checkbox"
           onChange={onChange}
         />

@@ -16,7 +16,9 @@ async function getVoices(): Promise<SpeechSynthesisVoice[]> {
     }
   });
 
-  return voices;
+  const filtered = voices.filter((voice) => voice.lang === "en-US");
+
+  return filtered;
 }
 
 function speak(voice: SpeechSynthesisVoice, text: string) {
