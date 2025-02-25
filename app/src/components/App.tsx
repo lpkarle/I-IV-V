@@ -23,9 +23,14 @@ function App() {
     },
   });
 
-  const handleCheckboxOnChange = (event: BaseSyntheticEvent) => {
+  const handleCheckboxOnChangeNotes = (event: BaseSyntheticEvent) => {
     const label: string = event.target.value;
     sendNotes({ type: "TOGGLE_ITEM", label });
+  };
+
+  const handleCheckboxOnChangeStrings = (event: BaseSyntheticEvent) => {
+    const label: string = event.target.value;
+    sendStrings({ type: "TOGGLE_ITEM", label });
   };
 
   return (
@@ -44,7 +49,7 @@ function App() {
                 id={item.label}
                 title={item.label}
                 checked={item.checked}
-                onChange={handleCheckboxOnChange}
+                onChange={handleCheckboxOnChangeNotes}
               />
             ))}
           </div>
@@ -77,7 +82,7 @@ function App() {
                 id={item.label}
                 title={item.label}
                 checked={item.checked}
-                onChange={handleCheckboxOnChange}
+                onChange={handleCheckboxOnChangeStrings}
               />
             ))}
           </div>
