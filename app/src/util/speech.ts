@@ -2,23 +2,30 @@ const synth = window.speechSynthesis;
 
 let voices: SpeechSynthesisVoice[] = [];
 
-async function getVoices(): Promise<SpeechSynthesisVoice[]> {
-  voices = synth.getVoices().sort(function (a, b) {
-    const aName = a.name.toUpperCase();
-    const bName = b.name.toUpperCase();
+function loadVoices(): Promise<SpeechSynthesisVoice[]> {
+  return new Promise((resolve) => {
+    voices = synth.getVoices();
 
-    if (aName < bName) {
-      return -1;
-    } else if (aName == bName) {
-      return 0;
-    } else {
-      return +1;
+    if (voices.length > 0) {
+      voices.sort(function (a, b) {
+        const aName = a.name.toUpperCase();
+        const bName = b.name.toUpperCase();
+
+        if (aName < bName) {
+          return -1;
+        } else if (aName == bName) {
+          return 0;
+        } else {
+          return +1;
+        }
+      });
+
+      const filtered = voices.filter((voice) => voice.lang === "en-US");
+
+      resolve(filtered);
+      return;
     }
   });
-
-  const filtered = voices.filter((voice) => voice.lang === "en-US");
-
-  return filtered;
 }
 
 function speak(voice: SpeechSynthesisVoice, text: string) {
@@ -39,4 +46,4 @@ function speak(voice: SpeechSynthesisVoice, text: string) {
   synth.speak(utterThis);
 }
 
-export { getVoices, speak };
+export { loadVoices, speak };

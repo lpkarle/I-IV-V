@@ -1,8 +1,9 @@
-import { BaseSyntheticEvent } from "react";
+import { BaseSyntheticEvent, useEffect, useState } from "react";
 import { notesAll } from "../util/musicConst";
 import Checkbox from "./UI/Checkbox";
 import { useMachine } from "@xstate/react";
 import { checkboxGroupStateMachine } from "../util/machines/checkboxGroupStateMachine";
+import { ttsStateMachine } from "../util/machines/stateMach";
 
 function App() {
   const [stateNotes, sendNotes] = useMachine(checkboxGroupStateMachine, {
@@ -22,6 +23,21 @@ function App() {
       })),
     },
   });
+
+  const [stateTts, sendTts] = useMachine(ttsStateMachine, {
+    input: {
+      notes: stateNotes.context.items,
+      strings: stateStrings.context.items,
+    },
+  });
+
+  useEffect(() => {
+    sendTts({
+      type: "UPDATE_NOTES_STRINGS",
+      notes: stateNotes.context.items,
+      strings: stateStrings.context.items,
+    });
+  }, [stateNotes.context.items, stateStrings.context.items, sendTts]);
 
   const handleCheckboxOnChangeNotes = (event: BaseSyntheticEvent) => {
     const label: string = event.target.value;
@@ -102,6 +118,15 @@ function App() {
           </div>
         </div>
       </div>
+
+      <br />
+
+      <button className="btn" onClick={() => sendTts({ type: "START" })}>
+        Start
+      </button>
+      <button className="btn btn-error" onClick={() => sendTts({ type: "STOP" })}>
+        Stop
+      </button>
     </div>
   );
 }
