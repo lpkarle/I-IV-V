@@ -1,6 +1,6 @@
 import { assign, fromPromise, setup } from "xstate";
 import { CheckboxItem } from "./checkboxGroupStateMachine";
-import { loadVoices } from "../speech";
+import { loadVoices, speak } from "../speech";
 
 export const ttsStateMachine = setup({
   types: {
@@ -8,6 +8,7 @@ export const ttsStateMachine = setup({
       notes: CheckboxItem[];
       strings: CheckboxItem[];
       voices?: SpeechSynthesisVoice[];
+      waitingTimeInSeconds: number;
     },
 
     input: {} as {
@@ -24,6 +25,13 @@ export const ttsStateMachine = setup({
           strings: CheckboxItem[];
         },
   },
+
+  delays: {
+    timeout: ({ context }) => {
+      return context.waitingTimeInSeconds * 1000;
+    },
+  },
+
   actors: {
     loadVoices: fromPromise(async () => {
       const voices = await loadVoices();
@@ -40,6 +48,7 @@ export const ttsStateMachine = setup({
     notes: input.notes,
     strings: input.strings,
     voices: undefined,
+    waitingTimeInSeconds: 5,
   }),
 
   initial: "loading",
@@ -57,6 +66,7 @@ export const ttsStateMachine = setup({
         },
       },
     },
+
     ready: {
       on: {
         START: "askQuestion",
@@ -68,15 +78,60 @@ export const ttsStateMachine = setup({
         },
       },
     },
+
     askQuestion: {
       entry: ({ context }) => {
-        console.log("askQuestion", context);
+        if (!context.voices) return;
+
+        const checkedNotes = context.notes.reduce<number[]>(
+          (acc, item, index) => {
+            if (item.checked) acc.push(index);
+            return acc;
+          },
+          []
+        );
+
+        const checkedStrings = context.strings.reduce<number[]>(
+          (acc, item, index) => {
+            if (item.checked) acc.push(index);
+            return acc;
+          },
+          []
+        );
+
+        let noteIndex: number;
+        if (checkedNotes.length === 0) {
+          return;
+        } else if (checkedNotes.length === 1) {
+          noteIndex = checkedNotes[0];
+        } else {
+          noteIndex =
+            checkedNotes[Math.floor(Math.random() * checkedNotes.length)];
+        }
+
+        let stringIndex: number;
+        if (checkedStrings.length === 0) {
+          return;
+        } else if (checkedStrings.length === 1) {
+          stringIndex = checkedStrings[0];
+        } else {
+          stringIndex =
+            checkedStrings[Math.floor(Math.random() * checkedStrings.length)];
+        }
+
+        const toSpeak =
+          context.notes[noteIndex].label +
+          " on " +
+          context.strings[stringIndex].label;
+
+        speak(context.voices[0], toSpeak);
       },
       after: {
-        2000: { target: "waitForAnswer" },
+        timeout: { target: "waitForAnswer" },
       },
       on: { STOP: "ready" },
     },
+
     waitForAnswer: {
       always: { target: "askQuestion" },
     },

@@ -1,4 +1,4 @@
-import { BaseSyntheticEvent, useEffect, useState } from "react";
+import { BaseSyntheticEvent, useEffect } from "react";
 import { notesAll } from "../util/musicConst";
 import Checkbox from "./UI/Checkbox";
 import { useMachine } from "@xstate/react";
@@ -50,7 +50,7 @@ function App() {
   };
 
   return (
-    <div className="p-30">
+    <div className="p-5">
       <h1 className="text-5xl font-sans">I IV V</h1>
 
       <br />
@@ -121,10 +121,47 @@ function App() {
 
       <br />
 
+      {/* TODO */}
+      {/* <fieldset className="fieldset">
+        <legend className="fieldset-legend">Select speaker</legend>
+        <select
+          id="select-voices"
+          className="select"
+          value={
+            stateTts.context.voices
+              ? stateTts.context.voices[stateTts.context.selectedVoiceIndex].name
+              : undefined
+          }
+          onChange={handleChange}
+        >
+          <option value="" disabled>
+            Stimme wählen...
+          </option>
+          {query.data?.map((voice) => (
+            <option key={voice.name} value={voice.name}>
+              {voice.name} ({voice.lang})
+            </option>
+          ))}
+        </select>
+      </fieldset> */}
+
+      <h2>
+        <span>'SELECTED' VOICE: </span>
+        <span className="font-semibold">
+          {stateTts.context.voices
+            ? stateTts.context.voices[0].name +
+              " " +
+              stateTts.context.voices[0].lang
+            : ""}
+        </span>
+      </h2>
+
+      <br />
+
       <button className="btn" onClick={() => sendTts({ type: "START" })}>
         Start
       </button>
-      <button className="btn btn-error" onClick={() => sendTts({ type: "STOP" })}>
+      <button className="btn" onClick={() => sendTts({ type: "STOP" })}>
         Stop
       </button>
     </div>
