@@ -4,6 +4,8 @@ import Checkbox from "./UI/Checkbox";
 import { useMachine } from "@xstate/react";
 import { checkboxGroupStateMachine } from "../util/machines/checkboxGroupStateMachine";
 import { ttsStateMachine } from "../util/machines/stateMach";
+import Navigation from "./Layout/Navigation";
+import Footer from "./Layout/Footer";
 
 function App() {
   const [stateNotes, sendNotes] = useMachine(checkboxGroupStateMachine, {
@@ -50,79 +52,74 @@ function App() {
   };
 
   return (
-    <div className="p-5">
-      <h1 className="text-5xl font-sans">I IV V</h1>
+    <>
+      <Navigation />
 
-      <br />
-
-      <div className="card border-1 border-gray-300 ">
-        <div className="card-body">
-          <h2 className="card-title">Select Notes</h2>
-          <div className="grid grid-cols-8 gap-1">
-            {stateNotes.context.items.map((item, index) => (
-              <Checkbox
-                key={index}
-                id={item.label}
-                title={item.label}
-                checked={item.checked}
-                onChange={handleCheckboxOnChangeNotes}
-              />
-            ))}
-          </div>
-          <div className="card-actions justify-start mt-2">
-            <button
-              className="btn"
-              onClick={() => sendNotes({ type: "SELECT_ALL" })}
-            >
-              Select All
-            </button>
-            <button
-              className="btn"
-              onClick={() => sendNotes({ type: "DESELECT_ALL" })}
-            >
-              Deselect All
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <br />
-
-      <div className="card border-1 border-gray-300 ">
-        <div className="card-body">
-          <h2 className="card-title">Select Strings</h2>
-          <div className="grid grid-cols-8 gap-1">
-            {stateStrings.context.items.map((item, index) => (
-              <Checkbox
-                key={index}
-                id={item.label}
-                title={item.label}
-                checked={item.checked}
-                onChange={handleCheckboxOnChangeStrings}
-              />
-            ))}
-          </div>
-          <div className="card-actions justify-start mt-2">
-            <button
-              className="btn"
-              onClick={() => sendStrings({ type: "SELECT_ALL" })}
-            >
-              Select All
-            </button>
-            <button
-              className="btn"
-              onClick={() => sendStrings({ type: "DESELECT_ALL" })}
-            >
-              Deselect All
-            </button>
+      <main className="grid grid-cols-2 gap-4 content-lg my-4">
+        <div className="card border-1 border-gray-300">
+          <div className="card-body p-4">
+            <h2 className="card-title">Select Notes</h2>
+            <div className="grid grid-cols-8 gap-1">
+              {stateNotes.context.items.map((item, index) => (
+                <Checkbox
+                  key={index}
+                  id={item.label}
+                  title={item.label}
+                  checked={item.checked}
+                  onChange={handleCheckboxOnChangeNotes}
+                />
+              ))}
+            </div>
+            <div className="card-actions justify-start mt-2">
+              <button
+                className="btn"
+                onClick={() => sendNotes({ type: "SELECT_ALL" })}
+              >
+                Select All
+              </button>
+              <button
+                className="btn"
+                onClick={() => sendNotes({ type: "DESELECT_ALL" })}
+              >
+                Deselect All
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <br />
+        <div className="card border-1 border-gray-300">
+          <div className="card-body p-4">
+            <h2 className="card-title">Select Strings</h2>
+            <div className="grid grid-cols-8 gap-1">
+              {stateStrings.context.items.map((item, index) => (
+                <Checkbox
+                  key={index}
+                  id={item.label}
+                  title={item.label}
+                  checked={item.checked}
+                  onChange={handleCheckboxOnChangeStrings}
+                />
+              ))}
+            </div>
+            <div className="card-actions justify-start mt-2">
+              <button
+                className="btn"
+                onClick={() => sendStrings({ type: "SELECT_ALL" })}
+              >
+                Select All
+              </button>
+              <button
+                className="btn"
+                onClick={() => sendStrings({ type: "DESELECT_ALL" })}
+              >
+                Deselect All
+              </button>
+            </div>
+          </div>
+        </div>
 
-      {/* TODO */}
-      {/* <fieldset className="fieldset">
+        {/* TODO */}
+        {/* <fieldset className="fieldset">
         <legend className="fieldset-legend">Select speaker</legend>
         <select
           id="select-voices"
@@ -145,26 +142,32 @@ function App() {
         </select>
       </fieldset> */}
 
-      <h2>
-        <span>'SELECTED' VOICE: </span>
-        <span className="font-semibold">
-          {stateTts.context.voices
-            ? stateTts.context.voices[0].name +
-              " " +
-              stateTts.context.voices[0].lang
-            : ""}
-        </span>
-      </h2>
+        <div>
+          <h2>
+            <span>'SELECTED' VOICE: </span>
+            <span className="font-semibold">
+              {stateTts.context.voices
+                ? stateTts.context.voices[0].name +
+                  " " +
+                  stateTts.context.voices[0].lang
+                : ""}
+            </span>
+          </h2>
 
-      <br />
+          <button
+            className="btn mr-2"
+            onClick={() => sendTts({ type: "START" })}
+          >
+            Start
+          </button>
+          <button className="btn" onClick={() => sendTts({ type: "STOP" })}>
+            Stop
+          </button>
+        </div>
+      </main>
 
-      <button className="btn" onClick={() => sendTts({ type: "START" })}>
-        Start
-      </button>
-      <button className="btn" onClick={() => sendTts({ type: "STOP" })}>
-        Stop
-      </button>
-    </div>
+      <Footer />
+    </>
   );
 }
 
