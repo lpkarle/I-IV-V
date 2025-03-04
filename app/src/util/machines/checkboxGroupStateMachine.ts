@@ -1,9 +1,5 @@
 import { assign, setup } from "xstate";
-
-export type CheckboxItem = {
-  label: string;
-  checked: boolean;
-};
+import { CheckboxItem } from "../types";
 
 export const checkboxGroupStateMachine = setup({
   types: {

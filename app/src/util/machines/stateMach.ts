@@ -1,5 +1,5 @@
 import { assign, fromPromise, setup } from "xstate";
-import { CheckboxItem } from "./checkboxGroupStateMachine";
+import { CheckboxItem } from "../types";
 import { loadVoices, speak } from "../speech";
 
 export const ttsStateMachine = setup({
@@ -48,7 +48,7 @@ export const ttsStateMachine = setup({
     notes: input.notes,
     strings: input.strings,
     voices: undefined,
-    waitingTimeInSeconds: 5,
+    waitingTimeInSeconds: 10,
   }),
 
   initial: "loading",
