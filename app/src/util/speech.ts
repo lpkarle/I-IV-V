@@ -28,7 +28,7 @@ function loadVoices(): Promise<SpeechSynthesisVoice[]> {
   });
 }
 
-function speak(voice: SpeechSynthesisVoice, text: string) {
+function speak(voice: SpeechSynthesisVoice | null, text: string) {
   if (synth.speaking) {
     console.error("speechSynthesis.speaking");
     return;

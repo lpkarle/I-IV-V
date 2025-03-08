@@ -1,12 +1,29 @@
-import { assign, fromPromise, setup } from "xstate";
+import { assign, fromPromise, not, setup } from "xstate";
 import { CheckboxItem } from "../types";
 import { loadVoices, speak } from "../speech";
+
+// Fisher-Yates Shuffle Algorithmus
+const shuffleArray = <T>(array: T[]): T[] => {
+  const shuffled = [...array]; // Kopie erstellen, um Original zu bewahren
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; // Swap
+  }
+  return shuffled;
+};
 
 export const ttsStateMachine = setup({
   types: {
     context: {} as {
       notes: CheckboxItem[];
       strings: CheckboxItem[];
+      questionsToAske: (
+        | {
+            question: string;
+            asked: boolean;
+          }
+        | undefined
+      )[];
       voices?: SpeechSynthesisVoice[];
       waitingTimeInSeconds: number;
     },
@@ -32,6 +49,28 @@ export const ttsStateMachine = setup({
     },
   },
 
+  actions: {
+    calculateQuestions: assign({
+      questionsToAske: ({ context }) => {
+        const noteStringCombinations = context.notes
+          .filter((n) => n.checked)
+          .flatMap((n) =>
+            context.strings
+              .filter((s) => s.checked)
+              .map((s) => ({
+                question: n.label + " on " + s.label,
+                asked: false,
+              }))
+          );
+        console.log(noteStringCombinations);
+        const shuffeld = shuffleArray(noteStringCombinations);
+        console.log(shuffeld);
+
+        return shuffeld;
+      },
+    }),
+  },
+
   actors: {
     loadVoices: fromPromise(async () => {
       const voices = await loadVoices();
@@ -39,16 +78,26 @@ export const ttsStateMachine = setup({
       return voices;
     }),
   },
+
+  guards: {
+    questionsLeft: ({ context }) => {
+      const qLeft = context.questionsToAske.some((q) => !q?.asked);
+      console.log("questionsLeft", qLeft);
+
+      return qLeft;
+    },
+  },
 }).createMachine({
-  /** @xstate-layout N4IgpgJg5mDOIC5QBdmwHQEsIBswGJZkBDAJ2QG0AGAXUVAAcB7WTZTJgO3pAA9EAtAGYAnOgAcANgCMAJllVJAdiWSRQyZoA0IAJ6JpAViUBfEztQYYnMKWLIwAFTC9k+anSQhmrdlx78CAKG6IaSACxC4dJSsiIiETr6CHHi6LLG4nKGZhZo6LAMYMQA1gCKAK5wfpz4vET2YOjEAGYOpAAUClRUAJT4lgVFpZXVHJwePD5s4wGI8uHoSkLislkZSfMiaRlK6zm5IJxMEHA8llMsM-5egQLiShIy8ooqahpKmwhpB3kY2HhLr5ZrdBEIQoYhEIqCIYpI4glooYvglDoNrLZGs5XEDrtxQUFwaEoTC4QiIkYvrJoaE0flCsVylUiCDGFcanNCRCSbDYvEKci9IgNAczEA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QBdmwHQBsD2BDCAlgHZQDEE2RY6xAbtgNbU74Bq2BAxnANoAMAXUSgADtlgFkBSsJABPRAGYALMvQBWADQgAHksUB2DQCYAnMr7LFx44r4A2RYoC+z7agwAnMPjmkAygAqAIIASoH8QkggYhJSMtF6COoAjIro9nym9qbGABx56pnqptoKCMp5Kejmxo42hgZ8Ra7uaOjevqQAqgAKACLBgQCiAPoAcgDyI-6jQaEAkuMA4v6RsrGS0kSySSl8eegpxgbqzQaKOQZ5lmWIyvbqR5V59tem6nlWBq0gHuicXCYTgARQArnB4kRYKR1tFNlDdogDPY1OYXp88tkscY7gg3odrsZ1BZ7PZiRdfv9cLAGODIdsAoFJr04aJxFsEqAkpd7BpTGk6nwVHU3njPulzCllB8cuTUqYqe0aXSIbAoT0BkMxlMZnNAosVmtBBsOYjEoh9odjqdzpdTNdbvJEPL0KcBXxPXl8ikDMolRgVfT1YydOrcMhqLgAGaRzwACikAFswNgwcgAJSkam04NQtkxM3bJEIFSmdAFKoOoq+8z2PGvdJfZQGFKpdQqZr+tx-doAd1wkgAYthPMFoX2wJ5YSb4UWubpEKl0p9TJZvfYseS8g3UfyW04DLKGgH0APh6Px7BJ9OeCkouy4sWLQhrtUqilTGucsd1DY8dcTYpKiZYtgYNh5K4PZENgEBwLIHimk+C5JAAtHkRivMcxgOAYKKmJcBh4sSfJfl+eSKJ+ZKFCkp4sIQJBIZyOwvqhijllhNi4fhvL1s6paqBop6dBA5SPsxJaXIcOEOA6VqpAcyh4i2TxfGu1hpAc+y0T2-yAsCebbPAc7ISx3LInwRitsoq6FFk3qlPxNnGOgZZ8MB7nesclmnkGarmuJAWLqWlyuSRHwdoof6pHx5StocJQOg80rKNKnynueyAjmOE5TkxQU8io6D5GS1gCrkqS4vxHwuYoXxHnhf42c0UHOEAA */
   id: "tts",
   systemId: "tts",
 
   context: ({ input }) => ({
     notes: input.notes,
     strings: input.strings,
+    questionsToAske: [],
     voices: undefined,
-    waitingTimeInSeconds: 10,
+    waitingTimeInSeconds: 8,
   }),
 
   initial: "loading",
@@ -69,8 +118,9 @@ export const ttsStateMachine = setup({
 
     ready: {
       on: {
-        START: "askQuestion",
+        START: "calcQuestions",
         UPDATE_NOTES_STRINGS: {
+          // TODO in setup auslagern
           actions: assign({
             notes: ({ event }) => event.notes,
             strings: ({ event }) => event.strings,
@@ -79,61 +129,54 @@ export const ttsStateMachine = setup({
       },
     },
 
+    calcQuestions: {
+      entry: ["calculateQuestions"],
+      always: { target: "askQuestion" },
+    },
+
     askQuestion: {
-      entry: ({ context }) => {
-        if (!context.voices) return;
+      entry: assign({
+        questionsToAske: ({ context }) => {
+          console.log(context.questionsToAske);
 
-        const checkedNotes = context.notes.reduce<number[]>(
-          (acc, item, index) => {
-            if (item.checked) acc.push(index);
-            return acc;
-          },
-          []
-        );
+          const firstUnaskedQuestionIndex = context.questionsToAske.findIndex(
+            (q) => !q?.asked
+          );
+          console.log(firstUnaskedQuestionIndex);
 
-        const checkedStrings = context.strings.reduce<number[]>(
-          (acc, item, index) => {
-            if (item.checked) acc.push(index);
-            return acc;
-          },
-          []
-        );
+          const voice = context.voices ? context.voices[0] : null;
+          const question = context.questionsToAske[firstUnaskedQuestionIndex]
+            ? context.questionsToAske[firstUnaskedQuestionIndex].question
+            : "";
+          speak(voice, question);
 
-        let noteIndex: number;
-        if (checkedNotes.length === 0) {
-          return;
-        } else if (checkedNotes.length === 1) {
-          noteIndex = checkedNotes[0];
-        } else {
-          noteIndex =
-            checkedNotes[Math.floor(Math.random() * checkedNotes.length)];
-        }
-
-        let stringIndex: number;
-        if (checkedStrings.length === 0) {
-          return;
-        } else if (checkedStrings.length === 1) {
-          stringIndex = checkedStrings[0];
-        } else {
-          stringIndex =
-            checkedStrings[Math.floor(Math.random() * checkedStrings.length)];
-        }
-
-        const toSpeak =
-          context.notes[noteIndex].label +
-          " on " +
-          context.strings[stringIndex].label;
-
-        speak(context.voices[0], toSpeak);
-      },
+          return context.questionsToAske.map((q, i) =>
+            i === firstUnaskedQuestionIndex
+              ? { ...q, asked: true, question: q?.question || "" }
+              : q
+          );
+        },
+      }),
       after: {
         timeout: { target: "waitForAnswer" },
       },
-      on: { STOP: "ready" },
+      on: {
+        STOP: "ready",
+        UPDATE_NOTES_STRINGS: {
+          // TODO in setup auslagern
+          actions: assign({
+            notes: ({ event }) => event.notes,
+            strings: ({ event }) => event.strings,
+          }),
+        },
+      },
     },
 
     waitForAnswer: {
-      always: { target: "askQuestion" },
+      always: [
+        { guard: "questionsLeft", target: "askQuestion" },
+        { guard: not("questionsLeft"), target: "calcQuestions" },
+      ],
     },
   },
 });
